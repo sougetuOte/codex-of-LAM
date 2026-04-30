@@ -1,12 +1,11 @@
-# Codex LAM Replacement Design
+# Codex LAM 置き換え設計
 
 Status: Draft for review
 Date: 2026-04-30
 
 ## Overview
 
-Codex LAM replaces Claude-specific runtime controls with a visible file contract
-and executable validation.
+Codex LAM は、Claude Code 固有の runtime controls を、Codex で読める file contract、明示的な workflow、実行可能な検証へ置き換える。
 
 ```mermaid
 flowchart TD
@@ -15,70 +14,131 @@ flowchart TD
     Manifest --> Workflows[".codex/workflows"]
     Workflows --> Docs["specs / ADRs / design / tasks"]
     Docs --> Tests["pytest validation"]
+    Docs --> SessionState["SESSION_STATE.md quick-load"]
+    Docs --> LegacyInventory[".claude legacy inventory"]
     Tests --> Build["TDD implementation waves"]
+    LegacyInventory --> Migration["Codex migration decisions"]
 ```
 
 ## Components
 
-### AGENTS.md
+### `AGENTS.md`
 
-Primary instruction file for Codex. It defines identity, truth hierarchy,
-phases, approval gates, and review protocol.
+Codex の主要な instruction file。
+役割、権威順位、フェーズ、承認ゲート、レビュー方針、ローカル運用メモを定義する。
 
 ### `.codex/manifest.json`
 
-Machine-readable contract for the active harness. It intentionally names Codex
-as the runtime and `.codex` as the source harness.
+有効な Codex harness contract を表す machine-readable file。
+`runtime` は `codex`、`source_harness` は `.codex` とする。
+
+manifest は `PLANNING`、`BUILDING`、`AUDITING` の phase list と、requirements、design、tasks、building、auditing の approval gate list を持つ。
+また、Codex harness を構成する required documents を列挙する。
 
 ### `.codex/workflows/`
 
-Human-readable phase workflows:
+人間が読める phase workflow を置く。
 
 - `planning.md`
 - `building.md`
 - `auditing.md`
 
+各 workflow は、フェーズの目的、必要な入力、主な手順、禁止事項または注意点、次の承認ゲートとの関係を説明する。
+
 ### `codex_lam/manifest.py`
 
-Small validation module used by tests. It rejects Claude runtime declarations,
-missing gates, unexpected phase lists, and missing declared documents.
+manifest validation のための小さな Python module。
+少なくとも以下を検証する。
+
+- `runtime` が `codex` であること。
+- `source_harness` が `.codex` であること。
+- phase list が不足、重複、順序違い、大文字小文字違いを起こしていないこと。
+- approval gate list が不足、重複、順序違い、大文字小文字違いを起こしていないこと。
+- manifest が列挙する documents が存在すること。
+
+### `SESSION_STATE.md`
+
+手動 quick-load/save のための最短復元メモ。
+Git では通常共有しないため、別PCで継続する場合は共有フォルダなどで手動同期する。
+
+保存する内容は、現在フェーズ、branch/remote、完了済み作業、進行中作業、次の手順、主要ファイル、環境注意点、直近の検証結果とする。
 
 ### Planning Documents
 
-The replacement is reviewed through:
+置き換えは以下の planning artifacts でレビューする。
 
 - requirements: `docs/specs/codex-lam-replacement-requirements.md`
 - ADR: `docs/adr/0005-codex-native-harness.md`
 - design: `docs/design/codex-lam-replacement-design.md`
 - tasks: `docs/tasks/codex-lam-replacement-tasks.md`
 
-## TDD Strategy
+### Legacy Inventory
 
-The first Red test is `tests/test_codex_manifest.py`. It encodes the minimal
-observable contract for the replacement before implementation.
+`.claude/` 配下の既存資産を棚卸しするための作業単位。
+対象は少なくとも以下とする。
 
-The first Green implementation adds:
+- `.claude/commands/`
+- `.claude/hooks/`
+- `.claude/agents/` または subagent 定義
+- `.claude/settings.json`
+- rules、guides、checklists、運用メモ
 
-- `codex_lam/manifest.py`
-- `AGENTS.md`
-- `.codex/manifest.json`
-- `.codex/workflows/`
-- planning artifacts
-
-Refactor work should happen only after tests pass.
+棚卸し結果は、Codex へ移設、Codex-native workflow/CLI/pytest/review procedure として再実装、legacy 参考資料として維持、Claude-only runtime glue として非推奨化、のいずれかに分類する。
 
 ## Migration Strategy
 
-Wave 1 creates the Codex harness next to the legacy Claude harness.
+### Wave 1: Codex contract scaffold
 
-Wave 2 ports useful, runtime-independent Claude logic into Codex-compatible
-validation scripts and tests.
+Codex harness を legacy Claude harness の隣に作る。
 
-Wave 3 deprecates or archives Claude-only material after review.
+この wave では、`AGENTS.md`、`.codex/manifest.json`、`.codex/workflows/`、planning documents、manifest validation tests を用意する。
+legacy file の破壊的削除はしない。
+
+### Wave 2: Harness behavior migration
+
+`.claude/` 配下の rules、commands、hooks、agents/subagents、settings、guides、checklists、運用メモを棚卸しする。
+
+Codex で安全かつ自然に対応できるものは、以下のいずれかへ移す。
+
+- `AGENTS.md` または `.codex/constitution.md`
+- `.codex/workflows/`
+- Codex-compatible CLI
+- pytest helper
+- review procedure
+- task generation guidance
+- migration notes
+
+`.claude/agents/` や subagent 定義は、原則として役割別レビュー観点、作業手順、workflow、または task generation guidance として文書化する。
+ただし、design または tasks を作る時点で、各 agent/subagent ごとの扱いを個別確認する。
+
+### Wave 3: Legacy cleanup
+
+Codex parity がレビューされ、移設対象と非推奨対象が明確になったあとで、Claude-only material を archive または削除する。
+
+この wave では quickstart、cheatsheet、migration notes も Codex 前提へ更新する。
+
+## TDD Strategy
+
+最初の Red test は `tests/test_codex_manifest.py` とする。
+この test は Codex harness の最小 observable contract を検証する。
+
+Wave 2 では、requirements の FR-5 に合わせて test matrix を拡張する。
+
+- `runtime` が `codex` ではない場合に失敗する。
+- `source_harness` が `.codex` ではない場合に失敗する。
+- phase list の不足、重複、順序違い、大文字小文字違いで失敗する。
+- approval gate list の不足、重複、順序違い、大文字小文字違いで失敗する。
+- required document が存在しない場合に失敗する。
+- required workflow が存在しない場合に失敗する。
+
+quick-load は、当面は手動 workflow として扱う。
+`SESSION_STATE.md` の必須項目は review で確認し、必要になった時点で pytest helper または CLI validation へ移す。
 
 ## Risk Controls
 
-- No destructive deletion in Wave 1.
-- Manifest tests prevent accidentally pointing Codex back to Claude runtime.
-- Approval gates remain explicit even though they are no longer implemented as
-  Claude slash command hooks.
+- Wave 1 では legacy file を破壊的に削除しない。
+- `.claude/` は Codex runtime source として扱わない。
+- legacy asset を移設しない場合は、理由を design、tasks、または migration notes に残す。
+- approval gates は Claude slash command hook ではなく、Codex の明示的なレビューとユーザー承認で運用する。
+- 日本語で書ける project-facing documentation は日本語を基本にする。
+- Windows 環境では pytest temp directory の ACL 問題がありうるため、docs-only change では pytest を省略できる。

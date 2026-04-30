@@ -51,3 +51,22 @@ meaningful test set first, then broaden when shared behavior changed.
 
 When asked for review, lead with findings. When implementing, keep changes small
 enough that each phase can be reviewed independently.
+
+## Local Notes
+
+- 日本語で書ける project-facing documentation とレビュー結果は日本語を基本にする。
+  コード識別子、ファイルパス、コマンド名、API 名は英語のままでよい。
+- PowerShell で日本語 Markdown を読むときは、文字化けを避けるため
+  `Get-Content -Encoding UTF8 -LiteralPath <path>` を使う。
+- この Windows 環境では、sandboxed pytest が `tmp_path` 用の一時ディレクトリを
+  `0o700` で作成したあと、ACL 問題で再アクセスや削除に失敗することがある。
+  ドキュメントのみの変更では pytest を省略してよい。検証が必要な場合は、同じ
+  失敗を繰り返す前に権限外実行やユーザー側の手動 cleanup を検討する。
+- `.claude/agents/` や subagent 定義を Codex へ移すときは、基本的に役割別
+  レビュー観点、作業手順、workflow、task generation guidance として文書化する。
+  ただし一律変換せず、design や tasks を作る時点で各 agent/subagent ごとに
+  Codex での扱いを個別確認する。
+- `SESSION_STATE.md` と `docs/daily/` は `.gitignore` 対象であり、GitHub には
+  通常 push されない。別PCで quick-load する場合は、`SESSION_STATE.md` を共有
+  フォルダなどで手動同期する。`docs/daily/` は長めの日次ログとして扱い、quick-load
+  の必須入力にはしない。
