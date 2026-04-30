@@ -1,7 +1,7 @@
 # ADR-0005: Codex-native harness への置き換え
 
 Date: 2026-04-30
-Status: Proposed
+Status: Accepted
 
 ## Context
 
@@ -59,6 +59,7 @@ Codex の実行時ソースにはしないが、Wave 2 以降で棚卸しし、C
 
 - Wave 1 は置き換え scaffold を作る。legacy file の全面削除はしない。
 - Wave 2 は `.claude/` 配下の rules、commands、hooks、agents/subagents、settings、guides、checklists、運用メモを棚卸しする。
+- Wave 2 では旧 `docs/specs/`、`docs/adr/`、`docs/design/`、`docs/internal/` に残る設計知見も棚卸しし、Codex-native に再表現できるものだけを採用候補にする。
 - 棚卸しした項目は、Codex ハーネスへ移設、Codex-native workflow/CLI/pytest/review procedure として再実装、legacy 参考資料として維持、Claude-only runtime glue として非推奨化、のいずれかに分類する。
 - quick-load/save は、当面 `SESSION_STATE.md` を手動共有する運用で扱う。
 - Codex harness は opaque runtime hooks ではなく、人間に見える workflow discipline と executable checks に依存する。

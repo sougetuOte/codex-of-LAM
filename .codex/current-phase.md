@@ -1,6 +1,6 @@
-**PLANNING**
+**BUILDING**
 
 Current focus: Codex LAM replacement.
 
-Phase rule: do not move to BUILDING until requirements, ADR, design, and tasks
-have been reviewed or explicitly accepted by the user.
+Phase rule: implement approved Wave 2 tasks with focused TDD where practical.
+Return to PLANNING if requirements, ADR, design, or tasks need material changes.

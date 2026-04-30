@@ -15,6 +15,8 @@ Claude Code specific hooks, settings, slash commands, or subagents.
    reviewed independently.
 5. TDD first when feasible: prefer a failing executable test before production
    changes.
+6. Primary sources first: when platform contracts or external behavior might
+   have changed, confirm with official documentation before relying on memory.
 
 ## Authority
 

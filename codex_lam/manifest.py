@@ -8,6 +8,11 @@ from typing import Any
 
 EXPECTED_PHASES = ("PLANNING", "BUILDING", "AUDITING")
 EXPECTED_APPROVAL_GATES = ("requirements", "design", "tasks", "building", "auditing")
+EXPECTED_WORKFLOWS = (
+    ".codex/workflows/planning.md",
+    ".codex/workflows/building.md",
+    ".codex/workflows/auditing.md",
+)
 
 
 class ManifestValidationError(ValueError):
@@ -85,3 +90,7 @@ def _validate_manifest(manifest: CodexLamManifest, root: Path) -> None:
     missing = [doc for doc in manifest.documents if not (root / doc).is_file()]
     if missing:
         raise ManifestValidationError(f"manifest documents are missing: {missing}")
+
+    missing_workflows = [path for path in EXPECTED_WORKFLOWS if not (root / path).is_file()]
+    if missing_workflows:
+        raise ManifestValidationError(f"required workflows are missing: {missing_workflows}")

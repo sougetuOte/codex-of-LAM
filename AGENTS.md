@@ -37,6 +37,10 @@ Approval gates are: requirements, design, tasks, building, auditing.
 - Read the relevant files before answering or editing.
 - Keep requirements, design, tasks, tests, and implementation synchronized.
 - Prefer t-wada style TDD: Red, Green, Refactor, then report the verification.
+- Prefer read-only inspection by default. Ask before destructive actions,
+  workspace-external writes, or high-risk permission escalations.
+- When platform behavior, external APIs, or tool contracts may have drifted,
+  verify against primary sources before relying on memory.
 - Do not use Claude Code hooks, slash commands, or subagent frontmatter as the
   primary control surface.
 - Use Codex-native collaboration: plans, commentary updates, local tests,
@@ -48,6 +52,10 @@ Approval gates are: requirements, design, tasks, building, auditing.
 
 Before major edits, identify impact and test scope. After edits, run the smallest
 meaningful test set first, then broaden when shared behavior changed.
+
+Treat Green State as explicit, not implied. A wave is not done just because code
+exists; verification results, known blockers, and remaining risk must be visible
+enough for the next gate to judge.
 
 When asked for review, lead with findings. When implementing, keep changes small
 enough that each phase can be reviewed independently.
@@ -66,6 +74,9 @@ enough that each phase can be reviewed independently.
   レビュー観点、作業手順、workflow、task generation guidance として文書化する。
   ただし一律変換せず、design や tasks を作る時点で各 agent/subagent ごとに
   Codex での扱いを個別確認する。
+- `.agents/` がローカルに存在する場合は、Codex アプリまたはローカル作業用の
+  スキルミラーとして扱う。Wave 2C で正式に移設判断するまでは、canonical source
+  は `.codex/`、`docs/`、既存 tracked files とし、`.agents/` は push 対象にしない。
 - `SESSION_STATE.md` と `docs/daily/` は `.gitignore` 対象であり、GitHub には
   通常 push されない。別PCで quick-load する場合は、`SESSION_STATE.md` を共有
   フォルダなどで手動同期する。`docs/daily/` は長めの日次ログとして扱い、quick-load
