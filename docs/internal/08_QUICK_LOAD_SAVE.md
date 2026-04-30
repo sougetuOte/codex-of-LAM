@@ -11,6 +11,9 @@ Codex LAM における `SESSION_STATE.md` ベースの手動 quick-load / quick-
 - quick-load / quick-save は、当面 CLI 自動化ではなく review 可能な手動 workflow として運用する。
 - quick-save は **差分更新を標準** とし、毎回 full rewrite しない。
 - loop log / daily / KPI は、必要な session だけ追加する optional layer として扱う。
+- Codex App on Windows では、日常の quick-load / quick-save 補助コマンドも
+  `pwsh -NoProfile` を標準にする。
+- Git Bash は手動ローカル作業で使えても、Codex 実行時の標準前提にはしない。
 
 ## 2. `SESSION_STATE.md` 必須項目 checklist
 
@@ -57,6 +60,12 @@ quick-save では、次回セッションが「迷わず最初の 5 分を過ご
 - `完了済み` の長い履歴は、大きなマイルストーンがない限り触らない
 - 背景説明を増やしすぎず、「次の 5 分で困らない情報」を優先する
 
+設計 / review 向けの追加原則:
+
+- context compaction の危険域に入る前に `quick-save` する
+- 長い session を無理に延命しない
+- 再開時に必要な判断根拠、非採用案、未決事項を優先して残す
+
 記録粒度の目安:
 
 - 1 回の変更で終わったことは「完了済み」へ移す
@@ -72,24 +81,64 @@ git log --oneline --decorate -5
 
 追加の広い state exploration は、context compaction や state drift が疑われるときだけ行う。
 
+特に設計 / review では、以下を感じたら続行前に quick-save を優先する。
+
+- 判断根拠が薄くなってきた
+- 非採用案や却下理由を思い出しにくい
+- 同じ file を繰り返し読み直している
+- 会話上は進んでいるが、未決事項が artifact に固定されていない
+
 ## 4. quick-load で最初に行うこと
 
-新しい Codex セッションでは、以下の順で確認する。
+新しい Codex セッションでは、**最小確認** と **必要時だけ深掘り** を分ける。
 
-1. `SESSION_STATE.md` を読む
+### 4.1 最小確認
+
+まずは以下だけで開始してよい。
+
+1. `.codex/current-phase.md` を読む
 2. `git status --short --branch` を実行する
-3. `git log --oneline --decorate -5` を実行する
-4. `AGENTS.md` を読む
-5. `.codex/manifest.json` を読む
-6. `.codex/current-phase.md` を読む
-7. 現在 wave に対応する requirements / ADR / design / tasks を読む
-8. 必要なら直近で触った code / tests を開く
+3. `git log --oneline --decorate -3` を実行する
+4. `SESSION_STATE.md` から以下だけ読む
+   - `保存時刻`
+   - `フェーズ`
+   - `復元サマリ`
+   - `現在の未 commit 変更`
+   - `次にやること`
+   - `関連ファイル`
+
+この時点では、requirements / ADR / design / tasks や code / tests を**まだ読まない**。
+
+### 4.2 深掘り条件
+
+以下のいずれかに当てはまるときだけ、追加の文書やコードを読む。
+
+- `SESSION_STATE.md` の `次にやること` を実行するのに詳細が足りない
+- `git status` が dirty で、未 commit 変更の理解が必要
+- phase と `SESSION_STATE.md` の内容が食い違う
+- 直近 commit だけでは次の判断点が見えない
+- ユーザーが review / implementation / deep analysis を明示的に求めている
+
+### 4.3 深掘りの順番
+
+深掘りが必要な場合も、以下の順で最小限に広げる。
+
+1. `AGENTS.md`
+2. `SESSION_STATE.md` の必要セクションだけ追読
+3. 現在 wave に対応する tasks の該当箇所
+4. 必要になった requirements / ADR / design の該当箇所
+5. 直近で触った code / tests
+
+`SESSION_STATE.md` 全文読みは、要約だけでは不足すると確認できた場合に限る。
 
 PowerShell で日本語 Markdown を読む場合は、以下を使う。
 
 ```powershell
 Get-Content -Encoding UTF8 -LiteralPath SESSION_STATE.md
 ```
+
+見出し位置を絞って読む場合は、`rg -n` などで対象セクションを先に特定する。
+PowerShell を使う場合も、profile 付き起動で不要なノイズを出さないことを優先する。
 
 ## 5. 共有と同期
 

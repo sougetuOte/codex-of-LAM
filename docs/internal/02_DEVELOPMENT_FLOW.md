@@ -3,6 +3,9 @@
 本ドキュメントは、**Phase 1 (設計)**、**Phase 2 (実装)**、および **Phase 3 (定期監査)** におけるプロトコルを定義する。
 "Definition of Ready" を通過したタスクのみが、このフローに乗ることができる。
 
+モデル選定と context compaction 対策の標準は
+`docs/internal/09_MODEL_AND_CONTEXT_POLICY.md` を参照する。
+
 ## Phase 1: The "Pre-Flight" Impact Analysis (着手前影響分析)
 
 **[PLANNING]** モードにて、以下の分析を行う。
@@ -78,15 +81,19 @@ Phase 1 で作成した仕様書・設計書は `/clarify` スキルで曖昧さ
 - 一つのサイクル（Red-Green-Refactor）が完了したら、直ちにユーザーに報告する。
 - 検証結果は `docs/artifacts/walkthrough-<feature>.md` にまとめ、スクリーンショットやログと共に報告することを推奨する。
 
-### Automated TDD Introspection v2
+### TDD Introspection Candidate
 
-PostToolUse hook がテスト実行結果を自動監視し、以下を記録する:
-- JUnit XML（`.claude/test-results.xml`）を読み取り、テスト成否を `.claude/tdd-patterns.log` に蓄積
-- FAIL→PASS 遷移検出時に `/retro` 実行を推奨（通知のみ、自動実行なし）
-- 同一パターン 2回以上出現で `/retro` 内でルール候補を提案（PM級承認）
-- `src/` 配下のファイル変更を検知し、ドキュメント同期フラグを設定（詳細は `/ship` コマンド参照）
+Codex LAM では、TDD introspection を BUILDING の必須自動 gate にはしない。
+まずは以下の最小規律を標準とする:
 
-詳細は `.claude/rules/auto-generated/trust-model.md` を参照。
+- Red -> Green -> Refactor の各段階を意識して進める
+- 最小の meaningful test から実行し、共有影響が広いときだけ検証範囲を広げる
+- FAIL -> PASS の要点と、必要なら retro 候補をユーザーへ報告する
+- code を変えたら、必要な spec / design / tasks / docs の同期有無を確認する
+
+追加の自動化が必要になった場合だけ、Claude `PostToolUse` 非依存の
+optional CLI または pytest helper として別設計する。
+常時自動記録や hook 直移植は標準前提にしない。
 
 ## Phase 3: Periodic Auditing (定期監査)
 
@@ -96,6 +103,13 @@ PostToolUse hook がテスト実行結果を自動監視し、以下を記録す
 2.  **Massive Refactoring**: アーキテクチャレベルの改善。
 3.  **Documentation Gardening**: ドキュメントの動的保守と整合性確認。
 4.  **Context Compression**: セッションが長期化した際、決定事項をドキュメントに書き出し、コンテキストリセットを提案する。
+
+補足:
+
+- context compaction は token の問題ではなく、設計文脈の欠落問題として扱う。
+- 長期 session を延命するより、`SESSION_STATE.md`、harvest note、spec / ADR / design / tasks へ
+  判断根拠を書き出して再開可能性を上げる。
+- 広い範囲の再読が必要な場合は、先に `context-harvest` で corpus を薄い中間成果物へ落とす。
 
 ### 権限等級に基づく修正制御 (v4.0.0)
 

@@ -45,6 +45,12 @@ Approval gates are: requirements, design, tasks, building, auditing.
   primary control surface.
 - Use Codex-native collaboration: plans, commentary updates, local tests,
   code-review findings, and explicit user approval at phase boundaries.
+- In Codex on Windows, default to `pwsh -NoProfile` for ordinary work to avoid
+  shell startup instability and profile noise.
+  Treat `git status`, `git log`, `rg`, quick-load, and document inspection as
+  normal `pwsh -NoProfile` tasks unless another shell is explicitly required.
+- Treat profile-loaded PowerShell output as context noise and avoid it during
+  normal work.
 - Treat `.claude/` as legacy compatibility material unless a task explicitly
   targets Claude Code.
 
@@ -66,6 +72,12 @@ enough that each phase can be reviewed independently.
   コード識別子、ファイルパス、コマンド名、API 名は英語のままでよい。
 - PowerShell で日本語 Markdown を読むときは、文字化けを避けるため
   `Get-Content -Encoding UTF8 -LiteralPath <path>` を使う。
+- Codex App on Windows では、通常の探索、quick-load、文書確認、`rg` 中心の
+  作業も `pwsh -NoProfile` を既定にする。
+- profile 付き PowerShell は通常作業で使わない。
+- Git Bash は手動ローカル作業では使えても、Codex 実行時の標準前提にはしない。
+- PowerShell profile 由来の起動ノイズや無関係な error 出力は、
+  context 汚染として扱う。
 - この Windows 環境では、sandboxed pytest が `tmp_path` 用の一時ディレクトリを
   `0o700` で作成したあと、ACL 問題で再アクセスや削除に失敗することがある。
   ドキュメントのみの変更では pytest を省略してよい。検証が必要な場合は、同じ
@@ -81,3 +93,11 @@ enough that each phase can be reviewed independently.
   通常 push されない。別PCで quick-load する場合は、`SESSION_STATE.md` を共有
   フォルダなどで手動同期する。`docs/daily/` は長めの日次ログとして扱い、quick-load
   の必須入力にはしない。
+- quick-load は省メモリを優先する。まず `.codex/current-phase.md`、
+  `git status --short --branch`、`git log --oneline --decorate -3`、
+  `SESSION_STATE.md` の要約と `次にやること` だけを確認し、requirements、
+  design、tasks、コードの全文読みは必要が生じた時だけ行う。
+- quick-load の最初の shell も `pwsh -NoProfile` を既定にする。
+- モデル運用は `docs/internal/09_MODEL_AND_CONTEXT_POLICY.md` を基準にする。
+  基本モデルは `5.4`、広い corpus は `context-harvest` で前処理し、
+  `5.5` は不可逆または高リスク判断の裁定に限定する。
