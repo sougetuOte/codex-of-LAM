@@ -98,6 +98,8 @@ Codex-native CLI を最小スコープで導入する。
 - [ ] helper 未使用でも BUILDING が成立することを README ではなく workflow / spec / task 側で明確にする。
 - [x] focused な実行例と最小 verification を追加する。
 - [x] この wave では read-only な `summary` 表示までを対象にし、retro 集計の自動連携や pytest helper 連携は非スコープとする。
+- [x] `docs/artifacts/tdd-introspection-records.log` は生成物として Git 管理外にする。
+- [x] retro へ転記する最小フォーマットを usage artifact に定義する。
 
 ## Wave 3: Legacy cleanup
 

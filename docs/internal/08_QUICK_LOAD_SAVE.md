@@ -79,6 +79,15 @@ git status --short --branch
 git log --oneline --decorate -5
 ```
 
+TDD introspection CLI を使っている場合は、必要に応じて以下も追加してよい。
+
+```powershell
+python -m codex_lam.tdd_introspection_cli summary
+```
+
+FAIL -> PASS 候補を retro 前に見返したい場合は、
+`docs/artifacts/tdd-introspection-summary-usage.md` を参照する。
+
 追加の広い state exploration は、context compaction や state drift が疑われるときだけ行う。
 
 特に設計 / review では、以下を感じたら続行前に quick-save を優先する。

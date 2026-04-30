@@ -127,6 +127,7 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 - Green State の自動収束ロジックには接続しない
 - 保存先は `.claude/` 直下を canonical にしない
 - 初手の正式保存先は `docs/artifacts/tdd-introspection-records.log` とする
+- `docs/artifacts/tdd-introspection-records.log` は生成物として扱い、Git では管理しない
 
 ## 8. 依存関係
 

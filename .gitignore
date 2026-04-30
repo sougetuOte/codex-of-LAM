@@ -3,6 +3,9 @@
 Thumbs.db
 *.log
 
+# TDD introspection CLI keeps local append-only records here; retro notes carry the reviewed summary.
+docs/artifacts/tdd-introspection-records.log
+
 # Editors
 .vscode/
 .idea/

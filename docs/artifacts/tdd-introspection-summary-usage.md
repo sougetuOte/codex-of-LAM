@@ -32,6 +32,26 @@ python -m codex_lam.tdd_introspection_cli summary
 - `UNKNOWN` が残りすぎていないか
 - `FAIL->PASS candidates` に、あとで振り返る価値のある対象があるか
 
+## retro への最小転記フォーマット
+
+retro メモには、必要なら次の最小形で転記する。
+
+```markdown
+### TDD Introspection
+
+- Summary:
+  - PASS: <count>
+  - FAIL: <count>
+  - UNKNOWN: <count>
+- FAIL->PASS candidates:
+  - <target 1>
+  - <target 2>
+- Notes:
+  - <short observation>
+```
+
+候補が 0 件なら `FAIL->PASS candidates: none` とだけ残せばよい。
+
 ## まだやらないこと
 
 - rule candidate の自動生成
@@ -42,4 +62,5 @@ python -m codex_lam.tdd_introspection_cli summary
 
 - `summary` は read-only として使う
 - 候補が 0 件でも異常ではない
+- `docs/artifacts/tdd-introspection-records.log` はローカル生成物として扱い、Git へは載せない
 - 使いにくさが出たら roadmap の Step 1 に戻って調整する
