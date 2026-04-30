@@ -150,6 +150,9 @@ standalone validator や helper へ切り出す判断は、この wave では de
 
 TDD introspection は BUILDING の必須 gate にせず、optional helper candidate として
 `docs/specs/feat-tdd-introspection-helper.md` を入口に段階導入する。
+初手は Codex-native CLI を先行し、pytest helper は後続候補として扱う。
+この wave では `docs/artifacts/tdd-introspection-records.log` への記録と、
+read-only な `summary` 表示までを最小範囲とする。
 
 ## Risk Controls
 

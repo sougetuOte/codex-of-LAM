@@ -65,8 +65,10 @@ Codex LAM の計画へどう反映するかを判断する。
   - retro 用の入力を集める補助としての価値を記録する
 - Wave 2C の追加判断:
   - `docs/specs/feat-tdd-introspection-helper.md` を最小 spec として追加する
+  - 初手は CLI を先行し、pytest helper は後続候補として扱う
 - 後続 wave へ送るもの:
-  - CLI / pytest helper の実装
+  - CLI の拡張実装
+  - pytest helper の要否再判断
   - 構造化ログ収集
   - 自動評価ループ
 

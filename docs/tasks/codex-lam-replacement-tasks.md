@@ -84,6 +84,21 @@ requirements FR-7 と ADR/design の方針に合わせて、`.claude/` 配下の
 - [x] TDD introspection の後続入口として、retro 用入力の収集を優先した Codex-native CLI または pytest helper の spec を `docs/specs/feat-tdd-introspection-helper.md` に追加する。
 - [x] `.claude/` をコピー済みの既存プロジェクト向け migration notes を追加する。
 
+## Wave 2D: TDD introspection CLI pilot
+
+`docs/specs/feat-tdd-introspection-helper.md` に基づき、optional helper の初手として
+Codex-native CLI を最小スコープで導入する。
+
+- [ ] CLI の配置先と entrypoint を決める。
+- [ ] `record` サブコマンドの最小 I/O を定義する。
+- [ ] `timestamp`, `status`, `target`, `command` を 1 record として保存できるようにする。
+- [x] 保存先を review 可能な workspace 内 path に限定する。
+- [x] `PASS` / `FAIL` / `UNKNOWN` を区別して記録する。
+- [x] 記録不能時に silent failure せず、理由を人間が確認できるようにする。
+- [ ] helper 未使用でも BUILDING が成立することを README ではなく workflow / spec / task 側で明確にする。
+- [x] focused な実行例と最小 verification を追加する。
+- [x] この wave では read-only な `summary` 表示までを対象にし、retro 集計の自動連携や pytest helper 連携は非スコープとする。
+
 ## Wave 3: Legacy cleanup
 
 Codex parity がレビューされ、移設対象と非推奨対象が明確になったあとで実施する。

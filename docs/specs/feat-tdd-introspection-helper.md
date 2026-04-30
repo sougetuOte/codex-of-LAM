@@ -104,10 +104,14 @@ timestamp=<iso8601> status=<PASS|FAIL|UNKNOWN> target=<nodeid-or-command> comman
 codex-tdd-introspection record --status PASS --target tests/test_example.py::test_case --command "pytest tests/test_example.py::test_case"
 ```
 
+初手の実装は CLI を先行する。
+理由は、Codex-native な明示実行として導入しやすく、pytest runtime への結合を後回しにできるため。
+
 ### pytest helper 案
 
 - focused test 実行後に明示呼び出しする fixture / helper
 - 自動 hook ではなく、利用側が opt-in で呼ぶ
+- CLI 先行の運用が安定した後の後続候補として扱う
 
 ## 6. 権限と安全性
 
@@ -122,6 +126,7 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 - `permission-level classification` の standalone validator 化とは切り分ける
 - Green State の自動収束ロジックには接続しない
 - 保存先は `.claude/` 直下を canonical にしない
+- 初手の正式保存先は `docs/artifacts/tdd-introspection-records.log` とする
 
 ## 8. 依存関係
 
@@ -138,9 +143,9 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 
 ## 10. 未決定事項
 
-- [ ] CLI と pytest helper のどちらを先に実装するか
-- [ ] 記録ファイルの正式保存先を `docs/artifacts/` にするか専用ログにするか
-- [ ] retro 側の集計表示をどこまでこの wave で持つか
+- [x] 初手の実装は CLI を先行し、pytest helper は後続候補とする
+- [x] 記録ファイルの正式保存先は `docs/artifacts/tdd-introspection-records.log` とする
+- [x] この wave では read-only な `summary` 表示までを持ち、rule candidate 生成や retro 自動連携は持たない
 
 ## 11. 変更履歴
 | 日付 | 変更者 | 内容 |
