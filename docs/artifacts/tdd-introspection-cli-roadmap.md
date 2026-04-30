@@ -41,6 +41,13 @@ retro 前に FAIL -> PASS の流れを見返せる状態にする。
 - 入力漏れや記録漏れが多いなら pytest helper を検討する
 - helper を足しても Codex-native の明示性を壊さない形に限定する
 
+再判断の目安:
+
+- `record` の呼び忘れが頻発する
+- Python/pytest の focused test が主経路になっている
+- `summary` で欲しい情報の大半が pytest 実行時点で自動取得できる
+- CLI の明示実行だけでは運用コストが高い
+
 ## 非スコープ
 
 - Claude hook の直移植

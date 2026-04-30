@@ -147,6 +147,7 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 - [x] 初手の実装は CLI を先行し、pytest helper は後続候補とする
 - [x] 記録ファイルの正式保存先は `docs/artifacts/tdd-introspection-records.log` とする
 - [x] この wave では read-only な `summary` 表示までを持ち、rule candidate 生成や retro 自動連携は持たない
+- [x] pytest helper の再判断は、CLI 運用での記録漏れ頻度と pytest 依存度を見て行う
 
 ## 11. 変更履歴
 | 日付 | 変更者 | 内容 |

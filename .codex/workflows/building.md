@@ -30,6 +30,9 @@ has passed, or when a blocker is recorded with a concrete reason and next step.
 - Red / Green / Refactor のどこまで進んだかを明示する。
 - 実行した focused check、結果、既知 blocker を残す。
 - TDD introspection は将来の optional helper 候補とし、この workflow の必須 gate にはしない。
+- TDD introspection CLI を使う場合は、区切りで
+  `python -m codex_lam.tdd_introspection_cli summary`
+  を実行し、必要なら retro 用メモへ FAIL -> PASS 候補を転記する。
 
 ## Guardrails
 
