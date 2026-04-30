@@ -76,12 +76,12 @@ requirements FR-7 と ADR/design の方針に合わせて、`.claude/` 配下の
 - [x] 移設しない legacy item について、理由を design、tasks、または migration notes に記録する。
 - [x] `.claude/agents/` や subagent 定義は、原則として役割別レビュー観点、作業手順、workflow、task generation guidance として文書化する。
 - [x] ただし agent/subagent は一律変換せず、design または tasks を作る時点で各項目ごとに Codex での扱いを個別確認する。
-- [ ] permission-level classification が Claude 外でも有用なら、standalone validator へ移す。
+- [x] permission-level classification は Wave 2C では standalone validator へ移さず、migration notes と workflow guidance に留める。
 - [x] scalable review を Codex-native audit procedure candidate として整理し、即時反映する review 原理と後続実装へ送る要素を分離する。
 - [x] TDD introspection を Codex BUILDING の必須 gate にはせず、Claude `PostToolUse` 非依存の optional CLI / pytest helper candidate として位置づける。
 - [x] cross-module blame を自動修正機構ではなく AUDITING の帰責判断支援として整理する。
 - [x] MAGI を trigger-based decision protocol、`lam-orchestrate` を多ファイル作業の decomposition guidance として再表現する。
-- [ ] TDD introspection を実装する場合は、retro 用入力の収集を優先した Codex-native CLI または pytest helper の spec / tasks を追加する。
+- [x] TDD introspection の後続入口として、retro 用入力の収集を優先した Codex-native CLI または pytest helper の spec を `docs/specs/feat-tdd-introspection-helper.md` に追加する。
 - [x] `.claude/` をコピー済みの既存プロジェクト向け migration notes を追加する。
 
 ## Wave 3: Legacy cleanup

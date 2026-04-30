@@ -18,36 +18,37 @@
     - `git status` および `git diff` を用いて、変更対象ファイルの現在の状態を確認する。
     - 未コミット変更がある場合、その差分を分析に含める。
 4.  **Phase State Verification (フェーズ状態の検証)**:
-    - `.claude/current-phase.md` を確認し、現在の開発フェーズ（PLANNING/BUILDING/AUDITING）を把握する。
+    - `.codex/current-phase.md` を確認し、現在の開発フェーズ（PLANNING/BUILDING/AUDITING）を把握する。
     - フェーズとタスク内容が一致しない場合（例: BUILDING 中に仕様策定を要求された）、ユーザーに確認する。
 5.  **Risk Assessment (Critical Agent)**:
     - `docs/internal/06_DECISION_MAKING.md` の **Critical Agent** として振る舞い、「手戻りリスク」と「破壊的変更の有無」を徹底的に洗い出す。
     - 楽観的な予測は排除し、最悪のケースを想定してユーザーに報告する。
 6.  **Implementation Plan**:
-    - 変更内容と検証計画をユーザーに提示し、承認を得ることを必須とする（`/planning` の承認ゲートフロー）。
+    - 変更内容と検証計画をユーザーに提示し、Codex-native approval gate で承認を得ることを必須とする。
     - 実装計画書は `docs/tasks/{feature_name}-tasks.md` に保存する。
 
 ### MAGI System（構造化意思決定）との連携
 
-Phase 1 の各ステップにおいて、`/magi` スキル（AoT + MAGI Debate + Reflection）を活用できる:
+Phase 1 の各ステップにおいて、MAGI の観点分離（AoT + Debate + Reflection）を活用できる:
 
 | ステップ | 適用 | 参照 |
 |----------|------|------|
-| 要件定義 | 要件の Atom 分解 + MAGI 合議 | `/magi`, `.claude/agents/requirement-analyst.md` |
-| 設計 | 設計の Atom 分解 + トレードオフ分析 | `/magi`, `.claude/agents/design-architect.md` |
-| タスク分割 | タスクの Atom 化 + Wave 構成判断 | `/magi`, `.claude/agents/task-decomposer.md` |
+| 要件定義 | 要件の Atom 分解 + MAGI 合議 | `docs/internal/06_DECISION_MAKING.md`, `.codex/workflows/planning.md` |
+| 設計 | 設計の Atom 分解 + トレードオフ分析 | `docs/internal/06_DECISION_MAKING.md`, `.codex/workflows/planning.md` |
+| タスク分割 | タスクの Atom 化 + Wave 構成判断 | `docs/internal/06_DECISION_MAKING.md`, `.codex/workflows/planning.md` |
 
 詳細は `docs/internal/06_DECISION_MAKING.md` を参照。
 
-> **Note**: `/magi` は主に Phase 1 で使用するが、Phase 2 での実装中に新たな設計判断が発生した場合や、
+> **Note**: MAGI は主に Phase 1 で使用するが、Phase 2 での実装中に新たな設計判断が発生した場合や、
 > Phase 3 でのリファクタリング方針決定時にも適用可能である。
 
-### 文書精緻化（/clarify）
+### 文書精緻化（clarify）
 
-Phase 1 で作成した仕様書・設計書は `/clarify` スキルで曖昧さ・矛盾・欠落を検出し精緻化する:
+Phase 1 で作成した仕様書・設計書は、clarify skill または同等の review 手順で
+曖昧さ・矛盾・欠落を検出し精緻化する:
 
-- 仕様書ドラフト完成後に `/clarify docs/specs/<feature>-spec.md` を実行
-- 設計書完成後に `/clarify docs/design/<feature>-design.md` を実行
+- 仕様書ドラフト完成後に clarify skill を適用する
+- 設計書完成後に clarify skill を適用する
 - 文書間の横断チェック（spec ↔ design ↔ tasks）にも対応
 
 ## Phase 2: The TDD & Implementation Cycle (実装サイクル)
@@ -56,7 +57,8 @@ Phase 1 で作成した仕様書・設計書は `/clarify` スキルで曖昧さ
 
 ### Step 1: Spec & Task Update (Dynamic Documentation)
 
-- コードを書く前に、必ず `./docs/specs/` および `./docs/adr/` の更新案を提示する。
+- コードを書く前に、承認済みの requirements / ADR / design / tasks を確認する。
+- 追加の仕様変更が必要になった場合だけ、BUILDING を中断して PLANNING へ戻す。
 - ドキュメントとコードの同期は絶対である。
 - 進捗管理には `docs/tasks/{feature_name}-tasks.md` を使用し、タスクの細分化と完了状況を可視化することを推奨する。
 
@@ -118,4 +120,5 @@ AUDITING フェーズでの修正は権限等級に基づく:
 - **SE級**: 修正後に報告（テスト追加、内部リファクタリング等）
 - **PM級**: 指摘のみ、承認ゲート（仕様変更、アーキテクチャ変更等）
 
-詳細は `.claude/rules/permission-levels.md` を参照。
+詳細な分類原理は `.claude/rules/permission-levels.md` を legacy source として参照しつつ、
+Codex の canonical rule は `AGENTS.md` と `docs/internal/07_SECURITY_AND_AUTOMATION.md` を参照する。

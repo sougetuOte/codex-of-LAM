@@ -63,10 +63,23 @@ Codex LAM の計画へどう反映するかを判断する。
 - 今回反映する最小単位:
   - Red / Green / Refactor と focused test を報告する規律を維持する
   - retro 用の入力を集める補助としての価値を記録する
+- Wave 2C の追加判断:
+  - `docs/specs/feat-tdd-introspection-helper.md` を最小 spec として追加する
 - 後続 wave へ送るもの:
-  - CLI / pytest helper
+  - CLI / pytest helper の実装
   - 構造化ログ収集
   - 自動評価ループ
+
+### permission / security
+
+- 結論: `codex_reexpress`
+- 扱い: read/write 権限方針と PG/SE/PM の判断原理は採用するが、
+  Wave 2C では standalone validator 化しない。
+- 今回反映する最小単位:
+  - `AGENTS.md` と internal docs へ運用ルールとして残す
+  - migration notes に defer を明記する
+- 後続 wave へ送るもの:
+  - validator 実装の要否判断
 
 ### cross-module blame
 

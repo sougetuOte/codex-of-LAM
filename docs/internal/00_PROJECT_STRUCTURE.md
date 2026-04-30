@@ -64,9 +64,9 @@
 
 ### E. State Management (状態管理)
 
-- **SESSION_STATE.md** (プロジェクトルート): 現在のセッション状態。`/quick-save` で記録、`/quick-load` で復元。セッション間ハンドオフ用の使い捨てファイル。
-- **.claude/states/*.json**: フェーズごとの承認ゲート管理、タスク進捗の永続的な状態記録。機能開発の進行管理に使用。
-- **.claude/current-phase.md**: 現在の開発フェーズ（PLANNING/BUILDING/AUDITING）。`/planning`, `/building`, `/auditing` コマンドで更新される。
+- **SESSION_STATE.md** (プロジェクトルート): 現在のセッション状態。quick-save workflow で記録し、quick-load workflow で復元する。セッション間ハンドオフ用の軽量メモ。
+- **.codex/current-phase.md**: 現在の開発フェーズ（PLANNING/BUILDING/AUDITING）を示す canonical phase signal。
+- **docs/tasks/*.md**: 承認済みタスク分解、wave 進行、未完了項目の review 可能な記録。
 
 ## 3. SSOT 3層アーキテクチャ
 
@@ -77,17 +77,17 @@
 情報層 1: docs/internal/ — プロセス SSOT（What & Why）
   |
   v 参照・実装
-情報層 2: .claude/rules/    — ガードレール（自動ロード）
-          .claude/commands/ — ワークフロー（手動実行）
-          .claude/hooks/    — 自動化 hooks（PreToolUse/PostToolUse/Stop/PreCompact）
-          .claude/agents/   — エージェント定義
-          .claude/skills/   — スキル定義
+情報層 2: .codex/workflows/ — Codex workflow guidance
+          AGENTS.md         — repository-level operating contract
+          docs/specs/       — requirements / feature specs
+          docs/design/      — implementation design
+          docs/tasks/       — task decomposition and wave tracking
   |
   v 要約
 情報層 3: CHEATSHEET.md — クイックリファレンス
 ```
 
-- 情報層 1 が最高権限。情報層 2 は情報層 1 の「実装」
+- 情報層 1 が最高権限。情報層 2 は情報層 1 の「運用への具体化」
 - 情報層 2 に新機能を追加したら、情報層 1 への反映を確認する
 - 情報層 3 は情報層 1-2 の要約であり、独自情報を持たない
 

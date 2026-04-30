@@ -147,8 +147,8 @@ Codex へ再利用できるものを棚卸しし、移設方針を review 可能
 | `requirement-analyst` / `design-architect` / `task-decomposer` / `doc-writer` の観点 | `.codex/workflows/planning.md` | 反映済み |
 | `tdd-developer` / `test-runner` の観点 | `.codex/workflows/building.md` | 反映済み |
 | `code-reviewer` / `quality-auditor` の観点 | `.codex/workflows/auditing.md` | 反映済み |
-| TDD introspection | CLI / pytest helper candidate | 今回は helper 候補として残し、実装は後続 |
-| permission-level classification | migration notes / 将来の validator 候補 | 今回は helper 化せず、design review 後に再判断 |
+| TDD introspection | CLI / pytest helper candidate | spec は追加し、実装判断は後続 |
+| permission-level classification | migration notes / 将来の validator 候補 | Wave 2C では helper 化せず defer を確定 |
 | scalable review / cross-module blame | audit procedure / review checklist | 原理だけ反映、自動 pipeline は不採用 |
 
 ## 今回の判断
@@ -160,10 +160,10 @@ Codex へ再利用できるものを棚卸しし、移設方針を review 可能
 - `.claude/current-phase.md` の役割
 - upstream-first の判断原理
 
-### Wave 2C 後半で判断するもの
+### Wave 2C 後半で判断したもの
 
-- permission-level classification を standalone validator にするか
-- TDD introspection の optional helper 化をどの wave で spec 化するか
+- permission-level classification は standalone validator にせず、workflow guidance と migration notes に留める
+- TDD introspection は optional helper candidate として spec を追加し、実装タイミングは後続 wave で判断する
 - scalable review の review 原理をどの review checklist / auditing procedure へ落とすか
 - cross-module blame の判断原理をどの review checklist / auditing procedure へ落とすか
 - `lam-orchestrate` の decomposition guidance をどの task generation guidance へ落とすか

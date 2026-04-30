@@ -32,19 +32,23 @@
 
 - `docs/internal/06_DECISION_MAKING.md` に基づき、MELCHIOR / BALTHASAR / CASPAR の視点で仕様をレビュー済みか確認する。
 - 特に BALTHASAR（批判者）によるリスク指摘が解決されているかを確認すること。
-- 複雑な判断（判断ポイント 2+、影響レイヤー 3+、選択肢 3+）には `/magi` スキルの活用を推奨する。
+- 複雑な判断（判断ポイント 2+、影響レイヤー 3+、選択肢 3+）では、
+  `docs/internal/06_DECISION_MAKING.md` と planning workflow に沿って
+  MAGI の観点分離を適用する。
 
 ### F. Clarification（曖昧さの解消）
 
-- 仕様書ドラフト完成後、`/clarify` スキルで曖昧さ・矛盾・欠落を検出する。
+- 仕様書ドラフト完成後、clarify skill または同等のレビュー手順で
+  曖昧さ・矛盾・欠落を検出する。
 - 「適切に」「必要に応じて」等の曖昧な修飾語を数値・条件に置換する。
-- 詳細は `.claude/rules/planning-quality-guideline.md`（Requirements Smells）を参照。
+- 詳細な観点は `.codex/workflows/planning.md` と
+  `docs/internal/06_DECISION_MAKING.md` を優先して参照する。
 
 ## 2. Definition of Ready (着手判定基準)
 
 実装タスク（Phase 1）へ移行する前に、以下のチェックリストを全て満たさなければならない。
 
 - [ ] **Doc Exists**: `docs/specs/` に仕様書が存在する。
-- [ ] **Unambiguous**: 上記 A〜D の要素が明記され、解釈の揺れがない。`/clarify` で精緻化済みであること。
+- [ ] **Unambiguous**: 上記 A〜D の要素が明記され、解釈の揺れがない。clarify skill または同等の review で精緻化済みであること。
 - [ ] **Atomic**: タスクが 1 Pull Request で完結するサイズに分割されている。
 - [ ] **Testable**: Acceptance Criteria（完了条件）がテストコードで表現可能である。

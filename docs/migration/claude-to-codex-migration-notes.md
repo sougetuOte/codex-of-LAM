@@ -63,7 +63,7 @@ Date: 2026-04-30
 
 ## Deferred items
 
-- permission-level classification の standalone validator 化
-- TDD introspection helper の spec / tasks 化
+- permission-level classification の standalone validator 化判断
+- TDD introspection helper の実装判断
 - scalable review helper の自動化
 - quickstart / cheatsheet の Codex 前提更新
