@@ -33,7 +33,7 @@ SESSION_STATE.md がなければ新規プロジェクトとして始めてくだ
 ```
 
 Codex LAM の入口は `AGENTS.md`、`.codex/current-phase.md`、`.codex/workflows/`、必要な `.agents/skills/` です。
-`.claude/` は legacy 互換資料として残りますが、Codex App の主制御面にはしません。
+旧 Claude Code 資料は Codex App の主制御面ではありません。archive / delete 判断が必要な場合は `docs/migration/` を参照します。
 
 ## Step 3: PLANNING から始める
 
@@ -106,9 +106,9 @@ A: `quick-load` で復帰します。`SESSION_STATE.md` が短い復元メモと
 
 A: `quick-save` で `SESSION_STATE.md` を更新します。長いログは `docs/daily/` へ逃がし、git commit は別操作にします。
 
-### Q: `.claude/` は消してよい？
+### Q: 旧 Claude Code 資料は消してよい？
 
-A: すぐには消さないでください。Codex parity がレビューされるまでは legacy 互換資料として残します。
+A: すぐには消さないでください。Codex parity と依存関係を確認し、`docs/migration/claude-archive-delete-gate.md` の gate を通してから archive / delete を判断します。
 
 ## 次のステップ
 

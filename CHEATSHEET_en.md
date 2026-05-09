@@ -29,8 +29,7 @@ docs/specs/                # Specifications
 docs/adr/                  # Architecture Decision Records
 docs/tasks/                # Tasks
 SESSION_STATE.md           # Local handoff, not tracked by Git
-
-.claude/                   # Legacy compatibility material, not primary control surface
+docs/migration/            # Legacy handling and archive / delete gates
 ```
 
 ## Phases

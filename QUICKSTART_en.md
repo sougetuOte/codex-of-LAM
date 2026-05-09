@@ -33,7 +33,7 @@ If SESSION_STATE.md does not exist, treat this as a new project.
 ```
 
 The Codex LAM entry points are `AGENTS.md`, `.codex/current-phase.md`, `.codex/workflows/`, and the needed `.agents/skills/`.
-`.claude/` remains as legacy compatibility material, not the primary Codex App control surface.
+Legacy Claude Code material is not the primary Codex App control surface. See `docs/migration/` when archive or deletion decisions matter.
 
 ## Step 3: Start in PLANNING
 
@@ -106,9 +106,9 @@ A: Use `quick-load` to resume. `SESSION_STATE.md` is the short handoff memo.
 
 A: Use `quick-save` to update `SESSION_STATE.md`. Put longer notes in `docs/daily/`, and keep git commits as a separate operation.
 
-### Q: Can I delete `.claude/`?
+### Q: Can I delete legacy Claude Code material?
 
-A: Not immediately. Keep it as legacy compatibility material until Codex parity has been reviewed.
+A: Not immediately. Review Codex parity and remaining dependencies first, then use the gate in `docs/migration/claude-archive-delete-gate.md` before archive or deletion decisions.
 
 ## Next Steps
 

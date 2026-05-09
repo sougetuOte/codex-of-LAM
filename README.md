@@ -51,13 +51,13 @@
 | `10_DISTRIBUTION_MODEL.md` | Codex LAM を GitHub template / starter kit として配布する方針 |
 | `99_reference_generic.md` | 一般的な助言とベストプラクティス (Non-SSOT) |
 
-### Codex App / legacy 拡張
+### Codex App 拡張
 
 | ディレクトリ | 説明 |
 |-------------|------|
 | `.codex/workflows/` | Codex-native のフェーズ運用、quick-load/save、review 手順 |
 | `.agents/skills/` | Codex App から使う project skill の候補 |
-| `.claude/` | 旧 Claude Code 互換資料。移植元として残すが主制御面にはしない |
+| `docs/migration/` | 旧 Claude Code 資料の扱いと archive / delete gate の記録 |
 
 ### 配布補助文書
 
@@ -87,7 +87,7 @@ cd my-project
 rm -rf .git && git init
 ```
 
-LAM は `AGENTS.md`、`.codex/workflows/`、`docs/internal/` が連携して動作するため、一式をそのまま使うことを推奨します。`.claude/` は移植元または legacy 互換資料として扱います。
+LAM は `AGENTS.md`、`.codex/workflows/`、`docs/internal/` が連携して動作するため、一式をそのまま使うことを推奨します。旧 Claude Code 資料は Codex runtime の必須構成ではなく、必要な場合は `docs/migration/` の archive / delete gate を参照します。
 
 ### Option C: 既存プロジェクトへの導入
 

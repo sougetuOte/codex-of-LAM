@@ -50,13 +50,13 @@ By placing these definition files in your project root, you transform a standard
 | `07_SECURITY_AND_AUTOMATION.md` | Command Safety Protocols (Allow/Deny Lists) |
 | `99_reference_generic.md` | General advice and best practices (Non-SSOT) |
 
-### Codex App / Legacy Extensions
+### Codex App Extensions
 
 | Directory | Description |
 |-----------|-------------|
 | `.codex/workflows/` | Codex-native phase workflows, quick-load/save, and review procedures |
 | `.agents/skills/` | Candidate project skills for Codex App |
-| `.claude/` | Legacy Claude Code compatibility material; useful as migration source, not the primary control surface |
+| `docs/migration/` | Migration notes and archive / delete gates for legacy Claude Code material |
 
 ### Distribution Support Documents
 
@@ -83,7 +83,7 @@ cd my-project
 rm -rf .git && git init
 ```
 
-LAM components (`AGENTS.md`, `.codex/workflows/`, `docs/internal/`) work together as a system. We recommend using the full set rather than copying individual files. Treat `.claude/` as legacy compatibility material.
+LAM components (`AGENTS.md`, `.codex/workflows/`, `docs/internal/`) work together as a system. We recommend using the full set rather than copying individual files. Legacy Claude Code material is not required for the Codex runtime; see `docs/migration/` when archive or deletion decisions matter.
 
 ### Option C: Adopt into an Existing Project
 

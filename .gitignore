@@ -48,17 +48,8 @@ memos/
 data/
 SESSION_STATE.md
 docs/daily/
-.claude/settings.local.json
-# リリース手順はローカル固有（GitHub Token 等の環境差異を含みうるため）
-.claude/commands/release.md
 
 # LAM runtime state files
-.claude/logs/
-.claude/lam-loop-state.json
-.claude/review-state/
-.claude/doc-sync-flag
-.claude/pre-compact-fired
-.claude/last-test-result
 .codex/logs/
 .codex/test-results.xml
 **/test-results.xml

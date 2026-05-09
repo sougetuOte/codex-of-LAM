@@ -8,7 +8,7 @@
 - `AGENTS.md` の truth hierarchy と phase / gate を優先する。
 - 変更は review しやすい小さな単位に分ける。
 - project-facing documentation は日本語を canonical とし、英語版は追従版として扱う。
-- `.claude/` は legacy compatibility material であり、Codex の主制御面にはしない。
+- 旧 Claude Code 資料は Codex の主制御面にしない。archive / delete 判断は `docs/migration/` の gate に従う。
 
 ## 通常の進め方
 

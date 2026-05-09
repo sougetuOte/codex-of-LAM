@@ -15,7 +15,7 @@
 - 破壊的操作、外部通信、権限昇格、credential access は明示承認の対象にする。
 - sandbox や approval の制限を回避するための迂回策を採らない。
 - Windows の credential manager、temporary directory、ACL の問題は、環境依存の可能性を明記する。
-- `.claude/` 配下の legacy automation は参考資料であり、Codex の canonical enforcement として扱わない。
+- 旧 Claude Code automation は Codex の canonical enforcement として扱わない。archive / delete 判断は `docs/migration/` の gate に従う。
 
 ## 参照先
 

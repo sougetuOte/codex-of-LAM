@@ -14,7 +14,7 @@ No file movement or deletion is approved by this document alone.
 ## Current evidence
 
 - `git ls-files .claude` reports 104 tracked files.
-- Top-level docs already describe `.claude/` as legacy compatibility material, not the Codex primary control surface.
+- Top-level distribution docs point archive / delete decisions for legacy Claude Code material to `docs/migration/`, not to a present runtime directory.
 - `docs/migration/claude-legacy-inventory.md` classifies `.claude/` families by `codex_adopted`, `codex_reexpress`, `decide_later`, and `archive_runtime_specific`.
 - Wave 3 non-destructive cleanup confirmed no mojibake hits in the checked docs and no remaining quickstart / cheatsheet rewrite need.
 
@@ -22,20 +22,25 @@ No file movement or deletion is approved by this document alone.
 
 Date: 2026-05-09
 
-Deleting `.claude/` is not ready yet.
+Deleting `.claude/` is still not approved by this document, but the pre-delete
+cleanup blockers below have been retired.
 
-Blockers:
+Retired blockers:
 
-- `pyproject.toml` still writes JUnit XML to `.claude/test-results.xml`.
-  - Before deletion, move this to `.codex/test-results.xml` or another Codex-native ignored path.
-- `tests/test_pre_compact.py` imports `.claude/hooks/pre-compact.py` directly.
-  - Before deletion, either remove this obsolete Claude hook test or archive it with the hook material.
-- `tests/test_lam_stop_hook.py` imports `.claude/hooks/lam-stop-hook.py` directly.
-  - Before deletion, either remove this obsolete Claude hook test or archive it with the hook material.
-- top-level distribution docs still mention `.claude/` as a present directory.
-  - If `.claude/` is deleted, update `README*`, `QUICKSTART*`, `CHEATSHEET*`, `CONTRIBUTING.md`, and `SECURITY.md` from "present legacy material" to "removed legacy material; see migration notes".
-- `.gitignore` still contains `.claude/` runtime-state ignores.
-  - If `.claude/` is deleted, remove obsolete `.claude/*` ignore entries or mark them historical only if intentionally kept.
+- `pyproject.toml` no longer writes JUnit XML to `.claude/test-results.xml`.
+  - Current path: `test-results.xml`, ignored by `**/test-results.xml`.
+- `tests/test_pre_compact.py` no longer imports `.claude/hooks/pre-compact.py`.
+  - Current role: retirement guard that checks this gate remains documented.
+- `tests/test_lam_stop_hook.py` no longer imports `.claude/hooks/lam-stop-hook.py`.
+  - Current role: retirement guard that checks this gate remains documented.
+- top-level distribution docs no longer mention `.claude/` as a present directory.
+  - Current wording points readers to `docs/migration/` for legacy archive / delete decisions.
+- `.gitignore` no longer contains `.claude/` runtime-state ignores.
+
+Remaining blockers:
+
+- None found in the pre-delete cleanup scope above.
+- Archive or delete still requires the explicit gate listed below.
 
 Non-blocking historical references:
 
@@ -98,9 +103,9 @@ Before any file movement or deletion:
 
 Do not delete `.claude/` until the blockers above are fixed and verified.
 
-The safer next action is a pre-delete cleanup commit:
+The pre-delete cleanup commit should include:
 
-1. Move pytest output from `.claude/test-results.xml` to `.codex/test-results.xml`.
+1. Move pytest output from `.claude/test-results.xml` to `test-results.xml`.
 2. Remove or archive Claude hook tests that import `.claude/hooks/*`.
 3. Update top-level distribution docs so they no longer promise a present `.claude/` directory.
 4. Clean obsolete `.claude/*` runtime ignores.

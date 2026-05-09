@@ -151,15 +151,16 @@ R6 で文面と導線は Codex App 前提へ更新済み。ここでは画像・
 Codex parity がレビューされ、移設対象と非推奨対象が明確になったあとで実施する。
 
 - [x] Wave 2F の配布仕上げ gate が完了しているか確認する。
-- [x] reviewer approval 後、top-level docs で `.claude/` を legacy として明記する。
-  - 2026-05-09: `README*`, `QUICKSTART*`, `CHEATSHEET*`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md` で `.claude/` が legacy / primary control surface ではないことを確認済み。
+- [x] reviewer approval 後、top-level docs で旧 Claude Code 資料を Codex primary control surface から分離する。
+  - 2026-05-09: `README*`, `QUICKSTART*`, `CHEATSHEET*`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md` で旧 Claude Code 資料が Codex primary control surface ではないことを確認済み。
 - [x] 日本語 mojibake の既存 docs を修復するか、英語のみを維持するか、bilingual docs として再生成するかを決める。
   - 2026-05-09: `�`, `縺`, `繧`, `譁`, `荳`, `ã`, `Ã`, `Â` の静的検索で該当なし。現時点では修復不要、日本語 canonical + 英語追従の bilingual docs を維持する。
 - [ ] Codex parity が受け入れられたあと、Claude-only docs を archive または削除する。
   - 2026-05-09: 直接削除候補は未承認。`docs/migration/claude-archive-delete-gate.md` に archive / delete gate を作成し、`.claude/` は当面 tracked legacy reference として維持する方針を記録した。
-  - 2026-05-09: 削除前クロスチェックで `pyproject.toml` の `.claude/test-results.xml`、`tests/test_pre_compact.py`、`tests/test_lam_stop_hook.py`、top-level docs、`.gitignore` の blocker を確認。削除前に pre-delete cleanup commit が必要。
+  - 2026-05-09: 削除前クロスチェックで `pyproject.toml` の `.claude/test-results.xml`、`tests/test_pre_compact.py`、`tests/test_lam_stop_hook.py`、top-level docs、`.gitignore` の blocker を確認した。
+  - 2026-05-09: pre-delete cleanup として pytest 出力先、obsolete hook tests、top-level docs、`.gitignore` の blocker を整理。archive / delete は引き続き明示 approval gate 待ち。
 - [x] R6 後の quickstart / cheatsheet に Claude 前提の表現が残っていないか確認し、残存分だけ修正する。
-  - 2026-05-09: `QUICKSTART*` と `CHEATSHEET*` は Codex App 前提で、`.claude/` は legacy reference として分離済み。修正不要。
+  - 2026-05-09: `QUICKSTART*` と `CHEATSHEET*` は Codex App 前提で、旧 Claude Code 資料は `docs/migration/` の gate 参照へ分離済み。
 
 ## Review Gates
 

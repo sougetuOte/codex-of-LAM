@@ -29,8 +29,7 @@ docs/specs/                # 仕様書
 docs/adr/                  # ADR
 docs/tasks/                # タスク
 SESSION_STATE.md           # local handoff（Git 管理外）
-
-.claude/                   # legacy 互換資料。主制御面ではない
+docs/migration/            # legacy 資料の扱いと archive / delete gate
 ```
 
 ## フェーズ
