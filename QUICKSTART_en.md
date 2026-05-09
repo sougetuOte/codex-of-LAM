@@ -32,6 +32,9 @@ Read AGENTS.md and SESSION_STATE.md, then quick-load.
 If SESSION_STATE.md does not exist, treat this as a new project.
 ```
 
+In a fresh repository created from the template, `SESSION_STATE.md` usually does not exist yet.
+In that case, start from `AGENTS.md`, `.codex/current-phase.md`, and `.codex/workflows/`, then begin in PLANNING.
+
 The Codex LAM entry points are `AGENTS.md`, `.codex/current-phase.md`, `.codex/workflows/`, and the needed `.agents/skills/`.
 Legacy Claude Code material is not the primary Codex App control surface. See `docs/migration/` when archive or deletion decisions matter.
 
@@ -108,7 +111,7 @@ A: Use `quick-save` to update `SESSION_STATE.md`. Put longer notes in `docs/dail
 
 ### Q: Can I delete legacy Claude Code material?
 
-A: Not immediately. Review Codex parity and remaining dependencies first, then use the gate in `docs/migration/claude-archive-delete-gate.md` before archive or deletion decisions.
+A: This template does not include `.claude/` as an active runtime directory. If you are migrating an existing project, review Codex parity and remaining dependencies first, then use the gate in `docs/migration/claude-archive-delete-gate.md` before archive or deletion decisions.
 
 ## Next Steps
 

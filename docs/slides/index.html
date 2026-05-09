@@ -115,6 +115,21 @@
       color: #000;
     }
 
+    .badge-pending {
+      background: transparent;
+      color: var(--accent-warning);
+      border: 1px solid var(--accent-warning);
+    }
+
+    .card.pending {
+      opacity: 0.78;
+      border-color: #444;
+    }
+
+    .card.pending:hover {
+      border-color: var(--accent-warning);
+    }
+
     .card p {
       font-size: 0.85rem;
       line-height: 1.6;
@@ -175,8 +190,8 @@
       <br><span class="meta">8 スライド</span>
     </a>
 
-    <!-- Stories -->
-    <p class="section-label">ストーリーで体験する</p>
+    <!-- Public first path -->
+    <p class="section-label">はじめに見る</p>
 
     <a href="story-newproject.html" class="card">
       <span class="badge badge-story">STORY</span>
@@ -185,27 +200,27 @@
       <span class="meta">20 スライド</span>
     </a>
 
-    <a href="story-daily.html" class="card">
-      <span class="badge badge-story">STORY</span>
+    <!-- Pending refresh -->
+    <p class="section-label">Advanced / Codex-native refresh pending</p>
+
+    <a href="story-daily.html" class="card pending">
+      <span class="badge badge-pending">PENDING REFRESH</span>
       <h2>LAM との毎日</h2>
-      <p>朝の quick-load から ship まで。Codex App、TDD、quick-save/load、レビュー、リリースの日常を紹介。</p>
+      <p>日次運用の旧ストーリー。Codex App 前提の quick-load / review / handoff 表現へ更新予定。</p>
       <span class="meta">16 スライド</span>
     </a>
 
-    <a href="story-evolution.html" class="card">
-      <span class="badge badge-story">STORY</span>
+    <a href="story-evolution.html" class="card pending">
+      <span class="badge badge-pending">PENDING REFRESH</span>
       <h2>フレームワークが育つ</h2>
-      <p>TDD 内省パイプラインによる自動学習、ルールの新陳代謝。"Living" の真価を体験。</p>
+      <p>学習・ルール更新の旧ストーリー。Codex-native skill / review workflow として再構成予定。</p>
       <span class="meta">12 スライド</span>
     </a>
 
-    <!-- Deep Dive -->
-    <p class="section-label">深堀り</p>
-
-    <a href="architecture.html" class="card">
-      <span class="badge badge-arch">DEEP DIVE</span>
+    <a href="architecture.html" class="card pending">
+      <span class="badge badge-pending">ADVANCED</span>
       <h2>アーキテクチャ</h2>
-      <p>免疫システム（hooks）、Hierarchy of Truth、権限等級、Green State 5条件、MAGI System（構造化意思決定）。内部構造を詳解。</p>
+      <p>内部構造の深掘り。初回導線ではなく、Codex-native refresh 後に参照する上級編。</p>
       <span class="meta">15 スライド</span>
     </a>
 

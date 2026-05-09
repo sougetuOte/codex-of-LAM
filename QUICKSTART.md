@@ -32,6 +32,9 @@ AGENTS.md と SESSION_STATE.md を読んで quick-load してください。
 SESSION_STATE.md がなければ新規プロジェクトとして始めてください。
 ```
 
+template 直後の fresh repo では、`SESSION_STATE.md` がまだ存在しないのが通常です。
+その場合は `AGENTS.md`、`.codex/current-phase.md`、`.codex/workflows/` を入口にして PLANNING から始めます。
+
 Codex LAM の入口は `AGENTS.md`、`.codex/current-phase.md`、`.codex/workflows/`、必要な `.agents/skills/` です。
 旧 Claude Code 資料は Codex App の主制御面ではありません。archive / delete 判断が必要な場合は `docs/migration/` を参照します。
 
@@ -108,7 +111,7 @@ A: `quick-save` で `SESSION_STATE.md` を更新します。長いログは `doc
 
 ### Q: 旧 Claude Code 資料は消してよい？
 
-A: すぐには消さないでください。Codex parity と依存関係を確認し、`docs/migration/claude-archive-delete-gate.md` の gate を通してから archive / delete を判断します。
+A: この template には active runtime としての `.claude/` は含めません。既存プロジェクトから移行する場合だけ、Codex parity と依存関係を確認し、`docs/migration/claude-archive-delete-gate.md` の gate を通してから archive / delete を判断します。
 
 ## 次のステップ
 

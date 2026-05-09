@@ -16,6 +16,10 @@ By placing these definition files in your project root, you transform a standard
 | 2. Set up your project | [Quick Start](QUICKSTART_en.md) | 10 min |
 | 3. Daily reference | [Cheatsheet](CHEATSHEET_en.md) | Reference |
 
+In a fresh repository, `SESSION_STATE.md` usually does not exist yet.
+Start the first Codex App session from `AGENTS.md` and `.codex/current-phase.md`,
+then begin in PLANNING. `SESSION_STATE.md` is created after the first `quick-save`.
+
 ## Core Concepts
 
 - **Active Retrieval**: The AI must actively search and load context, rather than relying on passive memory.
@@ -48,6 +52,9 @@ By placing these definition files in your project root, you transform a standard
 | `05_MCP_INTEGRATION.md` | MCP server integration & MEMORY.md policy (optional) |
 | `06_DECISION_MAKING.md` | Multi-Perspective Decision Making Protocol (MAGI System + AoT + Reflection) |
 | `07_SECURITY_AND_AUTOMATION.md` | Command Safety Protocols (Allow/Deny Lists) |
+| `08_QUICK_LOAD_SAVE.md` | quick-load/save session handoff policy |
+| `09_MODEL_AND_CONTEXT_POLICY.md` | Model selection, delegation, and context policy |
+| `10_DISTRIBUTION_MODEL.md` | GitHub template / starter kit distribution model |
 | `99_reference_generic.md` | General advice and best practices (Non-SSOT) |
 
 ### Codex App Extensions
@@ -70,6 +77,7 @@ By placing these definition files in your project root, you transform a standard
 ### Option A: Use as a Template (Recommended)
 
 On GitHub, click the **"Use this template"** button at the top of this repository page to create a new repository with this structure pre-configured.
+If `SESSION_STATE.md` is missing right after template creation, that is expected for a new project, not a setup failure.
 
 **Reference Documentation:**
 - [Creating a repository from a template - GitHub Docs (English)](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
@@ -174,9 +182,9 @@ The tables below list the main operating surfaces, but you don't need to memoriz
 | Codex App | AI assistant runtime | Required |
 | Python 3.8+ | Helper CLI and verification tooling | Recommended |
 | Git | Version control | Required |
-| [gitleaks](https://github.com/gitleaks/gitleaks) | Secret scanning (`/full-review` G5 check) | Recommended |
+| [gitleaks](https://github.com/gitleaks/gitleaks) | Secret scanning for AUDITING / full review | Recommended |
 
-If gitleaks is not installed, `/full-review` will fail at Green State G5. Set `"gitleaks_enabled": false` in `review-config.json` to disable if not needed.
+If gitleaks is not installed, a full review that includes secret scanning will fail at Green State G5. Set `"gitleaks_enabled": false` in `review-config.json` to disable if not needed.
 
 ## License
 

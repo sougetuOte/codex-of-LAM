@@ -115,6 +115,21 @@
       color: #000;
     }
 
+    .badge-pending {
+      background: transparent;
+      color: var(--accent-warning);
+      border: 1px solid var(--accent-warning);
+    }
+
+    .card.pending {
+      opacity: 0.78;
+      border-color: #444;
+    }
+
+    .card.pending:hover {
+      border-color: var(--accent-warning);
+    }
+
     .card p {
       font-size: 0.85rem;
       line-height: 1.6;
@@ -175,8 +190,8 @@
       <br><span class="meta">8 slides</span>
     </a>
 
-    <!-- Stories -->
-    <p class="section-label">Experience through Stories</p>
+    <!-- Public first path -->
+    <p class="section-label">Start Here</p>
 
     <a href="story-newproject-en.html" class="card">
       <span class="badge badge-story">STORY</span>
@@ -185,27 +200,27 @@
       <span class="meta">20 slides</span>
     </a>
 
-    <a href="story-daily-en.html" class="card">
-      <span class="badge badge-story">STORY</span>
+    <!-- Pending refresh -->
+    <p class="section-label">Advanced / Codex-native refresh pending</p>
+
+    <a href="story-daily-en.html" class="card pending">
+      <span class="badge badge-pending">PENDING REFRESH</span>
       <h2>Daily Life with LAM</h2>
-      <p>From morning quick-load to ship. Explore the daily routine of Codex App, TDD, quick-save/load, review, and releases.</p>
+      <p>Legacy daily workflow story. Scheduled for a Codex App refresh covering quick-load, review, and handoff.</p>
       <span class="meta">16 slides</span>
     </a>
 
-    <a href="story-evolution-en.html" class="card">
-      <span class="badge badge-story">STORY</span>
+    <a href="story-evolution-en.html" class="card pending">
+      <span class="badge badge-pending">PENDING REFRESH</span>
       <h2>The Framework Evolves</h2>
-      <p>Auto-learning through TDD introspection pipeline, rule lifecycle management. Experience the true value of "Living."</p>
+      <p>Legacy learning and rule lifecycle story. To be reframed around Codex-native skills and review workflows.</p>
       <span class="meta">12 slides</span>
     </a>
 
-    <!-- Deep Dive -->
-    <p class="section-label">Deep Dive</p>
-
-    <a href="architecture-en.html" class="card">
-      <span class="badge badge-arch">DEEP DIVE</span>
+    <a href="architecture-en.html" class="card pending">
+      <span class="badge badge-pending">ADVANCED</span>
       <h2>Architecture</h2>
-      <p>Immune system (hooks), Hierarchy of Truth, permission levels, Green State 5 conditions, MAGI System (structured decision-making). A detailed look at the internals.</p>
+      <p>Internal architecture deep dive. Keep it as advanced material until the Codex-native refresh is complete.</p>
       <span class="meta">15 slides</span>
     </a>
 

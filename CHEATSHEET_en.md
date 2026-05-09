@@ -5,8 +5,10 @@
 > Start with the [concept slides](docs/slides/index-en.html), then use the [quickstart](QUICKSTART_en.md) for setup.
 
 1. Open the repository in Codex App
-2. Read `AGENTS.md` and `SESSION_STATE.md`, then quick-load
+2. Read `AGENTS.md` and `SESSION_STATE.md` if it exists, then quick-load
 3. Follow the phase in `.codex/current-phase.md`
+
+In a fresh repository, `SESSION_STATE.md` usually does not exist yet. If it is missing, start as a new project in PLANNING.
 
 ```text
 Typical flow:
@@ -28,7 +30,7 @@ docs/internal/             # Process SSOT
 docs/specs/                # Specifications
 docs/adr/                  # Architecture Decision Records
 docs/tasks/                # Tasks
-SESSION_STATE.md           # Local handoff, not tracked by Git
+SESSION_STATE.md           # Local handoff, not tracked by Git; created after quick-save
 docs/migration/            # Legacy handling and archive / delete gates
 ```
 
@@ -110,7 +112,7 @@ The Gatekeeper keeps judgment. Workers receive evidence gathering, mechanical up
 ## Quick Reference
 
 **Need to resume?**
-Use `quick-load`. Start with `SESSION_STATE.md` and the minimal confirmation bundle.
+Use `quick-load`. If `SESSION_STATE.md` exists, start with the minimal confirmation bundle; if not, start as a new project.
 
 **Need to pause?**
 Use `quick-save`. Keep `SESSION_STATE.md` short and move long notes elsewhere.

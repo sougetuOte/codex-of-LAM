@@ -16,6 +16,10 @@
 | 2. 環境を構築する | [クイックスタート](QUICKSTART.md) | 10分 |
 | 3. 日常の使い方を知る | [チートシート](CHEATSHEET.md) | 参照用 |
 
+Fresh repo では `SESSION_STATE.md` がまだ存在しないのが通常です。
+最初の Codex App セッションでは、`AGENTS.md` と `.codex/current-phase.md` を入口にして
+PLANNING から始め、`quick-save` 後に `SESSION_STATE.md` が作られます。
+
 ## コアコンセプト
 
 - **Active Retrieval (能動的検索)**: AI は受動的な記憶に頼るのではなく、能動的にコンテキストを検索・ロードしなければならない。
@@ -74,6 +78,7 @@ GitHub 上でリポジトリページ上部の **"Use this template"** ボタン
 
 Codex LAM の配布モデルは [docs/internal/10_DISTRIBUTION_MODEL.md](docs/internal/10_DISTRIBUTION_MODEL.md) を参照してください。
 この repo は template / starter kit の母艦として扱い、Codex App では `AGENTS.md`、`.codex/workflows/`、必要な `.agents/skills/` を入口にします。
+template 直後に `SESSION_STATE.md` がない場合はセットアップ失敗ではなく、新規プロジェクトの通常状態です。
 
 **参考ドキュメント:**
 - [テンプレートからリポジトリを作成する - GitHub Docs (日本語)](https://docs.github.com/ja/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
@@ -178,9 +183,9 @@ requirements → [承認] → design → [承認] → tasks → [承認] → BUI
 | Codex App | AI アシスタント実行環境 | 必須 |
 | Python 3.8+ | 補助 CLI / 検証ツールに必要 | 推奨 |
 | Git | バージョン管理 | 必須 |
-| [gitleaks](https://github.com/gitleaks/gitleaks) | シークレットスキャン（`/full-review` の G5 チェック） | 推奨 |
+| [gitleaks](https://github.com/gitleaks/gitleaks) | AUDITING / full review で使うシークレットスキャン | 推奨 |
 
-gitleaks が未インストールの場合、`/full-review` で Green State G5 が FAIL になります。不要な場合は `review-config.json` で `"gitleaks_enabled": false` を設定してください。
+gitleaks が未インストールの場合、シークレットスキャンを含む full review では Green State G5 が FAIL になります。不要な場合は `review-config.json` で `"gitleaks_enabled": false` を設定してください。
 
 ## ライセンス
 
