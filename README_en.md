@@ -6,6 +6,14 @@ This repository defines the **"Living Architect Model"**, a protocol set designe
 
 By placing these definition files in your project root, you transform a standard coding assistant into a proactive guardian of project consistency and health.
 
+## Public Release
+
+Codex Edition `v1.0.0` is the first public release of this repository as a Codex App template / starter kit.
+On GitHub, this repository is intended to be used as a **Template repository**. Each release also ships a ZIP asset containing tracked files only.
+
+Entries before `v1.0.0` in `CHANGELOG.md` are preserved historical records from the pre-Codex / Claude-era development line.
+The public Codex App edition starts at `v1.0.0`.
+
 ## Getting Started
 
 ![Codex LAM starter flow](docs/slides/assets/lam-starter-flow.svg)
@@ -78,6 +86,7 @@ then begin in PLANNING. `SESSION_STATE.md` is created after the first `quick-sav
 
 On GitHub, click the **"Use this template"** button at the top of this repository page to create a new repository with this structure pre-configured.
 If `SESSION_STATE.md` is missing right after template creation, that is expected for a new project, not a setup failure.
+If you want a pinned version, download the ZIP asset attached to the corresponding GitHub Release.
 
 **Reference Documentation:**
 - [Creating a repository from a template - GitHub Docs (English)](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)

@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+No unreleased changes.
+
+```
+============================================================
+  CODEX EDITION STARTS HERE
+  v1.0.0 is the first public Codex App template release.
+
+  Entries below v1.0.0 are preserved historical records from
+  the pre-Codex / Claude-era development line.
+============================================================
+```
+
+## [v1.0.0] - 2026-05-10
+
+### 概要
+
+Codex App 前提の Living Architect Model template / starter kit としての初公開版。
+GitHub template repository と release ZIP asset による配布を想定し、
+旧 Claude Code runtime 依存を active control surface から外した。
+
+### Added
+
+- **Release**: Codex Edition `v1.0.0` として公開するための境界表示を追加。
+- **GitHub**: public repository 向けの最小 `.github/` support files を追加。
+- **Docs**: template repository / release ZIP asset としての利用導線を README 日英版に追記。
+
 ### Changed
 
 - **Docs**: distribution collateral refreshed for Codex App.
