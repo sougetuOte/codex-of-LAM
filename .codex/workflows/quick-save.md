@@ -40,8 +40,8 @@ and leave only a short pointer in `SESSION_STATE.md`.
 
 ## Do Not Pull In By Default
 
-- `.claude/logs/loop-*.txt`
-- `.claude/logs/permission.log`
+- Claude Code loop logs
+- Claude Code permission logs
 - KPI aggregation
 - Claude-specific restart instructions
 

@@ -51,8 +51,9 @@ Approval gates are: requirements, design, tasks, building, auditing.
   normal `pwsh -NoProfile` tasks unless another shell is explicitly required.
 - Treat profile-loaded PowerShell output as context noise and avoid it during
   normal work.
-- Treat `.claude/` as legacy compatibility material unless a task explicitly
-  targets Claude Code.
+- Do not restore `.claude/` as an active runtime directory. If legacy Claude
+  material is needed, use the external reference snapshot recorded in
+  `docs/migration/claude-archive-delete-gate.md`.
 
 ## Review Protocol
 
@@ -84,10 +85,11 @@ enough that each phase can be reviewed independently.
   `-p no:cacheprovider --basetemp C:\tmp\pytest-codex-lam-<timestamp>` のような
   一意の basetemp を使う。sandbox で同じ ACL 失敗が出たら、同じ条件で再試行せず、
   権限外実行またはユーザー側の手動 cleanup を検討する。
-- `.claude/agents/` や subagent 定義を Codex へ移すときは、基本的に役割別
-  レビュー観点、作業手順、workflow、task generation guidance として文書化する。
-  ただし一律変換せず、design や tasks を作る時点で各 agent/subagent ごとに
-  Codex での扱いを個別確認する。
+- 旧 Claude Code の agent / skill / hook 資料を Codex へ移すときは、
+  `docs/migration/claude-archive-delete-gate.md` に記録された外部参照
+  スナップショットを参照し、役割別レビュー観点、作業手順、workflow、
+  task generation guidance として再表現する。`.claude/` を active runtime
+  directory として戻さない。
 - `.agents/` がローカルに存在する場合は、Codex アプリまたはローカル作業用の
   スキルミラーとして扱う。Codex App Refresh Wave で採用済みの project skill
   だけは template candidate として追跡してよい。未採用の `.agents/` 配下は、

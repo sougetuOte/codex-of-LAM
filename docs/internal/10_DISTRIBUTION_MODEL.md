@@ -150,7 +150,7 @@ docs-only sample に載せる候補:
 ## 5. 非目標
 
 - `.codex/workflows/` をそのまま slash command とみなすこと。
-- Claude Code の `.claude/commands/` を Codex App へ一律変換すること。
+- Claude Code の legacy commands を Codex App へ一律変換すること。
 - 既存プロジェクトへの導入時に、ユーザーの既存 docs / tasks / rules を無確認で上書きすること。
 - template repository と user-level skill / plugin の責務を混ぜること。
 - project skill を `AGENTS.md` や requirements / design / tasks の代替 truth source にすること。

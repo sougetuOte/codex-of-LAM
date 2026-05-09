@@ -25,5 +25,6 @@ before following a risky override.
 
 ## Legacy Boundary
 
-The `.claude/` tree is legacy input. It can be mined for concepts and fixtures,
+Claude-era material is legacy input. It can be mined from the external
+reference snapshot recorded in `docs/migration/claude-archive-delete-gate.md`,
 but Codex LAM's source of truth is `.codex/`, `AGENTS.md`, and `docs/`.

@@ -91,8 +91,8 @@ Claude legacy では以下の多層モデルで運用されていた:
 | Permission Layer | 名称 | 実装 | 粒度 |
 |:---:|:---|:---|:---|
 | 0 | 憲法的プロンプティング | 本ドキュメント Section 2 | コマンドカテゴリ |
-| 1 | ネイティブ権限 | `.claude/settings.json` の `permissions` | ツール×パターン |
-| 2 | 動的 hook 判定 | `.claude/hooks/pre-tool-use.py` | ファイルパス×権限等級 |
+| 1 | ネイティブ権限 | Claude Code settings の `permissions` | ツール×パターン |
+| 2 | 動的 hook 判定 | Claude Code hook scripts | ファイルパス×権限等級 |
 
 > **用語注意**: 本セクションの「Permission Layer 0/1/2」は権限制御の多層モデルを指す。
 > `00_PROJECT_STRUCTURE.md` Section 3 の「情報層 1/2/3」（SSOT の情報階層）とは別の概念である。
@@ -101,7 +101,7 @@ Claude legacy では以下の多層モデルで運用されていた:
 > `settings.json`（Layer 1）では、B-1 のうち回復不能なもの（`rm` 等）を `deny`（実行不可）、
 > それ以外（`git push` 等）を `ask`（確認後実行可）に細分化している。
 
-この legacy runtime は参考資料として残すが、Codex でそのまま直移植する前提ではない。
+この legacy runtime は外部参照スナップショットに残すが、Codex でそのまま直移植する前提ではない。
 
 ### 権限等級 (PG/SE/PM)
 
@@ -112,8 +112,8 @@ PG/SE/PM は、Codex でも有用な判断原理として扱う。
 - **SE級**: 許可 + 修正後にユーザーへ報告（src/ 配下の変更、ドキュメント更新等）
 - **PM級**: ask 応答で承認ダイアログを表示（仕様書、ADR、ルールファイル、設定ファイルの変更）
 
-詳細な分類原理は `.claude/rules/permission-levels.md` を legacy source として参照しつつ、
-Codex の canonical rule は `AGENTS.md` と本ドキュメントで管理する。
+詳細な分類原理は外部 legacy snapshot を参照できるが、Codex の canonical rule は
+`AGENTS.md` と本ドキュメントで管理する。
 standalone validator 化は将来候補だが、現 wave の baseline ではない。
 
 ### Automation Boundary

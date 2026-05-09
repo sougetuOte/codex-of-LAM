@@ -56,7 +56,7 @@ Prefer pointers over pasted detail. `SESSION_STATE.md` should answer: what happe
 - Long chronological logs
 - Raw worker transcripts
 - TDD raw logs or KPI aggregation
-- `.claude/` logs or Claude-specific restart instructions
+- Claude Code logs or Claude-specific restart instructions
 - Full requirements, design, task, or review text
 
 If those details are needed, put them in an appropriate artifact such as `docs/daily/` and reference that file briefly.

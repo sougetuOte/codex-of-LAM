@@ -46,5 +46,5 @@ Turn intent into reviewable artifacts before implementation starts.
 ## Forbidden In This Phase
 
 - Broad production code rewrites.
-- Treating `.claude/settings.json` or Claude hooks as Codex runtime controls.
+- Treating Claude Code settings or hooks as Codex runtime controls.
 - Skipping approval gates for requirements, design, and tasks.

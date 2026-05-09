@@ -16,4 +16,5 @@ def test_lam_stop_hook_retirement_is_documented() -> None:
 
     assert "lam-stop-hook" in gate
     assert "archive / delete" in gate
-    assert "No file movement or deletion is approved" in gate
+    assert "LivingArchitectModel-legacy-v4.6.1-reference" in gate
+    assert "Restore Procedure" in gate

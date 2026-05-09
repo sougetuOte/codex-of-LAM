@@ -120,5 +120,5 @@ AUDITING フェーズでの修正は権限等級に基づく:
 - **SE級**: 修正後に報告（テスト追加、内部リファクタリング等）
 - **PM級**: 指摘のみ、承認ゲート（仕様変更、アーキテクチャ変更等）
 
-詳細な分類原理は `.claude/rules/permission-levels.md` を legacy source として参照しつつ、
-Codex の canonical rule は `AGENTS.md` と `docs/internal/07_SECURITY_AND_AUTOMATION.md` を参照する。
+詳細な分類原理は外部 legacy snapshot を参照できるが、Codex の canonical rule は
+`AGENTS.md` と `docs/internal/07_SECURITY_AND_AUTOMATION.md` を参照する。

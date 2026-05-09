@@ -16,4 +16,5 @@ def test_pre_compact_hook_retirement_is_documented() -> None:
 
     assert "pre-compact" in gate
     assert "archive / delete" in gate
-    assert "No file movement or deletion is approved" in gate
+    assert "LivingArchitectModel-legacy-v4.6.1-reference" in gate
+    assert "Restore Procedure" in gate
