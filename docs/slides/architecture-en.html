@@ -357,23 +357,22 @@ graph TD
   User["User"] --> CC["Codex App"]
   CC --> Workflows[".codex/workflows"]
   CC --> Skills[".agents/skills"]
-  CC --> Skills["Skills"]
-  CC --> Agents["Subagents"]
-  Hooks --> Pre["PreToolUse"]
-  Hooks --> Post["PostToolUse"]
-  Hooks --> Stop["Stop hook"]
-  Commands --> PL["planning"]
-  Commands --> BL["building"]
-  Commands --> AU["auditing"]
-  CC --> Rules["Rules"]
-  CC --> Docs["Documents"]
-  CC --> States["State Management"]
+  CC --> Collaboration["Codex collaboration"]
+  Collaboration --> Plan["plan / commentary"]
+  Collaboration --> Review["review pane"]
+  Collaboration --> Browser["in-app browser"]
+  CC --> Phases["Phases"]
+  Phases --> PL["PLANNING"]
+  Phases --> BL["BUILDING"]
+  Phases --> AU["AUDITING"]
+  CC --> Rules["AGENTS.md / .codex"]
+  CC --> Docs["docs/"]
+  CC --> States["SESSION_STATE"]
   style User fill:#569cd6,stroke:#fff,color:#fff
   style CC fill:#4ec9b0,stroke:#fff,color:#000
-  style Hooks fill:#ce9178,stroke:#fff,color:#000
-  style Commands fill:#569cd6,stroke:#fff,color:#fff
+  style Collaboration fill:#ce9178,stroke:#fff,color:#000
+  style Phases fill:#569cd6,stroke:#fff,color:#fff
   style Skills fill:#4ec9b0,stroke:#fff,color:#000
-  style Agents fill:#4ec9b0,stroke:#fff,color:#000
   style Rules fill:#ce9178,stroke:#fff,color:#000
   style Docs fill:#569cd6,stroke:#fff,color:#fff
   style States fill:#2d2d2d,stroke:#4ec9b0,color:#fff
@@ -394,60 +393,76 @@ graph TD
         </div>
       </section>
 
-      <!-- Slide 4: Immune System Overview -->
+      <!-- Slide 4: Guardrail Overview -->
       <section>
-        <h2>Immune System Overview</h2>
+        <h2>Guardrail Overview</h2>
         <pre class="mermaid">
 graph LR
-  Pre["PreToolUse<br/>Permission Check"] --> Tool[Tool Execution]
-  Tool --> Post["PostToolUse<br/>Pattern Recording"]
-  Post --> Stop["Stop hook<br/>Loop Control"]
-  style Pre fill:#ce9178,stroke:#fff,color:#000
-  style Tool fill:#4ec9b0,stroke:#fff,color:#000
-  style Post fill:#569cd6,stroke:#fff,color:#fff
-  style Stop fill:#ce9178,stroke:#fff,color:#000
+  Intent["Intent check"] --> Gate["Approval gate"]
+  Gate --> Work["Small execution"]
+  Work --> Verify["Verification"]
+  Verify --> Audit["AUDITING"]
+  style Intent fill:#ce9178,stroke:#fff,color:#000
+  style Gate fill:#569cd6,stroke:#fff,color:#fff
+  style Work fill:#4ec9b0,stroke:#fff,color:#000
+  style Verify fill:#569cd6,stroke:#fff,color:#fff
+  style Audit fill:#ce9178,stroke:#fff,color:#000
         </pre>
-        <p style="font-size: 0.85em; margin-top: 0.8rem;">Monitoring all tool operations to protect the project with <strong>3 layers of defense</strong></p>
+        <p style="font-size: 0.85em; margin-top: 0.8rem;">Default operation relies on gates, planning, verification, and review. Codex hooks are a feature-flagged optional advanced path.</p>
       </section>
 
-      <!-- Slide 5: PreToolUse — The Gatekeeper -->
+      <!-- Slide 5: Approval gate — The Gatekeeper -->
       <section>
-        <h2>PreToolUse &mdash; The Gatekeeper</h2>
-        <p style="font-size: 0.85em; color: var(--accent-warning);">File path-based permission checks</p>
+        <h2>Approval gate &mdash; The Gatekeeper</h2>
+        <p style="font-size: 0.85em; color: var(--accent-warning);">Human review points are placed according to phase and change type.</p>
         <ul style="margin-top: 0.8rem; font-size: 0.85em;">
-          <li>Changes to <code>docs/specs/</code>, <code>docs/adr/</code>, <code>AGENTS.md</code> &rarr; <strong>PM level</strong> (approval required)</li>
-          <li>Changes to <code>src/</code> &rarr; <strong>SE level</strong> (report after fix)</li>
-          <li>Formatting fixes, etc. &rarr; <strong>PG level</strong> (auto-approved)</li>
+          <li>requirements / ADR / design / tasks &rarr; proceed after approval</li>
+          <li>Implementation changes &rarr; TDD and focused verification</li>
+          <li>Publication, deletion, or distribution decisions &rarr; explicit release gate</li>
         </ul>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
-          <p style="font-size: 0.85em;">Every write operation is permission-checked <strong>before</strong> execution</p>
+          <p style="font-size: 0.85em;">Do not rely on automatic blocking alone; judge from conversation, plans, diffs, and verification evidence.</p>
         </div>
       </section>
 
-      <!-- Slide 6: PostToolUse — The Learner -->
+      <!-- Slide 6: Verification evidence — The Learner -->
       <section>
-        <h2>PostToolUse &mdash; The Learner</h2>
+        <h2>Verification evidence &mdash; The Learner</h2>
         <ul style="margin-top: 1rem; font-size: 0.85em;">
-          <li>Auto-detection of test failure &rarr; success patterns</li>
-          <li>Recording to <code>tdd-patterns.log</code> (PG level, automatic)</li>
-          <li>doc-sync-flag generation (on <code>src/</code> changes)</li>
+          <li>Record Red / Green / Refactor and verification commands</li>
+          <li>Move long history to <code>docs/artifacts/</code> or <code>docs/daily/</code></li>
+          <li>Keep only short resume facts in <code>SESSION_STATE.md</code></li>
         </ul>
         <div class="emphasis-box fragment" style="margin-top: 1rem;">
-          <p style="font-size: 0.85em;">Accumulating failure and success <strong>patterns</strong> to drive framework evolution</p>
+          <p style="font-size: 0.85em;">Keep results visible so the next gate can judge from evidence.</p>
         </div>
       </section>
 
-      <!-- Slide 7: Stop Hook — Loop Control -->
+      <!-- Slide 7: Green State — Convergence -->
       <section>
-        <h2>Stop Hook &mdash; Loop Control</h2>
+        <h2>Green State &mdash; Convergence</h2>
         <ul style="margin-top: 1rem; font-size: 0.85em;">
-          <li>State management via <code>lam-loop-state.json</code></li>
-          <li>Green State evaluation (tests + lint)</li>
-          <li>Iteration limit (default: 5 rounds)</li>
-          <li>Full scan control (diff &rarr; full, two-stage)</li>
+          <li>Required tests, lint, and static scans pass</li>
+          <li>Known blockers and residual risks are visible</li>
+          <li>Open decisions are not hidden in the next gate</li>
+          <li>Long work can be paused safely with quick-save</li>
         </ul>
         <div class="emphasis-box warning-box fragment" style="margin-top: 0.8rem;">
-          <p style="font-size: 0.85em;">A safety mechanism to prevent infinite loops and <strong>ensure convergence</strong></p>
+          <p style="font-size: 0.85em;">Code alone is not done. Verification evidence is part of completion.</p>
+        </div>
+      </section>
+
+      <!-- Slide 7.5: Codex hooks optional path -->
+      <section>
+        <h2>Codex hooks &mdash; optional path</h2>
+        <ul style="margin-top: 1rem; font-size: 0.85em;">
+          <li>Enable lifecycle hooks with <code>features.codex_hooks = true</code></li>
+          <li>Candidate events include <code>PreToolUse</code>, <code>PermissionRequest</code>, <code>PostToolUse</code>, <code>UserPromptSubmit</code>, and <code>Stop</code></li>
+          <li><code>Stop</code> may support a future Codex-native full-review pilot</li>
+          <li>Because hooks are not a complete enforcement boundary, do not make them the default public-template runtime yet</li>
+        </ul>
+        <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
+          <p style="font-size: 0.85em;">Today's substitute is context-harvest + magi + review pane + focused verification</p>
         </div>
       </section>
 
@@ -575,16 +590,16 @@ graph LR
         </pre>
       </section>
 
-      <!-- Slide 12: lam-orchestrate (merged from ultimate-think) -->
+      <!-- Slide 12: lam-orchestrate -->
       <section>
-        <h2>/lam-orchestrate</h2>
-        <p style="font-size: 0.85em; margin-bottom: 0.6rem;">Task decomposition, parallel execution + structured thinking (MAGI System). Also available standalone via <code>/magi</code></p>
+        <h2>lam-orchestrate</h2>
+        <p style="font-size: 0.85em; margin-bottom: 0.6rem;">Guidance for decomposing multi-file work and using structured thinking with MAGI System.</p>
         <pre class="mermaid">
 graph TD
   T["Large task"] --> D["Task decomposition"]
-  D --> S1["Subagent 1<br>code-reviewer"]
-  D --> S2["Subagent 2<br>test-runner"]
-  D --> S3["Subagent 3<br>doc-writer"]
+  D --> S1["worker 1<br>review evidence"]
+  D --> S2["worker 2<br>verification evidence"]
+  D --> S3["worker 3<br>documentation evidence"]
   S1 --> M["Result integration"]
   S2 --> M
   S3 --> M
@@ -596,7 +611,7 @@ graph TD
   style M fill:#ce9178,stroke:#fff,color:#000
         </pre>
         <div class="emphasis-box fragment">
-          <p style="font-size: 0.8em;"><strong>Automatic decomposition and parallel execution</strong> of work spanning multiple files/modules. Uses MAGI System + Reflection to <strong>suppress hallucination</strong> in design decisions</p>
+          <p style="font-size: 0.8em;">Delegation is for evidence gathering and bounded implementation; final gate judgment stays with the Living Architect.</p>
         </div>
       </section>
 
@@ -605,12 +620,12 @@ graph TD
         <h2>Save / Load Mechanism</h2>
         <table style="margin-top: 0.8rem;">
           <thead>
-            <tr><th>Command</th><th>Purpose</th><th>Cost</th></tr>
+            <tr><th>Skill</th><th>Purpose</th><th>Cost</th></tr>
           </thead>
           <tbody>
             <tr><td><code>quick-save</code></td><td>Short SESSION_STATE.md update</td><td>Lightweight handoff</td></tr>
             <tr><td><code>quick-load</code></td><td>Minimal confirmation bundle</td><td>Daily resume</td></tr>
-            <tr><td><code>ship</code></td><td>Logical group commits</td><td>When commits are needed</td></tr>
+            <tr><td><code>release review</code></td><td>Smoke checks and residual-risk decision before publication</td><td>Release boundary</td></tr>
           </tbody>
         </table>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
@@ -627,12 +642,10 @@ graph TD
             &nbsp;&nbsp;&boxvr;&nbsp; workflows/&nbsp;&nbsp;&larr; Codex-native workflows<br>
             <span style="color: var(--accent-primary); font-weight: 600;">.agents/skills/</span><br>
             &nbsp;&nbsp;&boxvr;&nbsp; quick-load/&nbsp;&nbsp;&larr; resume skill<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; skills/&nbsp;&nbsp;&nbsp;&nbsp;&larr; Skill Definitions<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; agents/&nbsp;&nbsp;&nbsp;&nbsp;&larr; Subagents<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; <span style="color: var(--accent-warning);">hooks/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; Immune System<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; states/&nbsp;&nbsp;&nbsp;&nbsp;&larr; State Files<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; agent-memory/&larr; Subagent Learning<br>
-            &nbsp;&nbsp;&boxur;&nbsp; <span style="color: var(--accent-warning);">settings.json</span>&nbsp;&larr; Permission Settings
+            &nbsp;&nbsp;&boxvr;&nbsp; quick-save/&nbsp;&nbsp;&larr; save skill<br>
+            &nbsp;&nbsp;&boxvr;&nbsp; magi/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; decision guidance<br>
+            &nbsp;&nbsp;&boxvr;&nbsp; context-harvest/&nbsp;&larr; corpus harvesting<br>
+            &nbsp;&nbsp;&boxur;&nbsp; hooks.json&nbsp;&nbsp;&larr; optional advanced path<br>
           </div>
           <div class="dir-tree">
             <span style="color: var(--accent-secondary); font-weight: 600;">docs/</span><br>

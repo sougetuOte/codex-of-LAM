@@ -345,7 +345,7 @@
 
       <!-- Slide 1: Title -->
       <section>
-        <h1>Architecture<br>Deep Dive</h1>
+        <h1>アーキテクチャ<br>Deep Dive</h1>
         <p class="catchphrase">LAM の内部構造を理解する</p>
       </section>
 
@@ -357,97 +357,112 @@ graph TD
   User["ユーザー"] --> CC["Codex App"]
   CC --> Workflows[".codex/workflows"]
   CC --> Skills[".agents/skills"]
-  CC --> Skills["スキル skills"]
-  CC --> Agents["サブエージェント agents"]
-  Hooks --> Pre["PreToolUse"]
-  Hooks --> Post["PostToolUse"]
-  Hooks --> Stop["Stop hook"]
-  Commands --> PL["planning"]
-  Commands --> BL["building"]
-  Commands --> AU["auditing"]
-  CC --> Rules["ルール rules"]
-  CC --> Docs["ドキュメント docs"]
-  CC --> States["状態管理 states"]
+  CC --> Collaboration["Codex 協働"]
+  Collaboration --> Plan["plan / commentary"]
+  Collaboration --> Review["review pane"]
+  Collaboration --> Browser["in-app browser"]
+  CC --> Phases["フェーズ"]
+  Phases --> PL["PLANNING"]
+  Phases --> BL["BUILDING"]
+  Phases --> AU["AUDITING"]
+  CC --> Rules["AGENTS.md / .codex"]
+  CC --> Docs["docs/"]
+  CC --> States["SESSION_STATE"]
   style User fill:#569cd6,stroke:#fff,color:#fff
   style CC fill:#4ec9b0,stroke:#fff,color:#000
-  style Hooks fill:#ce9178,stroke:#fff,color:#000
-  style Commands fill:#569cd6,stroke:#fff,color:#fff
+  style Collaboration fill:#ce9178,stroke:#fff,color:#000
+  style Phases fill:#569cd6,stroke:#fff,color:#fff
   style Skills fill:#4ec9b0,stroke:#fff,color:#000
-  style Agents fill:#4ec9b0,stroke:#fff,color:#000
   style Rules fill:#ce9178,stroke:#fff,color:#000
   style Docs fill:#569cd6,stroke:#fff,color:#fff
   style States fill:#2d2d2d,stroke:#4ec9b0,color:#fff
         </pre>
       </section>
 
-      <!-- Slide 3: Hierarchy of Truth -->
+      <!-- Slide 3: Truth Hierarchy -->
       <section>
-        <h2>Hierarchy of Truth</h2>
+        <h2>Truth Hierarchy</h2>
         <div class="pyramid">
-          <div class="pyramid-level" style="background: var(--accent-primary); color: #000; width: 40%;">1. User Intent</div>
-          <div class="pyramid-level" style="background: var(--accent-secondary); color: #fff; width: 55%;">2. Architecture &amp; Protocols (docs/internal/)</div>
-          <div class="pyramid-level" style="background: var(--accent-warning); color: #000; width: 70%;">3. Specifications (docs/specs/)</div>
-          <div class="pyramid-level" style="background: var(--code-background); color: #fff; width: 85%; border: 1px solid #555;">4. Existing Code</div>
+          <div class="pyramid-level" style="background: var(--accent-primary); color: #000; width: 40%;">1. ユーザー意図</div>
+          <div class="pyramid-level" style="background: var(--accent-secondary); color: #fff; width: 55%;">2. .codex と workflow</div>
+          <div class="pyramid-level" style="background: var(--accent-warning); color: #000; width: 70%;">3. requirements / ADR / design / tasks</div>
+          <div class="pyramid-level" style="background: var(--code-background); color: #fff; width: 85%; border: 1px solid #555;">4. 既存コードとテスト</div>
         </div>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
           <p style="font-size: 0.85em;">仕様とコードが矛盾する場合、<strong>コードがバグ</strong></p>
         </div>
       </section>
 
-      <!-- Slide 4: 免疫システム概要 -->
+      <!-- Slide 4: 防御レイヤー概要 -->
       <section>
-        <h2>免疫システム概要</h2>
+        <h2>防御レイヤー概要</h2>
         <pre class="mermaid">
 graph LR
-  Pre["PreToolUse<br/>権限チェック"] --> Tool[ツール実行]
-  Tool --> Post["PostToolUse<br/>パターン記録"]
-  Post --> Stop["Stop hook<br/>ループ制御"]
-  style Pre fill:#ce9178,stroke:#fff,color:#000
-  style Tool fill:#4ec9b0,stroke:#fff,color:#000
-  style Post fill:#569cd6,stroke:#fff,color:#fff
-  style Stop fill:#ce9178,stroke:#fff,color:#000
+  Intent["意図確認"] --> Gate["承認 gate"]
+  Gate --> Work["小さく実行"]
+  Work --> Verify["検証"]
+  Verify --> Audit["AUDITING"]
+  style Intent fill:#ce9178,stroke:#fff,color:#000
+  style Gate fill:#569cd6,stroke:#fff,color:#fff
+  style Work fill:#4ec9b0,stroke:#fff,color:#000
+  style Verify fill:#569cd6,stroke:#fff,color:#fff
+  style Audit fill:#ce9178,stroke:#fff,color:#000
         </pre>
-        <p style="font-size: 0.85em; margin-top: 0.8rem;">全てのツール操作を監視し、プロジェクトを守る<strong>3層の防御</strong></p>
+        <p style="font-size: 0.85em; margin-top: 0.8rem;">通常運用は承認 gate、計画、検証、レビュー。Codex hooks は feature flag 配下の optional advanced path として扱う</p>
       </section>
 
-      <!-- Slide 5: PreToolUse — 門番 -->
+      <!-- Slide 5: 承認 gate — 門番 -->
       <section>
-        <h2>PreToolUse &mdash; 門番</h2>
-        <p style="font-size: 0.85em; color: var(--accent-warning);">ファイルパスベースの権限チェック</p>
+        <h2>承認 gate &mdash; 門番</h2>
+        <p style="font-size: 0.85em; color: var(--accent-warning);">phase と変更種別に応じて、人間の確認点を置く</p>
         <ul style="margin-top: 0.8rem; font-size: 0.85em;">
-          <li><code>docs/specs/</code>, <code>docs/adr/</code>, <code>AGENTS.md</code> への変更 &rarr; <strong>PM級</strong>（承認必須）</li>
-          <li><code>src/</code> への変更 &rarr; <strong>SE級</strong>（修正後報告）</li>
-          <li>フォーマット修正等 &rarr; <strong>PG級</strong>（自動許可）</li>
+          <li>requirements / ADR / design / tasks &rarr; 承認後に次へ進む</li>
+          <li>実装変更 &rarr; TDD と focused verification で確認</li>
+          <li>公開・削除・配布判断 &rarr; release gate として明示</li>
         </ul>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
-          <p style="font-size: 0.85em;">全ての書き込み操作が、実行<strong>前に</strong>権限チェックされる</p>
+          <p style="font-size: 0.85em;">自動ブロックだけに頼らず、会話・plan・差分・検証結果を見て判断する</p>
         </div>
       </section>
 
-      <!-- Slide 6: PostToolUse — 学習者 -->
+      <!-- Slide 6: 検証記録 — 学習者 -->
       <section>
-        <h2>PostToolUse &mdash; 学習者</h2>
+        <h2>検証記録 &mdash; 学習者</h2>
         <ul style="margin-top: 1rem; font-size: 0.85em;">
-          <li>テスト失敗 &rarr; 成功パターンの自動検出</li>
-          <li><code>tdd-patterns.log</code> への記録（PG級、自動）</li>
-          <li>doc-sync-flag の生成（<code>src/</code> 変更時）</li>
+          <li>Red / Green / Refactor と検証コマンドを残す</li>
+          <li>長い履歴は <code>docs/artifacts/</code> や <code>docs/daily/</code> へ逃がす</li>
+          <li><code>SESSION_STATE.md</code> には次回復帰に必要な短い要点だけ残す</li>
         </ul>
         <div class="emphasis-box fragment" style="margin-top: 1rem;">
-          <p style="font-size: 0.85em;">失敗と成功の<strong>パターン</strong>を蓄積し、フレームワークの進化に繋げる</p>
+          <p style="font-size: 0.85em;">結果を見える形に残し、次の判断で読み返せるようにする</p>
         </div>
       </section>
 
-      <!-- Slide 7: Stop hook — ループ制御 -->
+      <!-- Slide 7: Green State — 収束判断 -->
       <section>
-        <h2>Stop hook &mdash; ループ制御</h2>
+        <h2>Green State &mdash; 収束判断</h2>
         <ul style="margin-top: 1rem; font-size: 0.85em;">
-          <li><code>lam-loop-state.json</code> による状態管理</li>
-          <li>Green State 判定（テスト + lint）</li>
-          <li>反復回数制限（デフォルト5回）</li>
-          <li>フルスキャン制御（差分 &rarr; 全体の二段階）</li>
+          <li>必要なテスト・lint・静的 scan が通っている</li>
+          <li>既知の blocker と残リスクが明示されている</li>
+          <li>未解決の判断を次の gate に隠して持ち越さない</li>
+          <li>作業が長くなる前に quick-save で安全に区切れる</li>
         </ul>
         <div class="emphasis-box warning-box fragment" style="margin-top: 0.8rem;">
-          <p style="font-size: 0.85em;">無限ループを防ぎ、<strong>確実に収束させる</strong>ための安全装置</p>
+          <p style="font-size: 0.85em;">コードがあるだけでは完了ではない。検証結果までが完了条件</p>
+        </div>
+      </section>
+
+      <!-- Slide 7.5: Codex hooks optional path -->
+      <section>
+        <h2>Codex hooks &mdash; optional path</h2>
+        <ul style="margin-top: 1rem; font-size: 0.85em;">
+          <li><code>features.codex_hooks = true</code> で lifecycle hooks を有効化できる</li>
+          <li><code>PreToolUse</code>, <code>PermissionRequest</code>, <code>PostToolUse</code>, <code>UserPromptSubmit</code>, <code>Stop</code> が候補</li>
+          <li><code>Stop</code> は将来の Codex-native full-review pilot に使える可能性がある</li>
+          <li>ただし complete enforcement boundary ではないため、公開 template の標準 runtime にはまだ入れない</li>
+        </ul>
+        <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
+          <p style="font-size: 0.85em;">現時点の代替は context-harvest + magi + review pane + focused verification</p>
         </div>
       </section>
 
@@ -567,16 +582,16 @@ graph LR
         </pre>
       </section>
 
-      <!-- Slide 12: lam-orchestrate（旧 ultimate-think を統合） -->
+      <!-- Slide 12: lam-orchestrate -->
       <section>
-        <h2>/lam-orchestrate</h2>
-        <p style="font-size: 0.85em; margin-bottom: 0.6rem;">タスク分解・並列実行 + 構造化思考（MAGI System）を統合。<code>/magi</code> で単独起動も可能</p>
+        <h2>lam-orchestrate</h2>
+        <p style="font-size: 0.85em; margin-bottom: 0.6rem;">複数ファイル作業の分解・並列実行 + 構造化思考（MAGI System）の guidance</p>
         <pre class="mermaid">
 graph TD
   T["大きなタスク"] --> D["タスク分解"]
-  D --> S1["Subagent 1<br>code-reviewer"]
-  D --> S2["Subagent 2<br>test-runner"]
-  D --> S3["Subagent 3<br>doc-writer"]
+  D --> S1["worker 1<br>レビュー観点"]
+  D --> S2["worker 2<br>検証観点"]
+  D --> S3["worker 3<br>文書観点"]
   S1 --> M["結果統合"]
   S2 --> M
   S3 --> M
@@ -588,7 +603,7 @@ graph TD
   style M fill:#ce9178,stroke:#fff,color:#000
         </pre>
         <div class="emphasis-box fragment">
-          <p style="font-size: 0.8em;">複数ファイル/モジュールにまたがる作業を<strong>自動分解・並列実行</strong>。設計判断では MAGI System + Reflection で<strong>ハルシネーションを抑制</strong></p>
+          <p style="font-size: 0.8em;">分担は evidence 採掘と小さな実装に使い、最終 gate 判断は Living Architect が保持する</p>
         </div>
       </section>
 
@@ -597,12 +612,12 @@ graph TD
         <h2>セーブ / ロード機構</h2>
         <table style="margin-top: 0.8rem;">
           <thead>
-            <tr><th>コマンド</th><th>用途</th><th>コスト</th></tr>
+            <tr><th>skill</th><th>用途</th><th>コスト</th></tr>
           </thead>
           <tbody>
             <tr><td><code>quick-save</code></td><td>SESSION_STATE.md を短く更新</td><td>軽量 handoff</td></tr>
             <tr><td><code>quick-load</code></td><td>最小確認 bundle</td><td>日常の再開</td></tr>
-            <tr><td><code>ship</code></td><td>論理グループ分けコミット</td><td>コミットが必要な時</td></tr>
+            <tr><td><code>release review</code></td><td>公開前の smoke と残リスク判断</td><td>区切りの判断</td></tr>
           </tbody>
         </table>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
@@ -619,12 +634,10 @@ graph TD
             &nbsp;&nbsp;&boxvr;&nbsp; workflows/&nbsp;&nbsp;&larr; Codex-native workflow<br>
             <span style="color: var(--accent-primary); font-weight: 600;">.agents/skills/</span><br>
             &nbsp;&nbsp;&boxvr;&nbsp; quick-load/&nbsp;&nbsp;&larr; 復帰 skill<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; skills/&nbsp;&nbsp;&nbsp;&nbsp;&larr; スキル定義<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; agents/&nbsp;&nbsp;&nbsp;&nbsp;&larr; サブエージェント<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; <span style="color: var(--accent-warning);">hooks/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; 免疫システム<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; states/&nbsp;&nbsp;&nbsp;&nbsp;&larr; 状態ファイル<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; agent-memory/&larr; Subagent 学習記録<br>
-            &nbsp;&nbsp;&boxur;&nbsp; <span style="color: var(--accent-warning);">settings.json</span>&nbsp;&larr; 権限設定
+            &nbsp;&nbsp;&boxvr;&nbsp; quick-save/&nbsp;&nbsp;&larr; 保存 skill<br>
+            &nbsp;&nbsp;&boxvr;&nbsp; magi/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; 判断 guidance<br>
+            &nbsp;&nbsp;&boxvr;&nbsp; context-harvest/&nbsp;&larr; 大量文脈採掘<br>
+            &nbsp;&nbsp;&boxur;&nbsp; hooks.json&nbsp;&nbsp;&larr; optional advanced path<br>
           </div>
           <div class="dir-tree">
             <span style="color: var(--accent-secondary); font-weight: 600;">docs/</span><br>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Codex LAM スターター導線</title>
+  <desc id="desc">Codex LAM template の流れを、template、計画、実装、監査、公開まで示す概要図。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101820"/>
+      <stop offset="1" stop-color="#1f2933"/>
+    </linearGradient>
+    <style>
+      .label { font: 700 28px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #f5f7fa; }
+      .small { font: 500 18px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #d8dee9; }
+      .note { font: 500 16px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #a7b1c2; }
+      .box { fill: #162334; stroke: #4fd1c5; stroke-width: 3; rx: 18; }
+      .gate { fill: #2a1f3a; stroke: #c084fc; stroke-width: 3; rx: 18; }
+      .ship { fill: #213622; stroke: #86efac; stroke-width: 3; rx: 18; }
+      .arrow { stroke: #d8dee9; stroke-width: 5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#d8dee9"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="520" fill="url(#bg)"/>
+  <text x="60" y="70" class="label">Codex LAM をスターターキットとして使う</text>
+  <text x="60" y="105" class="small">template、workflow、skill、gate、review 可能な文書を一緒に運ぶ。</text>
+  <rect x="70" y="170" width="190" height="135" class="box"/>
+  <text x="107" y="220" class="label">雛形</text>
+  <text x="100" y="255" class="small">AGENTS.md</text>
+  <text x="100" y="282" class="note">docs/internal</text>
+  <path d="M270 238 H345" class="arrow"/>
+  <rect x="365" y="170" width="190" height="135" class="gate"/>
+  <text x="415" y="220" class="label">計画</text>
+  <text x="397" y="255" class="small">requirements</text>
+  <text x="410" y="282" class="note">design / tasks</text>
+  <path d="M565 238 H640" class="arrow"/>
+  <rect x="660" y="170" width="190" height="135" class="box"/>
+  <text x="705" y="220" class="label">実装</text>
+  <text x="708" y="255" class="small">TDD loop</text>
+  <text x="696" y="282" class="note">focused tests</text>
+  <path d="M860 238 H935" class="arrow"/>
+  <rect x="955" y="170" width="190" height="135" class="ship"/>
+  <text x="998" y="220" class="label">公開</text>
+  <text x="995" y="255" class="small">review gate</text>
+  <text x="1000" y="282" class="note">commit / push</text>
+  <rect x="205" y="365" width="790" height="75" fill="#0f1720" stroke="#64748b" stroke-width="2" rx="18"/>
+  <text x="245" y="412" class="small">quick-load と quick-save が、次のセッションの現在地を保つ。</text>
+</svg>

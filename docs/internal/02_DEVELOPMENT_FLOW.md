@@ -93,7 +93,7 @@ Codex LAM では、TDD introspection を BUILDING の必須自動 gate にはし
 - FAIL -> PASS の要点と、必要なら retro 候補をユーザーへ報告する
 - code を変えたら、必要な spec / design / tasks / docs の同期有無を確認する
 
-追加の自動化が必要になった場合だけ、Claude `PostToolUse` 非依存の
+追加の自動化が必要になった場合だけ、特定 runtime の hook 実装に依存しない
 optional CLI または pytest helper として別設計する。
 常時自動記録や hook 直移植は標準前提にしない。
 

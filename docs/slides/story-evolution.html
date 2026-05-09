@@ -383,8 +383,8 @@ graph LR
         <h2>TDD 内省パイプライン</h2>
         <pre class="mermaid">
 graph LR
-  A[テスト失敗] --> B[PostToolUse hook<br/>が自動記録]
-  B --> C[tdd-patterns.log]
+  A[テスト失敗] --> B[TDD introspection<br/>に記録]
+  B --> C[verification log]
   C --> D{パターン蓄積}
   D -->|1回目| E[記録]
   D -->|2回目| F[注意]
@@ -397,7 +397,7 @@ graph LR
   style F fill:#ce9178,stroke:#fff,color:#000
   style G fill:#4ec9b0,stroke:#fff,color:#000
         </pre>
-        <p style="font-size: 0.85em; margin-top: 0.5rem;">同じ失敗パターンが <strong>2回</strong> 繰り返されると、<code>/retro</code> 実行時にルール候補が提案される</p>
+        <p style="font-size: 0.85em; margin-top: 0.5rem;">同じ失敗パターンが繰り返されたら、retro で改善候補として扱う</p>
       </section>
 
       <!-- Slide 5: パターン記録の例 -->
@@ -415,9 +415,9 @@ graph LR
         </div>
       </section>
 
-      <!-- Slide 6: /pattern-review で承認 -->
+      <!-- Slide 6: pattern review で承認 -->
       <section>
-        <h2>/pattern-review で承認</h2>
+        <h2>pattern review で承認</h2>
         <div class="chat-bubble ai">
           <span class="chat-label">Living Architect</span>
           <p>ルール候補が1件あります。review しますか？</p>
@@ -434,7 +434,7 @@ graph LR
         </div>
         <div class="chat-bubble ai fragment">
           <span class="chat-label">Living Architect</span>
-          <p><code>rule-001.md</code> として <code>.claude/rules/auto-generated/</code> に配置しました</p>
+          <p><code>docs/artifacts/knowledge/</code> の候補として記録しました</p>
         </div>
         <div class="emphasis-box warning-box fragment" style="margin-top: 0.5rem;">
           <p style="font-size: 0.85em;">ルールの追加は <strong>PM級</strong>。必ず人間が承認する</p>
@@ -445,7 +445,7 @@ graph LR
       <section>
         <h2><span class="cycle-badge cycle-2">Cycle 2</span> ルールが効く</h2>
         <ul style="margin-top: 1rem;">
-          <li>新しいルールが PreToolUse hook で自動適用</li>
+          <li>新しい作業ルールを AGENTS.md / workflow / skill に反映</li>
           <li>同じ失敗が発生しなくなる</li>
           <li>開発速度が向上</li>
         </ul>
@@ -459,7 +459,7 @@ graph LR
         <h2>ルール寿命管理</h2>
         <ul style="margin-top: 1rem;">
           <li>各ルールに <code>last_matched</code> 日付を記録</li>
-          <li>90日以上未使用のルールを <code>/quick-save</code> の Daily 記録で棚卸し通知</li>
+          <li>90日以上未使用のルールを quick-save 時の記録で棚卸し通知</li>
           <li>削除は PM級（人間承認必須）</li>
         </ul>
         <div class="emphasis-box fragment" style="margin-top: 1rem;">
@@ -476,7 +476,7 @@ graph LR
           </thead>
           <tbody>
             <tr><td>AUDITING は指摘のみ</td><td>PG/SE級は自動修正可</td></tr>
-            <tr><td>手動ループ</td><td>/full-review 自動収束</td></tr>
+            <tr><td>手動ループ</td><td>AUDITING review と focused verification</td></tr>
             <tr><td>ルールは手動作成</td><td>TDD 内省で自動候補生成</td></tr>
             <tr><td>フラットな権限</td><td>PG/SE/PM 三段階</td></tr>
           </tbody>

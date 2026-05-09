@@ -109,9 +109,6 @@ A: Use `quick-load` to resume. `SESSION_STATE.md` is the short handoff memo.
 
 A: Use `quick-save` to update `SESSION_STATE.md`. Put longer notes in `docs/daily/`, and keep git commits as a separate operation.
 
-### Q: Can I delete legacy Claude Code material?
-
-A: This template does not include `.claude/` as an active runtime directory. If you are migrating an existing project, review Codex parity and remaining dependencies first, then use the gate in `docs/migration/claude-archive-delete-gate.md` before archive or deletion decisions.
 
 ## Next Steps
 

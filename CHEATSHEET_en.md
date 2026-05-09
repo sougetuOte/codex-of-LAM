@@ -77,6 +77,7 @@ quick-save keeps `SESSION_STATE.md` short. Move long history, environment notes,
 | Read-only harvest and simple classification | 5.3-class models |
 | Large corpora | Preprocess with context-harvest |
 | Irreversible or high-risk decisions | GPT-5.5 |
+| Larger reviews | context-harvest + magi + review pane + focused verification |
 
 The Gatekeeper keeps judgment. Workers receive evidence gathering, mechanical updates, and disjoint implementation tasks.
 
@@ -92,6 +93,8 @@ The Gatekeeper keeps judgment. Workers receive evidence gathering, mechanical up
 | `clarify` | Ambiguity, contradiction, and gap checks |
 | `spec-template` | Spec creation |
 | `adr-template` | ADR creation |
+
+Codex hooks are an optional advanced path. Do not restore the old `full-review`; treat a Codex-native equivalent as a future pilot candidate.
 
 ## Reference Documents
 

@@ -175,6 +175,10 @@ The tables below list the main operating surfaces, but you don't need to memoriz
 | **BUILDING** | GPT-5.4; use 5.3-class models for simple read-only/classification work |
 | **AUDITING** | GPT-5.4; reserve GPT-5.5 for irreversible or high-risk judgments |
 
+For larger reviews today, harvest evidence with `context-harvest`, structure the decision with `magi`,
+then converge through the review pane and focused verification. Codex hooks are an optional advanced path;
+a Codex-native `full-review` equivalent remains a future pilot candidate.
+
 ## Requirements
 
 | Requirement | Purpose | Required |
@@ -182,9 +186,9 @@ The tables below list the main operating surfaces, but you don't need to memoriz
 | Codex App | AI assistant runtime | Required |
 | Python 3.8+ | Helper CLI and verification tooling | Recommended |
 | Git | Version control | Required |
-| [gitleaks](https://github.com/gitleaks/gitleaks) | Secret scanning for AUDITING / full review | Recommended |
+| [gitleaks](https://github.com/gitleaks/gitleaks) | Secret scanning for AUDITING | Recommended |
 
-If gitleaks is not installed, a full review that includes secret scanning will fail at Green State G5. Set `"gitleaks_enabled": false` in `review-config.json` to disable if not needed.
+If gitleaks is not installed, AUDITING that includes secret scanning will fail at Green State G5. Set `"gitleaks_enabled": false` in `review-config.json` to disable if not needed.
 
 ## License
 

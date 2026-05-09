@@ -383,8 +383,8 @@ graph LR
         <h2>TDD Introspection Pipeline</h2>
         <pre class="mermaid">
 graph LR
-  A[Test failure] --> B[PostToolUse hook<br/>auto-records]
-  B --> C[tdd-patterns.log]
+  A[Test failure] --> B[TDD introspection<br/>records evidence]
+  B --> C[verification log]
   C --> D{Pattern accumulation}
   D -->|1st time| E[Record]
   D -->|2nd time| F[Caution]
@@ -397,7 +397,7 @@ graph LR
   style F fill:#ce9178,stroke:#fff,color:#000
   style G fill:#4ec9b0,stroke:#fff,color:#000
         </pre>
-        <p style="font-size: 0.85em; margin-top: 0.5rem;">When the same failure pattern repeats <strong>2 times</strong>, a rule candidate is proposed during <code>/retro</code></p>
+        <p style="font-size: 0.85em; margin-top: 0.5rem;">When the same failure pattern repeats, treat it as an improvement candidate during retro.</p>
       </section>
 
       <!-- Slide 5: Pattern Recording Example -->
@@ -415,9 +415,9 @@ graph LR
         </div>
       </section>
 
-      <!-- Slide 6: Approval via /pattern-review -->
+      <!-- Slide 6: Approval via pattern review -->
       <section>
-        <h2>Approval via /pattern-review</h2>
+        <h2>Approval via pattern review</h2>
         <div class="chat-bubble ai">
           <span class="chat-label">Living Architect</span>
           <p>There is 1 rule candidate. Would you like to review it?</p>
@@ -434,7 +434,7 @@ graph LR
         </div>
         <div class="chat-bubble ai fragment">
           <span class="chat-label">Living Architect</span>
-          <p>Placed as <code>rule-001.md</code> in <code>.claude/rules/auto-generated/</code></p>
+          <p>Recorded as a candidate under <code>docs/artifacts/knowledge/</code></p>
         </div>
         <div class="emphasis-box warning-box fragment" style="margin-top: 0.5rem;">
           <p style="font-size: 0.85em;">Adding rules is <strong>PM Level</strong>. Human approval is always required</p>
@@ -445,7 +445,7 @@ graph LR
       <section>
         <h2><span class="cycle-badge cycle-2">Cycle 2</span> Rules Take Effect</h2>
         <ul style="margin-top: 1rem;">
-          <li>New rules are automatically applied via PreToolUse hook</li>
+          <li>New working rules are reflected in AGENTS.md, workflows, or skills</li>
           <li>The same failures stop occurring</li>
           <li>Development velocity increases</li>
         </ul>
@@ -459,7 +459,7 @@ graph LR
         <h2>Rule Lifecycle Management</h2>
         <ul style="margin-top: 1rem;">
           <li>Each rule records a <code>last_matched</code> date</li>
-          <li>Rules unused for 90+ days are flagged during <code>/quick-save</code> Daily record</li>
+          <li>Rules unused for 90+ days are flagged during quick-save records</li>
           <li>Deletion is PM Level (human approval required)</li>
         </ul>
         <div class="emphasis-box fragment" style="margin-top: 1rem;">
@@ -476,7 +476,7 @@ graph LR
           </thead>
           <tbody>
             <tr><td>AUDITING: report only</td><td>PG/SE levels can auto-fix</td></tr>
-            <tr><td>Manual loops</td><td>/full-review auto-convergence</td></tr>
+            <tr><td>Manual loops</td><td>AUDITING review and focused verification</td></tr>
             <tr><td>Rules created manually</td><td>Auto-generated via TDD introspection</td></tr>
             <tr><td>Flat permissions</td><td>PG/SE/PM three-tier system</td></tr>
           </tbody>

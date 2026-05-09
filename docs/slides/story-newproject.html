@@ -707,14 +707,14 @@ tests/test_auth.py::test_password_reset_sends_email     PASSED
 
       <!-- Slide 18: Review loop -->
       <section>
-        <h2><span class="phase-badge phase-auditing">AUDITING</span> Review loop</h2>
+        <h2><span class="phase-badge phase-auditing">AUDITING</span> レビューの反復</h2>
         <pre class="mermaid">
 graph LR
-  S2["Findings"] --> S3["Review pane"]
-  S3 --> S4["Focused fixes"]
+  S2["指摘"] --> S3["レビュー画面"]
+  S3 --> S4["絞った修正"]
   S4 --> S5{"Green State?"}
-  S5 -->|No| S2
-  S5 -->|Yes| Done["完了"]
+  S5 -->|未達| S2
+  S5 -->|達成| Done["完了"]
   style S2 fill:#ce9178,stroke:#fff,color:#000
   style S3 fill:#ce9178,stroke:#fff,color:#000
   style S4 fill:#4ec9b0,stroke:#fff,color:#000

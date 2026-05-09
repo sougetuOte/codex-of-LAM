@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">quick-load の最小確認 bundle</title>
+  <desc id="desc">quick-load が phase、git 状態、直近 commit、SESSION_STATE を先に確認し、必要な場合だけ追加 context を読む流れ。</desc>
+  <defs>
+    <style>
+      .bg { fill: #101820; }
+      .title { font: 700 30px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #f5f7fa; }
+      .label { font: 700 24px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #f5f7fa; }
+      .small { font: 500 17px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #d8dee9; }
+      .note { font: 500 15px "Noto Sans JP", Meiryo, Arial, sans-serif; fill: #9fb0c7; }
+      .card { fill: #182536; stroke: #60a5fa; stroke-width: 3; rx: 18; }
+      .state { fill: #24263a; stroke: #facc15; stroke-width: 3; rx: 18; }
+      .next { fill: #1f332c; stroke: #86efac; stroke-width: 3; rx: 18; }
+      .arrow { stroke: #d8dee9; stroke-width: 5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#d8dee9"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="520" class="bg"/>
+  <text x="60" y="70" class="title">quick-load は最小限の確認から始める</text>
+  <text x="60" y="105" class="small">起動時に広く読み直さず、必要な context だけで復帰する。</text>
+  <rect x="70" y="165" width="210" height="130" class="card"/>
+  <text x="105" y="213" class="label">フェーズ</text>
+  <text x="102" y="248" class="small">.codex/current</text>
+  <text x="106" y="276" class="note">PLANNING / BUILDING / AUDITING</text>
+  <path d="M290 230 H350" class="arrow"/>
+  <rect x="370" y="165" width="210" height="130" class="card"/>
+  <text x="410" y="213" class="label">Git 状態</text>
+  <text x="410" y="248" class="small">status + log</text>
+  <text x="410" y="276" class="note">dirty / ahead / recent commits</text>
+  <path d="M590 230 H650" class="arrow"/>
+  <rect x="670" y="165" width="210" height="130" class="state"/>
+  <text x="705" y="213" class="label">引き継ぎ</text>
+  <text x="704" y="248" class="small">SESSION_STATE</text>
+  <text x="704" y="276" class="note">前回作業と次の一手</text>
+  <path d="M890 230 H950" class="arrow"/>
+  <rect x="970" y="165" width="160" height="130" class="next"/>
+  <text x="1012" y="213" class="label">次へ</text>
+  <text x="1000" y="248" class="small">実行 or 確認</text>
+  <text x="1000" y="276" class="note">詰まった時だけ深掘り</text>
+  <rect x="210" y="365" width="780" height="75" fill="#0f1720" stroke="#64748b" stroke-width="2" rx="18"/>
+  <text x="250" y="412" class="small">要約で足りるなら止まる。足りない時だけ、関連 task や artifact を読む。</text>
+</svg>

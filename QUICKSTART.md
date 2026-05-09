@@ -109,9 +109,6 @@ A: `quick-load` で復帰します。`SESSION_STATE.md` が短い復元メモと
 
 A: `quick-save` で `SESSION_STATE.md` を更新します。長いログは `docs/daily/` へ逃がし、git commit は別操作にします。
 
-### Q: 旧 Claude Code 資料は消してよい？
-
-A: この template には active runtime としての `.claude/` は含めません。既存プロジェクトから移行する場合だけ、Codex parity と依存関係を確認し、`docs/migration/claude-archive-delete-gate.md` の gate を通してから archive / delete を判断します。
 
 ## 次のステップ
 

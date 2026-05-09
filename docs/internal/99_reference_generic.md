@@ -162,12 +162,14 @@ AI がやるのは「仕様化・実装・検証・自律ループ」。
 
 Project root:
 
-- CLAUDE.md
+- AGENTS.md
+  .codex/:
+  .agents/skills/:
   docs/internal/:
 - 00_PROJECT_STRUCTURE .. 07_SECURITY_AND_AUTOMATION
 - 99_reference_generic.md (this file)
 
 First prompt to AI:
 
-1. 「CLAUDE.md と internal docs を読み、Living Architect として初期化して」
-2. 「今から Phase 0 の Ready 作成から始める。Ready 通過までは実装禁止」
+1. 「AGENTS.md と `.codex/current-phase.md` を読んで、Living Architect として現在地を確認して」
+2. 「PLANNING の Ready 作成から始める。Ready 通過までは実装禁止」

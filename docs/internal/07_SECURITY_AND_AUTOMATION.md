@@ -61,8 +61,8 @@
 
 ## 3. Automation Workflow
 
-> v4.0.0 以降、自動実行の判定は Section 5 の多層権限モデル（settings.json + PreToolUse hook）が担う。
-> 以下は Layer 0（プロンプトレベル）での判断指針である。
+以下は Codex LAM の運用レベルでの判断指針である。実際の sandbox / approval UI の挙動は
+Codex App と実行環境の設定に従う。
 
 1.  **Check**: 実行したいコマンドが Allow List に含まれているか確認する。
 2.  **Decide**:
@@ -86,20 +86,14 @@ runtime 固有の enforcement は canonical source にしない。
 - 権限等級の考え方は review と報告粒度の基準として使う
 - validator や helper へ切り出す場合は、別の design review を通してから実装する
 
-Claude legacy では以下の多層モデルで運用されていた:
-
-| Permission Layer | 名称 | 実装 | 粒度 |
-|:---:|:---|:---|:---|
-| 0 | 憲法的プロンプティング | 本ドキュメント Section 2 | コマンドカテゴリ |
-| 1 | ネイティブ権限 | Claude Code settings の `permissions` | ツール×パターン |
-| 2 | 動的 hook 判定 | Claude Code hook scripts | ファイルパス×権限等級 |
+legacy runtime では native permission と dynamic hook 判定を組み合わせる多層モデルも使われていた。
+その詳細は外部参照スナップショットと migration docs に残し、この公開 template の canonical rule にはしない。
 
 > **用語注意**: 本セクションの「Permission Layer 0/1/2」は権限制御の多層モデルを指す。
 > `00_PROJECT_STRUCTURE.md` Section 3 の「情報層 1/2/3」（SSOT の情報階層）とは別の概念である。
 >
-> **deny と ask の関係**: Section 2 の B-1 (Deny List) は Layer 0 としての「AI は自発的に実行してはならない」を意味する。
-> `settings.json`（Layer 1）では、B-1 のうち回復不能なもの（`rm` 等）を `deny`（実行不可）、
-> それ以外（`git push` 等）を `ask`（確認後実行可）に細分化している。
+> **deny と ask の関係**: Section 2 の B-1 (Deny List) は「AI は自発的に実行してはならない」を意味する。
+> 実際の allow / ask / deny は Codex App、sandbox、project trust、ユーザー承認設定に従う。
 
 この legacy runtime は外部参照スナップショットに残すが、Codex でそのまま直移植する前提ではない。
 
@@ -125,7 +119,7 @@ Codex では、以下を標準運用とする:
 - TDD introspection や session validation の自動化が必要になった場合だけ、
   CLI / pytest helper 候補として個別に設計する
 
-Claude legacy の `PostToolUse` / Stop hook による常時自動記録や自律ループ制御は、
+legacy hook による常時自動記録や自律ループ制御は、
 原理の参考にはしてよいが、Codex の標準前提にはしない。
 
 Green State の判定基準自体は引き続き重要だが、
@@ -133,13 +127,13 @@ Green State の判定基準自体は引き続き重要だが、
 
 ## 6. Recommended Security Tools (推奨セキュリティツール)
 
-### Anthropic 公式
+### セキュリティレビュー補助
 
 | ツール | 用途 | 導入方法 |
 |:---|:---|:---|
-| [security-guidance plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance) | コード編集時のリアルタイムセキュリティ警告 | `/plugin install security-guidance@claude-plugin-directory` |
-| [claude-code-security-review](https://github.com/anthropics/claude-code-security-review) | PR 単位の AI セキュリティレビュー（GitHub Action） | `.github/workflows/` に追加 |
-| [Claude Code Security](https://www.anthropic.com/news/claude-code-security) | コードベース全体の脆弱性スキャン | Enterprise/Team プラン |
+| gitleaks | secret scan | local CLI または CI |
+| CodeQL | GitHub 上の静的解析 | GitHub Actions |
+| Dependabot | 依存関係更新と脆弱性通知 | GitHub repository settings |
 
 ### 依存脆弱性スキャン（プロジェクトに応じて選択）
 
@@ -152,11 +146,5 @@ Green State の判定基準自体は引き続き重要だが、
 
 ### CI/CD 統合
 
-GitHub Actions で `claude-code-security-review` を使用する場合の設定例:
-
-```yaml
-- uses: anthropics/claude-code-security-review@main
-  with:
-    comment-pr: true
-    claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
-```
+CI へ入れる場合は、プロジェクトの言語・配布形態・secret 管理方式に合わせて、
+gitleaks、CodeQL、依存脆弱性 scan のうち必要なものだけを採用する。
