@@ -99,5 +99,6 @@ enough that each phase can be reviewed independently.
   design、tasks、コードの全文読みは必要が生じた時だけ行う。
 - quick-load の最初の shell も `pwsh -NoProfile` を既定にする。
 - モデル運用は `docs/internal/09_MODEL_AND_CONTEXT_POLICY.md` を基準にする。
-  基本モデルは `5.4`、広い corpus は `context-harvest` で前処理し、
-  `5.5` は不可逆または高リスク判断の裁定に限定する。
+  基本モデルは `5.4`、read-only 採掘や単純分類は `5.3`、
+  広い corpus は `context-harvest` で前処理し、`5.5` は不可逆または
+  高リスク判断の裁定に限定する。

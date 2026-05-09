@@ -25,17 +25,32 @@ Date: 2026-04-30
 
 この repository では、以下を標準運用とする。
 
-1. 通常作業の基本モデルは `5.4` とする。
+1. 通常作業と synthesis の基本モデルは `5.4` とする。
 2. 広い corpus を読む前に、可能な限り `context-harvest` で前処理する。
-3. `5.5` は routine に使わず、最終判断または高リスク裁定に限定する。
-4. 設計文脈は、長い会話履歴ではなく、`SESSION_STATE.md`、harvest note、spec / ADR / design / tasks に外部化して保持する。
-5. quick-load は再開であって再読破ではない。最小確認の後、必要時だけ深掘りする。
-6. Codex App on Windows では、日常作業の shell も `pwsh -NoProfile` を標準にし、
+3. `context-harvest` の read-only 採掘や単純分類は、原則として `5.3` に降ろす。
+4. `5.5` は routine に使わず、最終判断または高リスク裁定に限定する。
+5. 設計文脈は、長い会話履歴ではなく、`SESSION_STATE.md`、harvest note、spec / ADR / design / tasks に外部化して保持する。
+6. quick-load は再開であって再読破ではない。最小確認の後、必要時だけ深掘りする。
+7. Codex App on Windows では、日常作業の shell も `pwsh -NoProfile` を標準にし、
    shell 起動の不安定さと PowerShell profile ノイズを避ける。
 
 ## 3. 標準モデル運用
 
-### 3.1 `5.4` を基本にする作業
+### 3.1 `5.3` に降ろす作業
+
+以下は原則として `5.3` で扱う。
+
+- bounded な read-only harvest
+- 既に範囲が決まっているファイル要約
+- 単純な分類、棚卸し、候補抽出
+- 既存文書からの evidence 抜き出し
+- コマンド結果やログの軽い整理
+- 変更判断を伴わない inventory 作成
+
+`5.3` の出力は、raw harvest note や作業メモとして扱う。
+採用判断、設計判断、承認ゲート判断を `5.3` の出力だけで確定しない。
+
+### 3.2 `5.4` を基本にする作業
 
 以下は原則として `5.4` で扱う。
 
@@ -45,8 +60,10 @@ Date: 2026-04-30
 - 小規模な spec / task 同期
 - 既に前提が固まっている判断
 - quick-load 後の初動整理
+- harvest note の synthesis
+- draft decision note の作成
 
-### 3.2 `context-harvest` を先に使う作業
+### 3.3 `context-harvest` を先に使う作業
 
 以下は、強いモデルへ bulk input する前に `context-harvest` を優先する。
 
@@ -59,7 +76,13 @@ Date: 2026-04-30
 `context-harvest` の目的は、全文を賢く読むことではなく、**強いモデルが読む量を減らし、
 判断に必要な evidence を薄い中間成果物へ落とすこと**である。
 
-### 3.3 `5.5` へ上げる条件
+標準の切り分け:
+
+- `5.3`: bounded corpus の raw harvest、分類、evidence 抽出
+- `5.4`: harvest note の統合、draft decision、通常の実装や文書同期
+- `5.5`: 採否が難しい判断、承認ゲート、不可逆または高リスクの裁定
+
+### 3.4 `5.5` へ上げる条件
 
 `5.5` は以下の条件のいずれかを満たす場合だけ検討する。
 
@@ -116,7 +139,8 @@ quick-load の初動では、まず以下だけで再開判断する。
 
 `5.5` は bulk reader ではない。
 
-先に軽量な harvesting、分類、要約、ノート化を行い、`5.5` はそのノートを読んで
+先に `5.3` で harvesting、分類、要約、ノート化を行い、必要なら `5.4` で synthesis する。
+`5.5` はそのノートを読んで
 採否、裁定、承認レベル判断を行う。
 
 ### 4.5 設計・レビューは危険域に入る前に切る
@@ -178,13 +202,14 @@ quick-load の初動では、まず以下だけで再開判断する。
 ### Pattern B: wide document migration
 
 - corpus を topic ごとに分割
-- `context-harvest` で raw note を作る
-- decision note に集約する
+- `5.3` + `context-harvest` で raw note を作る
+- `5.4` で decision note に集約する
 - 必要時だけ `5.5` で採否判断する
 
 ### Pattern C: architecture or ADR decision
 
 - 先に関連 spec / ADR / design の該当箇所を絞る
+- 必要なら `5.3` で周辺 evidence を採掘する
 - `5.4` ベースで MAGI / AoT を回す
 - 収束しないときだけ `5.5` で裁定する
 
@@ -200,6 +225,8 @@ quick-load の初動では、まず以下だけで再開判断する。
 以下は避ける。
 
 - 何でも最初から `5.5` に投げる
+- raw harvest や単純分類まで `5.4` / `5.5` に固定する
+- `5.3` の raw note を承認済み判断として扱う
 - context limit を、より強いモデル投入だけで解決しようとする
 - harvest note を作らず、毎回原文を読み直す
 - quick-load で tasks / design / code を最初から全文読む
@@ -211,7 +238,8 @@ quick-load の初動では、まず以下だけで再開判断する。
 当面の repository 運用では、以下を推奨する。
 
 - 基本モデルは `5.4`
-- 広い読書き前は `context-harvest`
+- read-only 採掘と単純分類は `5.3`
+- 広い読書き前は `5.3` + `context-harvest`
 - `5.5` は本当に詰まった時の裁定用
 - context compaction が疑われたら、会話を延命せず artifact へ書き出して再開する
 - 設計や review は、危険域に入る前に `quick-save` して session を切ることを標準選択肢にする
