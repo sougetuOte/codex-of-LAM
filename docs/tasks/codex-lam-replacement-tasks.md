@@ -151,10 +151,13 @@ R6 で文面と導線は Codex App 前提へ更新済み。ここでは画像・
 Codex parity がレビューされ、移設対象と非推奨対象が明確になったあとで実施する。
 
 - [x] Wave 2F の配布仕上げ gate が完了しているか確認する。
-- [ ] reviewer approval 後、top-level docs で `.claude/` を legacy として明記する。
-- [ ] 日本語 mojibake の既存 docs を修復するか、英語のみを維持するか、bilingual docs として再生成するかを決める。
+- [x] reviewer approval 後、top-level docs で `.claude/` を legacy として明記する。
+  - 2026-05-09: `README*`, `QUICKSTART*`, `CHEATSHEET*`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md` で `.claude/` が legacy / primary control surface ではないことを確認済み。
+- [x] 日本語 mojibake の既存 docs を修復するか、英語のみを維持するか、bilingual docs として再生成するかを決める。
+  - 2026-05-09: `�`, `縺`, `繧`, `譁`, `荳`, `ã`, `Ã`, `Â` の静的検索で該当なし。現時点では修復不要、日本語 canonical + 英語追従の bilingual docs を維持する。
 - [ ] Codex parity が受け入れられたあと、Claude-only docs を archive または削除する。
-- [ ] R6 後の quickstart / cheatsheet に Claude 前提の表現が残っていないか確認し、残存分だけ修正する。
+- [x] R6 後の quickstart / cheatsheet に Claude 前提の表現が残っていないか確認し、残存分だけ修正する。
+  - 2026-05-09: `QUICKSTART*` と `CHEATSHEET*` は Codex App 前提で、`.claude/` は legacy reference として分離済み。修正不要。
 
 ## Review Gates
 

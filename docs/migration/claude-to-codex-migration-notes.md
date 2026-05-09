@@ -66,4 +66,19 @@ Date: 2026-04-30
 - permission-level classification の standalone validator 化判断
 - TDD introspection helper の実装判断
 - scalable review helper の自動化
-- quickstart / cheatsheet の Codex 前提更新
+
+## Wave 3 non-destructive cleanup review
+
+Date: 2026-05-09
+
+- top-level docs:
+  - `README*`, `QUICKSTART*`, `CHEATSHEET*`, `AGENTS.md`, `CONTRIBUTING.md`, `SECURITY.md` は `.claude/` を legacy / compatibility material として扱い、Codex の primary control surface から分離している。
+- mojibake:
+  - `�`, `縺`, `繧`, `譁`, `荳`, `ã`, `Ã`, `Â` の静的検索で該当なし。
+  - 現時点では修復不要。日本語 canonical + 英語追従の bilingual docs を維持する。
+- quickstart / cheatsheet:
+  - `QUICKSTART*` と `CHEATSHEET*` は Codex App 前提へ更新済み。
+  - `.claude/` は削除対象としてではなく、Codex parity review まで legacy reference として説明されている。
+- archive / delete:
+  - `.claude/` の archive または削除は destructive / high-risk gate として残す。
+  - 実施前に archive 対象、削除対象、維持対象、復元方法、検証コマンドを別途明記する。
