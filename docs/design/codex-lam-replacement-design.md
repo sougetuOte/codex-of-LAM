@@ -43,7 +43,13 @@ manifest は `PLANNING`、`BUILDING`、`AUDITING` の phase list と、requireme
 - `building.md`
 - `auditing.md`
 
+加えて、日常運用の補助 workflow として以下を置いてよい。
+
+- `quick-load.md`
+- `quick-save.md`
+
 各 workflow は、フェーズの目的、必要な入力、主な手順、禁止事項または注意点、次の承認ゲートとの関係を説明する。
+補助 workflow は、`SESSION_STATE.md` を使った軽量 handoff / resume 手順を短く定義する。
 
 ### `codex_lam/manifest.py`
 

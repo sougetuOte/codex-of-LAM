@@ -24,7 +24,7 @@ Date: 2026-04-30
 | Claude 側資産 | Codex 側の読み替え先 | 備考 |
 | --- | --- | --- |
 | `.claude/commands/planning.md`, `building.md`, `auditing.md` | `.codex/workflows/` | slash command としては使わず、workflow 文書として扱う |
-| `.claude/commands/quick-load.md`, `quick-save.md` | `SESSION_STATE.md`, `docs/internal/08_QUICK_LOAD_SAVE.md` | state file 中心の手動運用へ切り替える |
+| `.claude/commands/quick-load.md`, `quick-save.md` | `SESSION_STATE.md`, `.codex/workflows/quick-load.md`, `.codex/workflows/quick-save.md`, `docs/internal/08_QUICK_LOAD_SAVE.md` | state file 中心の手動運用へ切り替える |
 | `.claude/agents/*.md` | `.codex/workflows/` の role guidance | frontmatter は持ち込まず、観点と手順だけ移す |
 | `.claude/rules/*` | `AGENTS.md`, `.codex/constitution.md`, internal docs | rule file をそのまま canonical にしない |
 | `.claude/hooks/*` | 原則なし。必要なら CLI / pytest helper を別設計する | event-driven automation は直移植しない |
