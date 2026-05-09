@@ -8,6 +8,8 @@ By placing these definition files in your project root, you transform a standard
 
 ## Getting Started
 
+![Codex LAM starter flow](docs/slides/assets/lam-starter-flow.svg)
+
 | Step | Resource | Time |
 |------|----------|------|
 | 1. Understand concepts | [Slides](docs/slides/index-en.html) | 5 min |
@@ -86,6 +88,8 @@ LAM components (`AGENTS.md`, `.codex/workflows/`, `docs/internal/`) work togethe
 ### Option C: Adopt into an Existing Project
 
 To introduce LAM into a project already in development:
+
+![quick-load minimum confirmation bundle](docs/slides/assets/quick-load-flow.svg)
 
 1. Create a working directory inside your project and extract the LAM ZIP there
 

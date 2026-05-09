@@ -137,19 +137,20 @@ R6 で文面と導線は Codex App 前提へ更新済み。ここでは画像・
   - security issue の扱い、sandbox / approval / secret handling、外部 API や tool contract drift の確認方針を短く案内する。
   - 詳細は `AGENTS.md` と `docs/internal/07_SECURITY_AND_AUTOMATION.md` へリンクする。
   - README / README_en から配布補助文書として参照できるようにする。
-- [ ] F4: README / HTML slides に必要な画像または代替 visual を実装する。
+- [x] F4: README / HTML slides に必要な画像または代替 visual を実装する。
   - 画像は template / starter kit の価値が直感的に伝わることを優先する。
   - `docs/slides/*.html` は「読ませる文書」ではなく「見て把握できる visual onboarding」として確認する。
-- [ ] F5: 配布仕上げの確認を行う。
+- [x] F5: 配布仕上げの確認を行う。
   - README / QUICKSTART / CHEATSHEET / slides / CONTRIBUTING / SECURITY のリンクを確認する。
   - `git diff --check` を実行する。
   - ドキュメントのみなら pytest は省略可。挙動に関わる変更があれば focused test を選ぶ。
+  - 2026-05-09: README / README_en / intro slides の画像参照、`CONTRIBUTING.md`、`SECURITY.md`、visual asset plan の存在確認済み。`git diff --check` PASS。
 
 ## Wave 3: Legacy cleanup
 
 Codex parity がレビューされ、移設対象と非推奨対象が明確になったあとで実施する。
 
-- [ ] Wave 2F の配布仕上げ gate が完了しているか確認する。
+- [x] Wave 2F の配布仕上げ gate が完了しているか確認する。
 - [ ] reviewer approval 後、top-level docs で `.claude/` を legacy として明記する。
 - [ ] 日本語 mojibake の既存 docs を修復するか、英語のみを維持するか、bilingual docs として再生成するかを決める。
 - [ ] Codex parity が受け入れられたあと、Claude-only docs を archive または削除する。

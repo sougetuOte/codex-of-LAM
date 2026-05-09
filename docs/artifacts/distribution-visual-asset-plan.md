@@ -40,6 +40,7 @@ visual onboarding として扱う。
 
 ## 未決定
 
-- 実画像を AI 生成するか、repo-native な SVG / HTML diagram にするか。
-- README に入れる最終枚数。
-- `docs/slides/assets/` を新設するか、既存構造に合わせて別名にするか。
+- 実装では、保守しやすい repo-native SVG を採用した。
+- README に入れる画像は 2 枚に制限した。
+- asset directory は `docs/slides/assets/` を新設した。
+- 追加の bitmap / screenshot が必要かどうかは、将来の visual refresh で再判断する。
