@@ -57,6 +57,13 @@
 | `.agents/skills/` | Codex App から使う project skill の候補 |
 | `.claude/` | 旧 Claude Code 互換資料。移植元として残すが主制御面にはしない |
 
+### 配布補助文書
+
+| ファイル | 説明 |
+|---------|------|
+| `CONTRIBUTING.md` | Codex LAM に変更を入れるときの最小ルール |
+| `SECURITY.md` | secret、承認境界、外部 tool drift の扱い |
+
 ## 使い方
 
 ### Option A: テンプレートとして使用 (推奨)

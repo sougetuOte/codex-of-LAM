@@ -56,6 +56,13 @@ By placing these definition files in your project root, you transform a standard
 | `.agents/skills/` | Candidate project skills for Codex App |
 | `.claude/` | Legacy Claude Code compatibility material; useful as migration source, not the primary control surface |
 
+### Distribution Support Documents
+
+| File | Description |
+|------|-------------|
+| `CONTRIBUTING.md` | Minimal rules for changing Codex LAM |
+| `SECURITY.md` | Secret handling, approval boundaries, and external tool drift |
+
 ## How to Use
 
 ### Option A: Use as a Template (Recommended)
