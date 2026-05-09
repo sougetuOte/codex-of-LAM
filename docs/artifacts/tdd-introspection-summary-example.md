@@ -7,10 +7,10 @@ Date: 2026-04-30
 
 ```text
 TDD Introspection Summary
-- Total records: 2
+- Total records: 3
 - PASS: 1
 - FAIL: 1
-- UNKNOWN: 0
+- UNKNOWN: 1
 - FAIL->PASS candidates: 1
 Candidates:
 - tests/test_tdd_introspection_cli.py::test_main_summary_prints_read_only_summary
@@ -24,14 +24,16 @@ Candidates:
 - Summary:
   - PASS: 1
   - FAIL: 1
-  - UNKNOWN: 0
+  - UNKNOWN: 1
 - FAIL->PASS candidates:
   - tests/test_tdd_introspection_cli.py::test_main_summary_prints_read_only_summary
 - Notes:
   - summary 出力の整形を確認し、FAIL -> PASS 候補 1 件を検出できた
+  - focused pytest は Windows ACL により tmp_path setup で失敗したため UNKNOWN として扱った
 ```
 
 ## メモ
 
 - この例では local log から read-only に `summary` を生成した
 - reviewed result は retro 側へ転記し、raw log は Git 管理しない
+- `UNKNOWN` は環境要因と実装不明点を分けて扱う

@@ -14,6 +14,8 @@ retro 前に FAIL -> PASS の流れを見返せる状態にする。
 - `summary` サブコマンドを実装済み
 - 保存先は `docs/artifacts/tdd-introspection-records.log` に確定済み
 - focused test は green
+- `summary` の retro 前チェック手順を `docs/artifacts/tdd-introspection-summary-usage.md` に固定済み
+- Windows ACL による focused pytest 判定不能例を `UNKNOWN` として記録し、転記方針を example に反映済み
 
 ## Roadmap
 
@@ -25,9 +27,10 @@ retro 前に FAIL -> PASS の流れを見返せる状態にする。
 
 ### Step 2: retro での利用手順を決める
 
-- `summary` をいつ見るかを決める
-- FAIL -> PASS 候補を retro メモへどう転記するかを決める
-- rule candidate 自動生成はまだ入れない
+- [x] `summary` をいつ見るかを決める
+- [x] FAIL -> PASS 候補を retro メモへどう転記するかを決める
+- [x] `UNKNOWN` を環境要因と実装不明点に分けて扱う方針を決める
+- [x] rule candidate 自動生成はまだ入れない
 
 ### Step 3: 保存ルールを固める
 
@@ -57,6 +60,6 @@ retro 前に FAIL -> PASS の流れを見返せる状態にする。
 
 ## 次の一手
 
-1. 実行例を 1 つ決める
-2. `summary` を retro 前チェックとして 1 回試す
-3. その結果を見て Step 2 の運用文書を作る
+1. Step 3 として log の保持期間を決める
+2. 1 session / 1 file にするか、追記運用を続けるかを決める
+3. `SESSION_STATE.md` とどう結びつけるかを決める
