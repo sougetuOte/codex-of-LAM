@@ -80,15 +80,18 @@ enough that each phase can be reviewed independently.
   context 汚染として扱う。
 - この Windows 環境では、sandboxed pytest が `tmp_path` 用の一時ディレクトリを
   `0o700` で作成したあと、ACL 問題で再アクセスや削除に失敗することがある。
-  ドキュメントのみの変更では pytest を省略してよい。検証が必要な場合は、同じ
-  失敗を繰り返す前に権限外実行やユーザー側の手動 cleanup を検討する。
+  ドキュメントのみの変更では pytest を省略してよい。検証が必要な場合は、最初から
+  `-p no:cacheprovider --basetemp C:\tmp\pytest-codex-lam-<timestamp>` のような
+  一意の basetemp を使う。sandbox で同じ ACL 失敗が出たら、同じ条件で再試行せず、
+  権限外実行またはユーザー側の手動 cleanup を検討する。
 - `.claude/agents/` や subagent 定義を Codex へ移すときは、基本的に役割別
   レビュー観点、作業手順、workflow、task generation guidance として文書化する。
   ただし一律変換せず、design や tasks を作る時点で各 agent/subagent ごとに
   Codex での扱いを個別確認する。
 - `.agents/` がローカルに存在する場合は、Codex アプリまたはローカル作業用の
-  スキルミラーとして扱う。Wave 2C で正式に移設判断するまでは、canonical source
-  は `.codex/`、`docs/`、既存 tracked files とし、`.agents/` は push 対象にしない。
+  スキルミラーとして扱う。Codex App Refresh Wave で採用済みの project skill
+  だけは template candidate として追跡してよい。未採用の `.agents/` 配下は、
+  引き続き push 対象にしない。
 - `SESSION_STATE.md` と `docs/daily/` は `.gitignore` 対象であり、GitHub には
   通常 push されない。別PCで quick-load する場合は、`SESSION_STATE.md` を共有
   フォルダなどで手動同期する。`docs/daily/` は長めの日次ログとして扱い、quick-load

@@ -354,9 +354,9 @@
         <h2>Overall Architecture</h2>
         <pre class="mermaid">
 graph TD
-  User["User"] --> CC["Claude Code"]
-  CC --> Hooks["Immune System hooks"]
-  CC --> Commands["Commands"]
+  User["User"] --> CC["Codex App"]
+  CC --> Workflows[".codex/workflows"]
+  CC --> Skills[".agents/skills"]
   CC --> Skills["Skills"]
   CC --> Agents["Subagents"]
   Hooks --> Pre["PreToolUse"]
@@ -415,7 +415,7 @@ graph LR
         <h2>PreToolUse &mdash; The Gatekeeper</h2>
         <p style="font-size: 0.85em; color: var(--accent-warning);">File path-based permission checks</p>
         <ul style="margin-top: 0.8rem; font-size: 0.85em;">
-          <li>Changes to <code>docs/specs/</code>, <code>docs/adr/</code>, <code>.claude/rules/</code> &rarr; <strong>PM level</strong> (approval required)</li>
+          <li>Changes to <code>docs/specs/</code>, <code>docs/adr/</code>, <code>AGENTS.md</code> &rarr; <strong>PM level</strong> (approval required)</li>
           <li>Changes to <code>src/</code> &rarr; <strong>SE level</strong> (report after fix)</li>
           <li>Formatting fixes, etc. &rarr; <strong>PG level</strong> (auto-approved)</li>
         </ul>
@@ -608,13 +608,13 @@ graph TD
             <tr><th>Command</th><th>Purpose</th><th>Cost</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>/quick-save</code></td><td>SESSION_STATE.md only</td><td>Lightweight (3-4%)</td></tr>
-            <tr><td><code>/quick-load</code></td><td>Load SESSION_STATE.md</td><td>Daily resume</td></tr>
-            <tr><td><code>/ship</code></td><td>Logical group commits</td><td>When commits are needed</td></tr>
+            <tr><td><code>quick-save</code></td><td>Short SESSION_STATE.md update</td><td>Lightweight handoff</td></tr>
+            <tr><td><code>quick-load</code></td><td>Minimal confirmation bundle</td><td>Daily resume</td></tr>
+            <tr><td><code>ship</code></td><td>Logical group commits</td><td>When commits are needed</td></tr>
           </tbody>
         </table>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
-          <p style="font-size: 0.85em;">Use <code>/quick-save</code> when context remaining is below 20%</p>
+          <p style="font-size: 0.85em;">When context gets risky, use <code>quick-save</code> and continue in the next session</p>
         </div>
       </section>
 
@@ -623,9 +623,10 @@ graph TD
         <h2>File Structure Map</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;">
           <div class="dir-tree">
-            <span style="color: var(--accent-primary); font-weight: 600;">.claude/</span><br>
-            &nbsp;&nbsp;&boxvr;&nbsp; <span style="color: var(--accent-warning);">rules/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; Behavioral Rules (PM level)<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; commands/&nbsp;&nbsp;&larr; Slash Commands<br>
+            <span style="color: var(--accent-primary); font-weight: 600;">.codex/</span><br>
+            &nbsp;&nbsp;&boxvr;&nbsp; workflows/&nbsp;&nbsp;&larr; Codex-native workflows<br>
+            <span style="color: var(--accent-primary); font-weight: 600;">.agents/skills/</span><br>
+            &nbsp;&nbsp;&boxvr;&nbsp; quick-load/&nbsp;&nbsp;&larr; resume skill<br>
             &nbsp;&nbsp;&boxvr;&nbsp; skills/&nbsp;&nbsp;&nbsp;&nbsp;&larr; Skill Definitions<br>
             &nbsp;&nbsp;&boxvr;&nbsp; agents/&nbsp;&nbsp;&nbsp;&nbsp;&larr; Subagents<br>
             &nbsp;&nbsp;&boxvr;&nbsp; <span style="color: var(--accent-warning);">hooks/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; Immune System<br>

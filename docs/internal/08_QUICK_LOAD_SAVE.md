@@ -90,6 +90,8 @@ python -m codex_lam.tdd_introspection_cli summary
 
 FAIL -> PASS 候補を retro 前に見返したい場合は、
 `docs/artifacts/tdd-introspection-summary-usage.md` を参照する。
+`SESSION_STATE.md` には TDD raw log を写さず、直近 summary の要点だけ残す。
+詳細が必要な場合は `docs/artifacts/tdd-introspection/sessions/` の session file を参照する。
 
 追加の広い state exploration は、context compaction や state drift が疑われるときだけ行う。
 

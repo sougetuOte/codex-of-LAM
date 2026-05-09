@@ -34,6 +34,16 @@ has passed, or when a blocker is recorded with a concrete reason and next step.
   `python -m codex_lam.tdd_introspection_cli summary`
   を実行し、必要なら retro 用メモへ FAIL -> PASS 候補を転記する。
 
+## Codex App Optional Path
+
+- Prefer Worktree mode for broad changes, parallel attempts, or risky refactors.
+- Prefer Local mode for narrow fixes when the user expects edits in the current
+  working tree.
+- Use the in-app browser for local frontend, HTML slide, image-heavy README, or
+  file-backed artifact checks when visual output matters.
+- Do not treat browser visibility as test success. Record the browser check as
+  manual verification alongside any focused tests.
+
 ## Guardrails
 
 - If a requirement is ambiguous, return to PLANNING.

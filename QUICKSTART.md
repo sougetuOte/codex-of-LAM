@@ -4,149 +4,115 @@
 
 ## 前提条件
 
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) がインストール済み
-- Git がインストール済み
+- Codex App
+- Git
 - GitHub アカウント
+- Python 3.8+（補助 CLI や検証を使う場合）
 
 ## Step 1: テンプレートからリポジトリを作成
 
 GitHub で「Use this template」ボタンをクリックし、新しいリポジトリを作成。
 
-[Create from template](https://github.com/sougetuOte/LivingArchitectModel/generate)
+[Create from template](https://github.com/sougetuOte/codex-of-LAM/generate)
 
 または手動でクローン:
 
 ```bash
-git clone https://github.com/sougetuOte/LivingArchitectModel.git my-project
+git clone https://github.com/sougetuOte/codex-of-LAM.git my-project
 cd my-project
 rm -rf .git && git init
 ```
 
-## Step 2: Claude Code を起動して `/planning` で要件定義
+## Step 2: Codex App で開く
 
-```bash
-claude
+Codex App でリポジトリを開く。最初のセッションでは、AI にこう伝える:
+
+```text
+AGENTS.md と SESSION_STATE.md を読んで quick-load してください。
+SESSION_STATE.md がなければ新規プロジェクトとして始めてください。
 ```
 
-Claude Code を起動すると、LAM の設定（`.claude/`、`CLAUDE.md` 等）が自動的に読み込まれる。
-`claude init` は不要 — テンプレートに必要なファイルはすべて含まれている。
+Codex LAM の入口は `AGENTS.md`、`.codex/current-phase.md`、`.codex/workflows/`、必要な `.agents/skills/` です。
+`.claude/` は legacy 互換資料として残りますが、Codex App の主制御面にはしません。
 
-起動したら `/planning` と入力して PLANNING フェーズを開始し、アイデアを伝える:
+## Step 3: PLANNING から始める
 
-```
-/planning
+新規プロジェクトなら、まず PLANNING フェーズでアイデアを伝える:
 
+```text
+PLANNING フェーズで始めます。
 「〇〇を管理する Web アプリを作りたい」
 ```
 
 AI が壁打ち相手になりながら、承認ゲートを一つずつ通過していく:
 
-```
+```text
 1. アイデアを自然言語で伝える
 2. AI と壁打ちしながら要件を具体化
-3. 要求仕様書（docs/specs/）が出力される → 「承認」
-4. ADR（技術選定の記録）と設計書が出力される → 「承認」
-5. タスク分解（docs/tasks/）が出力される → 「承認」
+3. 要求仕様書（docs/specs/）が出力される → 承認
+4. ADR と設計書が出力される → 承認
+5. タスク分解（docs/tasks/）が出力される → 承認
 ```
 
 全ての承認ゲートを通過して初めて BUILDING に進める。
-この丁寧なプロセスが LAM の品質を支えている。
 
-## Step 3: プロジェクトに合わせて LAM を適応
+## Step 4: プロジェクトに合わせて LAM を適応
 
-要件が固まったら、LAM をプロジェクトに合わせて適応させる。AI に一言伝えるだけでよい:
+要件が固まったら、AI に一言伝える:
 
-```
+```text
 要件定義が完了したので、LAM の全ファイルを確認して必要な部分をこのプロジェクトに適応させてください。
 ```
 
-### 適応すべきファイル（プロジェクト固有の内容に書き換え）
+### 適応すべきファイル
 
 | ファイル | 適応内容 |
 |---------|---------|
-| `CLAUDE.md` | Identity セクションをプロジェクト名・説明に変更 |
+| `AGENTS.md` | Identity セクションをプロジェクト名・説明に変更 |
 | `README.md` / `README_en.md` | プロジェクトの説明に書き換え |
 | `CHANGELOG.md` | 白紙から開始 |
 | `docs/specs/` | LAM 自体の仕様書を削除 |
 | `docs/adr/` | LAM 固有の ADR を削除 |
 | `QUICKSTART.md` 等 | LAM 導入ガイドなので削除可 |
 
-### そのままでよいファイル（汎用基盤）
+### そのままでよいファイル
 
 | ディレクトリ | 理由 |
 |-------------|------|
-| `.claude/rules/` | 汎用ルール（どのプロジェクトでも有効） |
-| `.claude/hooks/` | 免疫システム |
-| `.claude/commands/` | フェーズ制御・ワークフロー |
-| `.claude/agents/`, `skills/` | 専門サブエージェント・スキル |
-| `.claude/agent-memory/` | Subagent のセッション跨ぎ学習記録 |
+| `.codex/workflows/` | Codex-native のフェーズ、レビュー、quick-load/save 手順 |
+| `.agents/skills/` | Codex App で使う project skill 候補 |
 | `docs/internal/` | 開発プロセスの SSOT |
-| `docs/artifacts/knowledge/` | プロジェクト知見の蓄積（`/retro` 経由） |
-| `CHEATSHEET.md` | コマンドリファレンス（汎用） |
+| `docs/artifacts/knowledge/` | プロジェクト知見の蓄積 |
+| `CHEATSHEET.md` | 運用リファレンス |
 
-> 迷ったら [スライド](docs/slides/index.html) を見てプロジェクト構成の全体像を確認しよう。
+## Step 5: 最初の BUILDING セッション
 
-## Step 4: 最初の BUILDING セッション
+承認済み tasks ができたら、BUILDING フェーズに切り替えて TDD 実装を始める。
 
-`/building` と入力して TDD 実装開始。
+```text
+BUILDING フェーズに進みます。
+承認済み task の最小単位から Red-Green-Refactor で進めてください。
+```
 
-AI が自律的に Red-Green-Refactor サイクルを回す。
-完了したら `/full-review` で自動監査 → Green State を目指す。
+完了後は AUDITING フェーズでレビューし、Green State、検証結果、残リスクを明示する。
 
 ## よくある質問
 
-### Q: CLAUDE.md は自分で編集すべき？
-
-A: Step 3 で AI に適応を任せるのが最も簡単。手動で変えるなら Identity セクションのプロジェクト説明。
-
-### Q: docs/internal/ は変更すべき？
-
-A: 最初はそのまま使うことを推奨。プロジェクト固有の方法論が確立してきたら、徐々にカスタマイズ。
-
-### Q: Python は必須？
-
-A: **必須です。** フックスクリプトと StatusLine が Python 3.8+ を使用します。
-
-#### セットアップ（まだ Python がない場合）
-
-**推奨: uv（最速・モダン）**
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh   # Linux/macOS
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"  # Windows
-
-uv venv .venv
-source .venv/bin/activate   # Linux/macOS
-.venv\Scripts\activate      # Windows
-
-uv pip install -r requirements-dev.txt  # テストを実行する場合のみ
-```
-
-**フォールバック: venv（追加インストール不要）**
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate   # Linux/macOS
-.venv\Scripts\activate      # Windows
-
-pip install -r requirements-dev.txt     # テストを実行する場合のみ
-```
-
-> pyenv, conda 等を既に使っている場合はそちらでも OK です。
-> Python 3.8 以上であれば動作します。
-> Windows で `python3` コマンドが存在しない場合は `py` または `python` を使用してください。
-
 ### Q: セッションが切れたら？
 
-A: `/quick-load` で即座に復帰。
+A: `quick-load` で復帰します。`SESSION_STATE.md` が短い復元メモとして機能します。
 
-### Q: 仕様書のフォーマットは決まっている？
+### Q: セーブはどうする？
 
-A: テンプレートスキル (spec-template) が自動適用される。自由記述でも OK。
+A: `quick-save` で `SESSION_STATE.md` を更新します。長いログは `docs/daily/` へ逃がし、git commit は別操作にします。
+
+### Q: `.claude/` は消してよい？
+
+A: すぐには消さないでください。Codex parity がレビューされるまでは legacy 互換資料として残します。
 
 ## 次のステップ
 
-1. [新規プロジェクトスライド](docs/slides/story-newproject.html) でフロー全体を追体験（10分）
-2. 実際に `/planning` を始める
+1. [新規プロジェクトスライド](docs/slides/story-newproject.html) で流れを確認
+2. Codex App で最初の PLANNING セッションを始める
 3. [CHEATSHEET.md](CHEATSHEET.md) を手元に置いて日常運用
 4. 慣れてきたら [docs/internal/](docs/internal/) でプロセス SSOT を深掘り

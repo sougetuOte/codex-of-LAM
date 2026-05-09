@@ -3,8 +3,8 @@
 Thumbs.db
 *.log
 
-# TDD introspection CLI keeps local append-only records here; retro notes carry the reviewed summary.
-docs/artifacts/tdd-introspection-records.log
+# TDD introspection CLI keeps local session logs here; retro/session state carries reviewed summaries.
+docs/artifacts/tdd-introspection/
 
 # Editors
 .vscode/
@@ -36,7 +36,13 @@ yarn-error.log*
 
 # Agent
 .agent/
-.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/quick-load/
+!.agents/skills/quick-load/SKILL.md
+!.agents/skills/quick-save/
+!.agents/skills/quick-save/SKILL.md
 memos/
 .serena/
 data/

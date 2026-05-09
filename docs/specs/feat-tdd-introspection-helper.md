@@ -5,7 +5,7 @@
 |------|------|
 | ステータス | Draft |
 | 作成日 | 2026-04-30 |
-| 更新日 | 2026-04-30 |
+| 更新日 | 2026-05-09 |
 | 関連ADR | なし |
 
 ## 1. 概要
@@ -112,6 +112,9 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 - focused test 実行後に明示呼び出しする fixture / helper
 - 自動 hook ではなく、利用側が opt-in で呼ぶ
 - CLI 先行の運用が安定した後の後続候補として扱う
+- 2026-05-09 時点では採用しない。理由は、Codex App on Windows で
+  pytest temp directory の ACL failure が既知であり、記録支援を pytest runtime に寄せると
+  optional helper が検証環境の不安定さを抱えるため。
 
 ## 6. 権限と安全性
 
@@ -126,8 +129,10 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 - `permission-level classification` の standalone validator 化とは切り分ける
 - Green State の自動収束ロジックには接続しない
 - 保存先は `.claude/` 直下を canonical にしない
-- 初手の正式保存先は `docs/artifacts/tdd-introspection-records.log` とする
-- `docs/artifacts/tdd-introspection-records.log` は生成物として扱い、Git では管理しない
+- 正式保存先は `docs/artifacts/tdd-introspection/sessions/<session-id>.log` とする
+- 保存単位は 1 session / 1 file とする
+- session id が取れない場合は UTC timestamp file に fallback する
+- `docs/artifacts/tdd-introspection/sessions/*.log` は生成物として扱い、Git では管理しない
 
 ## 8. 依存関係
 
@@ -145,11 +150,13 @@ codex-tdd-introspection record --status PASS --target tests/test_example.py::tes
 ## 10. 未決定事項
 
 - [x] 初手の実装は CLI を先行し、pytest helper は後続候補とする
-- [x] 記録ファイルの正式保存先は `docs/artifacts/tdd-introspection-records.log` とする
+- [x] 記録ファイルの正式保存先は `docs/artifacts/tdd-introspection/sessions/<session-id>.log` とする
 - [x] この wave では read-only な `summary` 表示までを持ち、rule candidate 生成や retro 自動連携は持たない
 - [x] pytest helper の再判断は、CLI 運用での記録漏れ頻度と pytest 依存度を見て行う
+- [x] 2026-05-09 時点では pytest helper を採用せず、CLI 継続とする
 
 ## 11. 変更履歴
 | 日付 | 変更者 | 内容 |
 |------|--------|------|
 | 2026-04-30 | Codex | 初版作成 |
+| 2026-05-09 | Codex | 1 session / 1 file 保存と pytest helper defer 判断を反映 |

@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- **Docs**: distribution collateral refreshed for Codex App.
+  - README / QUICKSTART / CHEATSHEET 日英版を Codex App, `AGENTS.md`, `.codex/workflows/`, `.agents/skills/` 前提へ更新。
+  - `quick-load` / `quick-save` を project skill として案内し、`.claude/` は legacy compatibility material として分離。
+  - 入口 slides を Codex App onboarding, quick-load/save, template / starter kit flow に合わせて更新。
+
 ## [v4.6.1] - 2026-03-31
 
 ### 概要

@@ -47,6 +47,15 @@ and leave only a short pointer in `SESSION_STATE.md`.
 
 These are optional or legacy concerns, not part of the default Codex handoff.
 
+## Codex App Optional Path
+
+- Thread automations can remind or resume a long-running thread, but they do not
+  replace `SESSION_STATE.md`.
+- Project or standalone automations should be introduced only after the manual
+  quick-save flow is stable and reviewable.
+- If an automation produces a useful summary, copy only the reviewed summary into
+  `SESSION_STATE.md`; keep raw automation output outside the quick-load path.
+
 ## Reporting Format
 
 Use a short completion summary such as:

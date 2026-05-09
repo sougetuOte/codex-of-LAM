@@ -13,6 +13,18 @@ between implementation waves.
 4. Report findings by severity with file and line references.
 5. Apply only low-risk fixes unless the user approves larger corrections.
 
+## Codex App Optional Path
+
+- Use the Codex App review pane for diff inspection, inline comments, staging
+  checks, commit, push, and PR preparation when available.
+- Use in-app browser inspection for local HTML slides, README image previews,
+  frontend surfaces, and generated visual artifacts.
+- Use Worktree mode for independent audit passes that should not disturb active
+  implementation work.
+- Keep automations as optional audit helpers, such as recent-commit summaries or
+  scheduled drift checks. Do not make them required gates until they are reliable
+  manually.
+
 Do not treat "probably fine" as Green State. The gate should be able to see what
 was verified, what remains open, and whether any unresolved issue blocks closure.
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -8,7 +9,9 @@ from typing import Sequence
 
 
 VALID_STATUSES = ("PASS", "FAIL", "UNKNOWN")
-DEFAULT_RECORD_PATH = Path("docs/artifacts/tdd-introspection-records.log")
+DEFAULT_SESSION_RECORD_DIR = Path("docs/artifacts/tdd-introspection/sessions")
+DEFAULT_RECORD_PATH = DEFAULT_SESSION_RECORD_DIR / "manual-session.log"
+SESSION_ID_ENV_KEYS = ("CODEX_SESSION_ID", "CODEX_THREAD_ID")
 
 
 class TddIntrospectionCliError(ValueError):
@@ -43,8 +46,11 @@ def build_parser() -> argparse.ArgumentParser:
     record_parser.add_argument("--notes")
     record_parser.add_argument("--sync-reminder")
     record_parser.add_argument(
+        "--session-id",
+        help="Stable session id used to write one TDD record file per session.",
+    )
+    record_parser.add_argument(
         "--output",
-        default=str(DEFAULT_RECORD_PATH),
         help="Workspace-relative path to the append-only record file.",
     )
     record_parser.set_defaults(handler=_handle_record)
@@ -54,8 +60,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     summary_parser.add_argument(
         "--input",
-        default=str(DEFAULT_RECORD_PATH),
         help="Workspace-relative path to the append-only record file.",
+    )
+    summary_parser.add_argument(
+        "--session-id",
+        help="Stable session id used to read one TDD record file per session.",
     )
     summary_parser.set_defaults(handler=_handle_summary)
     return parser
@@ -79,6 +88,7 @@ def append_record(
     output: Path = DEFAULT_RECORD_PATH,
     notes: str | None = None,
     sync_reminder: str | None = None,
+    session_id: str | None = None,
     timestamp: str | None = None,
 ) -> Path:
     if status not in VALID_STATUSES:
@@ -90,10 +100,15 @@ def append_record(
     if not command.strip():
         raise TddIntrospectionCliError("command must not be empty")
 
-    output_path = root / output
+    record_timestamp = timestamp or _utc_now()
+    output_path = root / (
+        output
+        if output != DEFAULT_RECORD_PATH
+        else default_session_record_path(session_id=session_id, timestamp=record_timestamp)
+    )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     record = TddRecord(
-        timestamp=timestamp or _utc_now(),
+        timestamp=record_timestamp,
         status=status,
         target=target.strip(),
         command=command.strip(),
@@ -103,6 +118,17 @@ def append_record(
     with output_path.open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(format_record(record) + "\n")
     return output_path
+
+
+def default_session_record_path(
+    *, session_id: str | None = None, timestamp: str | None = None
+) -> Path:
+    cleaned_session_id = _clean_session_id(session_id or _session_id_from_env())
+    if cleaned_session_id:
+        filename = f"{cleaned_session_id}.log"
+    else:
+        filename = f"{_compact_timestamp(timestamp or _utc_now())}.log"
+    return DEFAULT_SESSION_RECORD_DIR / filename
 
 
 def format_record(record: TddRecord) -> str:
@@ -129,6 +155,20 @@ def read_records(root: Path, *, input_path: Path = DEFAULT_RECORD_PATH) -> list[
         if raw_line.strip():
             records.append(parse_record(raw_line))
     return records
+
+
+def latest_session_record_path(root: Path) -> Path:
+    session_dir = root / DEFAULT_SESSION_RECORD_DIR
+    if not session_dir.is_dir():
+        raise TddIntrospectionCliError(f"record directory not found: {session_dir}")
+    candidates = sorted(
+        (path for path in session_dir.glob("*.log") if path.is_file()),
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+    if not candidates:
+        raise TddIntrospectionCliError(f"record file not found under: {session_dir}")
+    return candidates[0].relative_to(root)
 
 
 def parse_record(line: str) -> TddRecord:
@@ -199,15 +239,23 @@ def _handle_record(args: argparse.Namespace) -> int:
         status=args.status,
         target=args.target,
         command=args.command,
-        output=Path(args.output),
+        output=Path(args.output) if args.output else DEFAULT_RECORD_PATH,
         notes=args.notes,
         sync_reminder=args.sync_reminder,
+        session_id=args.session_id,
     )
     return 0
 
 
 def _handle_summary(args: argparse.Namespace) -> int:
-    summary = summarize_records(read_records(Path.cwd(), input_path=Path(args.input)))
+    root = Path.cwd()
+    if args.input:
+        input_path = Path(args.input)
+    elif args.session_id:
+        input_path = default_session_record_path(session_id=args.session_id)
+    else:
+        input_path = latest_session_record_path(root)
+    summary = summarize_records(read_records(root, input_path=input_path))
     print(format_summary(summary))
     return 0
 
@@ -221,6 +269,29 @@ def _clean_optional(value: str | None) -> str | None:
         return None
     cleaned = value.strip()
     return cleaned or None
+
+
+def _clean_session_id(value: str | None) -> str | None:
+    cleaned = _clean_optional(value)
+    if cleaned is None:
+        return None
+    safe = "".join(char if char.isalnum() or char in "-_" else "-" for char in cleaned)
+    safe = safe.strip("-_")
+    return safe or None
+
+
+def _session_id_from_env() -> str | None:
+    for key in SESSION_ID_ENV_KEYS:
+        value = os.environ.get(key)
+        if value:
+            return value
+    return None
+
+
+def _compact_timestamp(value: str) -> str:
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    parsed = parsed.astimezone(timezone.utc).replace(microsecond=0)
+    return parsed.strftime("%Y%m%dT%H%M%SZ")
 
 
 def _quote_value(value: str) -> str:

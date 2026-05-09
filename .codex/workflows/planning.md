@@ -19,6 +19,16 @@ Turn intent into reviewable artifacts before implementation starts.
 5. Decompose work into small TDD-friendly tasks in `docs/tasks/`.
 6. Ask for review or approval before broad implementation.
 
+## Codex App Optional Path
+
+- Use Worktree mode for parallel design experiments, high-risk refresh waves, or
+  automation dry-runs that should not touch the local working tree.
+- Use Local mode for small documentation edits and direct repo maintenance.
+- Keep automations out of the template itself. Treat them as optional Codex App
+  operations after a workflow has been proven manually.
+- Use in-app browser only when planning needs live documentation, visual
+  reference, or local artifact inspection.
+
 ## Role Guidance
 
 - `requirement-analyst` 由来:

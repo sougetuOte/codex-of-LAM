@@ -36,6 +36,9 @@
 └── CLAUDE.md               # プロジェクト憲法
 ```
 
+Codex LAM 自体を他プロジェクトへ展開する場合の template / bootstrap /
+skill-plugin 分離は、`docs/internal/10_DISTRIBUTION_MODEL.md` を参照する。
+
 ## 2. Asset Placement Rules (資産配置ルール)
 
 ### A. User Inputs & Intermediate Artifacts (ユーザー入力と中間成果物)
@@ -90,6 +93,13 @@
 - 情報層 1 が最高権限。情報層 2 は情報層 1 の「運用への具体化」
 - 情報層 2 に新機能を追加したら、情報層 1 への反映を確認する
 - 情報層 3 は情報層 1-2 の要約であり、独自情報を持たない
+
+配布モデル:
+
+- `docs/internal/10_DISTRIBUTION_MODEL.md` は、この repo を GitHub template /
+  starter kit として使う場合の配布レイヤーを定義する。
+- `.codex/workflows/*.md` は workflow guidance であり、それだけでは Codex App の
+  slash command 登録とはみなさない。
 
 ## 4. File Naming Conventions (命名規則)
 

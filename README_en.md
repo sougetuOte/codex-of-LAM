@@ -2,7 +2,7 @@
 
 **"AI as a Partner, Not Just a Tool."**
 
-This repository defines the **"Living Architect Model"**, a protocol set designed to enable Large Language Models (specifically Claude) to act as an autonomous "Architect" and "Gatekeeper" for medium-to-large scale software development projects.
+This repository defines the **"Living Architect Model"**, a protocol set designed to enable Large Language Models, centered on Codex App, to act as an autonomous "Architect" and "Gatekeeper" for medium-to-large scale software development projects.
 
 By placing these definition files in your project root, you transform a standard coding assistant into a proactive guardian of project consistency and health.
 
@@ -31,7 +31,7 @@ By placing these definition files in your project root, you transform a standard
 
 | File | Description |
 |------|-------------|
-| `CLAUDE.md` / `CLAUDE_en.md` | The Constitution. Defines the AI's identity, core principles, and authority |
+| `AGENTS.md` | Codex constitution. Defines the AI's identity, core principles, and authority |
 | `CHEATSHEET.md` / `CHEATSHEET_en.md` | Quick reference. Commands and agents list |
 
 ### Operational Protocols (`docs/internal/`)
@@ -48,14 +48,13 @@ By placing these definition files in your project root, you transform a standard
 | `07_SECURITY_AND_AUTOMATION.md` | Command Safety Protocols (Allow/Deny Lists) |
 | `99_reference_generic.md` | General advice and best practices (Non-SSOT) |
 
-### Claude Code Extensions (`.claude/`)
+### Codex App / Legacy Extensions
 
 | Directory | Description |
 |-----------|-------------|
-| `rules/` | Behavioral guidelines and guardrails (auto-loaded) |
-| `commands/` | Slash commands (phase control + utilities) |
-| `agents/` | Specialized subagents (requirements, design, TDD, etc.) |
-| `skills/` | Skills (task orchestration, template outputs) |
+| `.codex/workflows/` | Codex-native phase workflows, quick-load/save, and review procedures |
+| `.agents/skills/` | Candidate project skills for Codex App |
+| `.claude/` | Legacy Claude Code compatibility material; useful as migration source, not the primary control surface |
 
 ## How to Use
 
@@ -70,12 +69,12 @@ On GitHub, click the **"Use this template"** button at the top of this repositor
 ### Option B: git clone
 
 ```bash
-git clone https://github.com/sougetuOte/LivingArchitectModel.git my-project
+git clone https://github.com/sougetuOte/codex-of-LAM.git my-project
 cd my-project
 rm -rf .git && git init
 ```
 
-LAM components (`.claude/`, `docs/internal/`, `CLAUDE.md`) work together as a system. We recommend using the full set rather than copying individual files.
+LAM components (`AGENTS.md`, `.codex/workflows/`, `docs/internal/`) work together as a system. We recommend using the full set rather than copying individual files. Treat `.claude/` as legacy compatibility material.
 
 ### Option C: Adopt into an Existing Project
 
@@ -89,10 +88,10 @@ cd _lam_source
 # Download and extract the ZIP here
 ```
 
-2. Launch Claude Code and instruct it:
+2. Open the target project in Codex App and instruct it:
 
 ```
-Place the Living Architect Model from _lam_source/ into this project.
+Place the Living Architect Model from _lam_source/ into this project for Codex App usage.
 ```
 
 3. If you have existing requirements or specs, have the AI reference them for adaptation:
@@ -101,16 +100,15 @@ Place the Living Architect Model from _lam_source/ into this project.
 Reference <your-requirements-file> and review all LAM files to adapt the necessary parts.
 ```
 
-If no existing requirements exist, just start using LAM as-is. You can adapt after defining requirements with `/planning`.
+If no existing requirements exist, just start using LAM as-is. You can adapt after defining requirements in PLANNING.
 
-## Phase Commands
+## Phases
 
-| Command | Purpose | Prohibited |
+| Phase | Purpose | Prohibited |
 |---------|---------|------------|
-| `/planning` | Requirements, design, task decomposition | Code generation |
-| `/building` | TDD implementation | Implementation without specs |
-| `/auditing` | Review, audit, refactoring | PM-level fixes prohibited (PG/SE allowed) |
-| `/project-status` | Display progress status | - |
+| PLANNING | Requirements, design, task decomposition | Code generation |
+| BUILDING | TDD implementation | Implementation without specs |
+| AUDITING | Review, audit, refactoring | PM-level fixes prohibited (PG/SE allowed) |
 
 ### Approval Gates
 
@@ -122,59 +120,48 @@ User approval is required at the completion of each sub-phase. Proceeding withou
 
 ## You Don't Need to Memorize Commands
 
-The tables below list all available commands and agents, but you don't need to memorize them. Just ask the AI: "What commands should I use here?" and it will suggest the right ones. Start with `/planning` and go from there.
+The tables below list the main operating surfaces, but you don't need to memorize them. Ask the AI: "What workflow or skill should I use here?" Start with PLANNING and go from there.
 
-## Subagents
+## Work Split
 
-| Agent | Purpose | Recommended Phase |
+| Role | Purpose | Recommended Phase |
 |-------|---------|-------------------|
-| `requirement-analyst` | Requirements analysis, user stories | PLANNING |
-| `design-architect` | API design, architecture | PLANNING |
-| `task-decomposer` | Task breakdown, dependencies | PLANNING |
-| `tdd-developer` | Red-Green-Refactor implementation | BUILDING |
-| `quality-auditor` | Quality audit, security | AUDITING |
-| `doc-writer` | Documentation creation, spec drafting, and updates | ALL |
-| `test-runner` | Test execution and analysis | BUILDING |
-| `code-reviewer` | Code review (LAM quality standards) | AUDITING |
+| Gatekeeper | Judgment, integration, approval gates | ALL |
+| Worker | Disjoint implementation or documentation updates | BUILDING |
+| Explorer | Read-only research and diff orientation | PLANNING / AUDITING |
+| Reviewer | Findings, residual risk, verification results | AUDITING |
 
 ## Session Management Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/quick-save` | Save (SESSION_STATE.md + loop log + Daily) |
-| `/quick-load` | Load (SESSION_STATE.md + related doc identification) |
+| `quick-save` | Save (SESSION_STATE.md + docs/daily when needed; no git operations) |
+| `quick-load` | Load (SESSION_STATE.md + minimal confirmation bundle) |
 
-## Workflow Commands
+## Workflows
 
-| Command | Purpose |
+| Operation | Purpose |
 |---------|---------|
-| `/ship` | Logical grouping commits (inventory -> classify -> commit) |
-| `/full-review <target>` | Parallel audit + fix all + verify (end-to-end) |
-| `/release <version>` | Release (CHANGELOG -> commit -> push -> tag) |
-| `/wave-plan [N]` | Wave planning (select tasks and execution order for next Wave) |
-| `/retro [wave\|phase]` | Retrospective (learning cycle at Wave/Phase completion) |
-
-## Utility Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/pattern-review` | TDD pattern review |
-| `/project-status` | Project status display |
+| ship | Logical commit / push grouping |
+| review | Diff inspection, findings, verification summary |
+| release | CHANGELOG, tag, GitHub Release |
+| wave planning | Select tasks and execution order for the next Wave |
+| retro | Learning cycle at Wave/Phase completion |
 
 ## Recommended Models
 
 | Phase | Recommended Model |
 |-------|-------------------|
-| **PLANNING** | Claude Opus / Sonnet |
-| **BUILDING** | Claude Sonnet (or Haiku for simple tasks) |
-| **AUDITING** | Claude Opus (Long Context) |
+| **PLANNING** | GPT-5.4, with context-harvest when useful |
+| **BUILDING** | GPT-5.4; use 5.3-class models for simple read-only/classification work |
+| **AUDITING** | GPT-5.4; reserve GPT-5.5 for irreversible or high-risk judgments |
 
 ## Requirements
 
 | Requirement | Purpose | Required |
 |-------------|---------|----------|
-| [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) | AI assistant runtime | Required |
-| Python 3.8+ | Required for hooks and StatusLine | Required |
+| Codex App | AI assistant runtime | Required |
+| Python 3.8+ | Helper CLI and verification tooling | Recommended |
 | Git | Version control | Required |
 | [gitleaks](https://github.com/gitleaks/gitleaks) | Secret scanning (`/full-review` G5 check) | Recommended |
 

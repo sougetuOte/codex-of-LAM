@@ -6,9 +6,9 @@ from pathlib import Path
 import pytest
 
 from codex_lam.tdd_introspection_cli import (
-    DEFAULT_RECORD_PATH,
     TddIntrospectionCliError,
     append_record,
+    default_session_record_path,
     format_record,
     format_summary,
     main,
@@ -26,15 +26,57 @@ def test_append_record_writes_minimal_record() -> None:
             status="PASS",
             target="tests/test_example.py::test_case",
             command="pytest tests/test_example.py::test_case",
+            output=Path("docs/artifacts/tdd-introspection-records.log"),
             timestamp="2026-04-30T12:00:00+00:00",
         )
 
-        assert output_path == root / DEFAULT_RECORD_PATH
+        assert output_path == root / Path("docs/artifacts/tdd-introspection-records.log")
         assert output_path.read_text(encoding="utf-8") == (
             'timestamp=2026-04-30T12:00:00+00:00 '
             'status=PASS '
             'target="tests/test_example.py::test_case" '
             'command="pytest tests/test_example.py::test_case"\n'
+        )
+
+
+def test_default_session_record_path_uses_session_directory() -> None:
+    path = default_session_record_path(
+        session_id="session-abc",
+        timestamp="2026-05-09T12:00:00+00:00",
+    )
+
+    assert path == Path("docs/artifacts/tdd-introspection/sessions/session-abc.log")
+
+
+def test_default_session_record_path_falls_back_to_timestamp(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("CODEX_SESSION_ID", raising=False)
+    monkeypatch.delenv("CODEX_THREAD_ID", raising=False)
+
+    path = default_session_record_path(timestamp="2026-05-09T12:00:00+00:00")
+
+    assert path == Path("docs/artifacts/tdd-introspection/sessions/20260509T120000Z.log")
+
+
+def test_append_record_writes_default_session_file() -> None:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+
+        output_path = append_record(
+            root,
+            status="PASS",
+            target="tests/test_example.py::test_case",
+            command="pytest tests/test_example.py::test_case",
+            session_id="session-abc",
+            timestamp="2026-05-09T12:00:00+00:00",
+        )
+
+        assert output_path == root / Path(
+            "docs/artifacts/tdd-introspection/sessions/session-abc.log"
+        )
+        assert output_path.read_text(encoding="utf-8").startswith(
+            "timestamp=2026-05-09T12:00:00+00:00 status=PASS "
         )
 
 
@@ -190,6 +232,7 @@ def test_main_summary_prints_read_only_summary(
             status="FAIL",
             target="tests/test_example.py::test_case",
             command="pytest tests/test_example.py::test_case",
+            session_id="session-abc",
             timestamp="2026-04-30T12:00:00+00:00",
         )
         append_record(
@@ -197,10 +240,11 @@ def test_main_summary_prints_read_only_summary(
             status="PASS",
             target="tests/test_example.py::test_case",
             command="pytest tests/test_example.py::test_case",
+            session_id="session-abc",
             timestamp="2026-04-30T12:01:00+00:00",
         )
 
-        exit_code = main(["summary"])
+        exit_code = main(["summary", "--session-id", "session-abc"])
 
         assert exit_code == 0
         output = capsys.readouterr().out

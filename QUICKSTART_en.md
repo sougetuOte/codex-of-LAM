@@ -4,149 +4,115 @@
 
 ## Prerequisites
 
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed
-- Git installed
+- Codex App
+- Git
 - A GitHub account
+- Python 3.8+ when using helper CLI or verification tooling
 
 ## Step 1: Create a Repository from the Template
 
 Click "Use this template" on GitHub to create a new repository.
 
-[Create from template](https://github.com/sougetuOte/LivingArchitectModel/generate)
+[Create from template](https://github.com/sougetuOte/codex-of-LAM/generate)
 
 Or clone manually:
 
 ```bash
-git clone https://github.com/sougetuOte/LivingArchitectModel.git my-project
+git clone https://github.com/sougetuOte/codex-of-LAM.git my-project
 cd my-project
 rm -rf .git && git init
 ```
 
-## Step 2: Launch Claude Code and Define Requirements with `/planning`
+## Step 2: Open it in Codex App
 
-```bash
-claude
+Open the repository in Codex App. In the first session, tell the AI:
+
+```text
+Read AGENTS.md and SESSION_STATE.md, then quick-load.
+If SESSION_STATE.md does not exist, treat this as a new project.
 ```
 
-When Claude Code starts, LAM's configuration (`.claude/`, `CLAUDE.md`, etc.) is loaded automatically.
-No need for `claude init` — the template includes everything.
+The Codex LAM entry points are `AGENTS.md`, `.codex/current-phase.md`, `.codex/workflows/`, and the needed `.agents/skills/`.
+`.claude/` remains as legacy compatibility material, not the primary Codex App control surface.
 
-Once launched, type `/planning` to enter the PLANNING phase and describe your idea:
+## Step 3: Start in PLANNING
 
-```
-/planning
+For a new project, begin in PLANNING and describe your idea:
 
+```text
+Start in PLANNING phase.
 "I want to build a web app that manages ..."
 ```
 
-The AI will brainstorm with you, walking through each approval gate:
+The AI will brainstorm with you and move through each approval gate:
 
-```
+```text
 1. Describe your idea in natural language
-2. Brainstorm with the AI to refine requirements
-3. Requirements spec (docs/specs/) is generated → say "approved"
-4. ADR (technology decisions) and design docs are generated → say "approved"
-5. Task breakdown (docs/tasks/) is generated → say "approved"
+2. Refine requirements with the AI
+3. Requirements spec (docs/specs/) is generated -> approve
+4. ADR and design docs are generated -> approve
+5. Task breakdown (docs/tasks/) is generated -> approve
 ```
 
-Only after all approval gates are passed can you proceed to BUILDING.
-This deliberate process is what ensures LAM's quality.
+Only after all approval gates are passed should the project move to BUILDING.
 
-## Step 3: Adapt LAM to Your Project
+## Step 4: Adapt LAM to Your Project
 
-Once requirements are defined, adapt LAM to fit your project. Just tell the AI:
+Once requirements are defined, tell the AI:
 
+```text
+Requirements are complete. Review all LAM files and adapt the necessary parts to this project.
 ```
-Requirements are complete. Please review all LAM files and adapt the necessary parts to this project.
-```
 
-### Files to adapt (replace with project-specific content)
+### Files to adapt
 
 | File | What to change |
 |------|---------------|
-| `CLAUDE.md` | Update Identity section with your project name and description |
-| `README.md` / `README_en.md` | Rewrite with your project's description |
+| `AGENTS.md` | Update the Identity section with your project name and description |
+| `README.md` / `README_en.md` | Rewrite with your project description |
 | `CHANGELOG.md` | Start fresh |
 | `docs/specs/` | Remove LAM-specific specs |
 | `docs/adr/` | Remove LAM-specific ADRs |
-| `QUICKSTART.md` etc. | LAM onboarding guides — can be deleted |
+| `QUICKSTART.md` etc. | LAM onboarding guides; delete if unnecessary |
 
-### Files to keep as-is (generic infrastructure)
+### Files to keep as-is
 
 | Directory | Why |
 |-----------|-----|
-| `.claude/rules/` | Generic guardrails (effective for any project) |
-| `.claude/hooks/` | Immune system |
-| `.claude/commands/` | Phase controls and workflows |
-| `.claude/agents/`, `skills/` | Specialized subagents and skills |
-| `.claude/agent-memory/` | Subagent cross-session learning records |
+| `.codex/workflows/` | Codex-native phase, review, and quick-load/save procedures |
+| `.agents/skills/` | Candidate project skills for Codex App |
 | `docs/internal/` | Development process SSOT |
-| `docs/artifacts/knowledge/` | Project knowledge accumulation (via `/retro`) |
-| `CHEATSHEET.md` | Command reference (generic) |
+| `docs/artifacts/knowledge/` | Project knowledge accumulation |
+| `CHEATSHEET.md` | Operational reference |
 
-> When in doubt, check the [slides](docs/slides/index-en.html) for an overview of the project structure.
+## Step 5: Your First BUILDING Session
 
-## Step 4: Your First BUILDING Session
+Once accepted tasks exist, switch to BUILDING and start TDD implementation:
 
-Type `/building` to start TDD implementation.
+```text
+Move to BUILDING phase.
+Start from the smallest accepted task and use Red-Green-Refactor.
+```
 
-The AI autonomously runs Red-Green-Refactor cycles.
-When finished, run `/full-review` for an automated audit to reach Green State.
+After implementation, move to AUDITING and make the Green State, verification results, and residual risks explicit.
 
 ## FAQ
 
-### Q: Do I need to manually edit CLAUDE.md?
-
-A: Let the AI adapt it in Step 3 after requirements are defined. If editing manually, focus on the project description in the Identity section.
-
-### Q: Should I modify docs/internal/?
-
-A: Start with the defaults. Customize gradually as your project develops its own methodology.
-
-### Q: Is Python required?
-
-A: **Yes, it is required.** Hook scripts and StatusLine use Python 3.8+.
-
-#### Setup (if you don't have Python yet)
-
-**Recommended: uv (fastest, modern)**
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh   # Linux/macOS
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"  # Windows
-
-uv venv .venv
-source .venv/bin/activate   # Linux/macOS
-.venv\Scripts\activate      # Windows
-
-uv pip install -r requirements-dev.txt  # Only if running tests
-```
-
-**Fallback: venv (no additional install needed)**
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate   # Linux/macOS
-.venv\Scripts\activate      # Windows
-
-pip install -r requirements-dev.txt     # Only if running tests
-```
-
-> If you already use pyenv, conda, etc., those work too.
-> Any Python 3.8+ will work.
-> On Windows, if `python3` is not available, use `py` or `python` instead.
-
 ### Q: What if my session disconnects?
 
-A: Use `/quick-load` for instant recovery.
+A: Use `quick-load` to resume. `SESSION_STATE.md` is the short handoff memo.
 
-### Q: Is there a fixed format for specs?
+### Q: How do I save session state?
 
-A: The template skill (spec-template) is applied automatically. Free-form writing also works.
+A: Use `quick-save` to update `SESSION_STATE.md`. Put longer notes in `docs/daily/`, and keep git commits as a separate operation.
+
+### Q: Can I delete `.claude/`?
+
+A: Not immediately. Keep it as legacy compatibility material until Codex parity has been reviewed.
 
 ## Next Steps
 
-1. [New project slides](docs/slides/story-newproject-en.html) to walk through the full flow (10 min)
-2. Start your first `/planning` session
+1. Review the [new project slides](docs/slides/story-newproject-en.html)
+2. Start your first PLANNING session in Codex App
 3. Keep [CHEATSHEET_en.md](CHEATSHEET_en.md) handy for daily reference
-4. Once comfortable, explore [docs/internal/](docs/internal/) for the process SSOT deep dive
+4. Explore [docs/internal/](docs/internal/) for the process SSOT deep dive

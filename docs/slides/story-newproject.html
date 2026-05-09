@@ -363,14 +363,14 @@
       <!-- Slide 2: Template Setup -->
       <section>
         <h2>Step 0: テンプレートから開始</h2>
-        <div class="code-snippet">## テンプレート: https://github.com/sougetuOte/LivingArchitectModel
+        <div class="code-snippet">## テンプレート: https://github.com/sougetuOte/codex-of-LAM
 ## GitHub で「Use this template」→ リポジトリ作成
 
 $ git clone https://github.com/you/my-ec-site.git
 $ cd my-ec-site
-$ claude</div>
+Codex App で repo を開く</div>
         <div class="emphasis-box fragment">
-          <p style="font-size: 0.8em;">テンプレートには CLAUDE.md, .claude/, docs/internal/ が含まれている。<br>AI は起動時にこれらを読み込み、Living Architect として振る舞い始める</p>
+          <p style="font-size: 0.8em;">テンプレートには AGENTS.md, .codex/workflows/, .agents/skills/, docs/internal/ が含まれている。<br>Codex App はこれらを入口に Living Architect として振る舞い始める</p>
         </div>
       </section>
 
@@ -552,10 +552,10 @@ $ claude</div>
         </div>
         <div class="chat-bubble ai fragment">
           <span class="chat-label">Living Architect</span>
-          <p>CLAUDE.md の Identity をプロジェクト名に変更、README を書き換え、docs/specs/ の LAM 固有仕様書を整理します。<br>.claude/ や docs/internal/ は汎用基盤なのでそのまま使います。</p>
+          <p>AGENTS.md の Identity をプロジェクト名に変更、README を書き換え、docs/specs/ の LAM 固有仕様書を整理します。<br>.codex/ や docs/internal/ は Codex App 用の汎用基盤として使います。</p>
         </div>
         <div class="emphasis-box fragment">
-          <p style="font-size: 0.8em;">適応すべきファイル: CLAUDE.md, README, CHANGELOG, docs/specs/, docs/adr/<br>そのまま使うファイル: .claude/, docs/internal/, CHEATSHEET</p>
+          <p style="font-size: 0.8em;">適応すべきファイル: AGENTS.md, README, CHANGELOG, docs/specs/, docs/adr/<br>そのまま使うファイル: .codex/workflows/, .agents/skills/, docs/internal/, CHEATSHEET</p>
         </div>
       </section>
 

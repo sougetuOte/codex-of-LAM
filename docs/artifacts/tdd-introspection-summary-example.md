@@ -34,6 +34,7 @@ Candidates:
 
 ## メモ
 
-- この例では local log から read-only に `summary` を生成した
+- この例では local session log から read-only に `summary` を生成した
 - reviewed result は retro 側へ転記し、raw log は Git 管理しない
+- `SESSION_STATE.md` には raw log ではなく、直近 summary の要点だけ残す
 - `UNKNOWN` は環境要因と実装不明点を分けて扱う

@@ -70,3 +70,36 @@
 
 - ライブラリの Deprecated 状況を定期的に確認する。
 - 長期保守性を最優先し、枯れた技術と最新技術のバランスをとる。
+
+## 7. Windows pytest Temp Directory Policy
+
+Codex App on Windows では、sandboxed pytest が `tmp_path` 用の一時ディレクトリを
+`0o700` で作成したあと、ACL 問題により再アクセス、cleanup、再作成に失敗することがある。
+
+既知症状:
+
+- `PermissionError: [WinError 5] アクセスが拒否されました`
+- `C:\Users\metral\AppData\Local\Temp\pytest-of-metral` へのアクセス失敗
+- `C:\tmp\pytest-codex-lam` の cleanup 失敗
+- テスト本体に入る前の setup / basetemp cleanup failure
+
+標準方針:
+
+- docs-only change では pytest を省略してよい。
+- focused pytest が必要な場合は、最初から一意の `--basetemp` を指定する。
+- cache 書き込みによる追加ノイズを避けるため、必要に応じて `-p no:cacheprovider` を付ける。
+- 固定 `--basetemp` を `pyproject.toml` に入れない。次回 cleanup で同じ ACL 問題を再発させるため。
+- sandbox で同じ ACL failure が出たら、同じ条件で再試行しない。
+- 実装検証が必要な場合は、権限外実行またはユーザー側 cleanup を検討し、結果に環境要因を明記する。
+
+推奨コマンド例:
+
+```powershell
+$stamp = Get-Date -Format "yyyyMMddHHmmss"
+$base = "C:\tmp\pytest-codex-lam-$stamp"
+C:\Users\metral\miniconda3\python.exe -m pytest tests/test_tdd_introspection_cli.py -q -p no:cacheprovider --basetemp $base
+```
+
+TDD introspection へ記録する場合、この種の失敗は実装失敗ではなく環境要因の
+`UNKNOWN` として扱う。別 temp root / 権限外実行で同一 focused test が通った場合は、
+最終 verification は PASS とし、経緯を短く残す。

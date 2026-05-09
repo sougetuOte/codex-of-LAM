@@ -242,10 +242,16 @@ def main() -> None:
         "INFO",
         f"safety net: blocking to continue loop (iteration {iteration})",
     )
-    _block(
-        log_file,
-        f"ループ継続中（イテレーション {iteration}）。Phase 2 に戻って再監査してください。",
-    )
+    if state.get("fullscan_pending") is True:
+        _block(
+            log_file,
+            f"fullscan_pending=true。フルスキャンのため Phase 2 に戻って再監査してください。",
+        )
+    else:
+        _block(
+            log_file,
+            f"ループ継続中（イテレーション {iteration}）。Phase 2 に戻って再監査してください。",
+        )
 
 
 if __name__ == "__main__":

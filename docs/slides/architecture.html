@@ -354,9 +354,9 @@
         <h2>全体構造</h2>
         <pre class="mermaid">
 graph TD
-  User["ユーザー"] --> CC["Claude Code"]
-  CC --> Hooks["免疫システム hooks"]
-  CC --> Commands["コマンド commands"]
+  User["ユーザー"] --> CC["Codex App"]
+  CC --> Workflows[".codex/workflows"]
+  CC --> Skills[".agents/skills"]
   CC --> Skills["スキル skills"]
   CC --> Agents["サブエージェント agents"]
   Hooks --> Pre["PreToolUse"]
@@ -415,7 +415,7 @@ graph LR
         <h2>PreToolUse &mdash; 門番</h2>
         <p style="font-size: 0.85em; color: var(--accent-warning);">ファイルパスベースの権限チェック</p>
         <ul style="margin-top: 0.8rem; font-size: 0.85em;">
-          <li><code>docs/specs/</code>, <code>docs/adr/</code>, <code>.claude/rules/</code> への変更 &rarr; <strong>PM級</strong>（承認必須）</li>
+          <li><code>docs/specs/</code>, <code>docs/adr/</code>, <code>AGENTS.md</code> への変更 &rarr; <strong>PM級</strong>（承認必須）</li>
           <li><code>src/</code> への変更 &rarr; <strong>SE級</strong>（修正後報告）</li>
           <li>フォーマット修正等 &rarr; <strong>PG級</strong>（自動許可）</li>
         </ul>
@@ -600,13 +600,13 @@ graph TD
             <tr><th>コマンド</th><th>用途</th><th>コスト</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>/quick-save</code></td><td>SESSION_STATE.md のみ</td><td>軽量（3-4%）</td></tr>
-            <tr><td><code>/quick-load</code></td><td>SESSION_STATE.md 読込</td><td>日常の再開</td></tr>
-            <tr><td><code>/ship</code></td><td>論理グループ分けコミット</td><td>コミットが必要な時</td></tr>
+            <tr><td><code>quick-save</code></td><td>SESSION_STATE.md を短く更新</td><td>軽量 handoff</td></tr>
+            <tr><td><code>quick-load</code></td><td>最小確認 bundle</td><td>日常の再開</td></tr>
+            <tr><td><code>ship</code></td><td>論理グループ分けコミット</td><td>コミットが必要な時</td></tr>
           </tbody>
         </table>
         <div class="emphasis-box fragment" style="margin-top: 0.8rem;">
-          <p style="font-size: 0.85em;">残量 20% 以下では <code>/quick-save</code> を使うこと</p>
+          <p style="font-size: 0.85em;">コンテキストが怪しい時は <code>quick-save</code> で次セッションへ渡す</p>
         </div>
       </section>
 
@@ -615,9 +615,10 @@ graph TD
         <h2>ファイル構成マップ</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;">
           <div class="dir-tree">
-            <span style="color: var(--accent-primary); font-weight: 600;">.claude/</span><br>
-            &nbsp;&nbsp;&boxvr;&nbsp; <span style="color: var(--accent-warning);">rules/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; 行動規範（PM級）<br>
-            &nbsp;&nbsp;&boxvr;&nbsp; commands/&nbsp;&nbsp;&larr; スラッシュコマンド<br>
+            <span style="color: var(--accent-primary); font-weight: 600;">.codex/</span><br>
+            &nbsp;&nbsp;&boxvr;&nbsp; workflows/&nbsp;&nbsp;&larr; Codex-native workflow<br>
+            <span style="color: var(--accent-primary); font-weight: 600;">.agents/skills/</span><br>
+            &nbsp;&nbsp;&boxvr;&nbsp; quick-load/&nbsp;&nbsp;&larr; 復帰 skill<br>
             &nbsp;&nbsp;&boxvr;&nbsp; skills/&nbsp;&nbsp;&nbsp;&nbsp;&larr; スキル定義<br>
             &nbsp;&nbsp;&boxvr;&nbsp; agents/&nbsp;&nbsp;&nbsp;&nbsp;&larr; サブエージェント<br>
             &nbsp;&nbsp;&boxvr;&nbsp; <span style="color: var(--accent-warning);">hooks/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&larr; 免疫システム<br>

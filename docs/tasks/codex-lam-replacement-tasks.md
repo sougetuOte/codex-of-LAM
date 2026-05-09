@@ -98,8 +98,28 @@ Codex-native CLI を最小スコープで導入する。
 - [x] helper 未使用でも BUILDING が成立することを README ではなく workflow / spec / task 側で明確にする。
 - [x] focused な実行例と最小 verification を追加する。
 - [x] この wave では read-only な `summary` 表示までを対象にし、retro 集計の自動連携や pytest helper 連携は非スコープとする。
-- [x] `docs/artifacts/tdd-introspection-records.log` は生成物として Git 管理外にする。
+- [x] `docs/artifacts/tdd-introspection/sessions/*.log` は生成物として Git 管理外にする。
 - [x] retro へ転記する最小フォーマットを usage artifact に定義する。
+- [x] 保存単位を 1 session / 1 file にし、`SESSION_STATE.md` には最新 summary 要点だけ残す方針を決める。
+- [x] pytest helper の要否を再判断し、現時点では採用せず CLI 継続とする。
+
+## Wave 2E: Codex App Refresh Wave
+
+Codex App の新機能を前提に、template / bootstrap / skill-plugin の配布モデルを再評価する。
+
+- [x] R0: 公式情報と外部評価を調査し、`docs/artifacts/codex-app-refresh-wave-research.md` に snapshot として保存する。
+- [x] R1: `docs/internal/10_DISTRIBUTION_MODEL.md` に `.agents/skills`、user-level skills、plugin の責務境界を反映する。
+- [x] R2: project `.codex/config.toml` を template に含めるか、docs-only sample に留めるか判断する。
+- [x] R3: `quick-load` を最初の project skill 候補として設計する。
+- [x] R4: worktree mode、review pane、in-app browser、automations を既存 workflow docs の optional path として整理する。
+- [x] R5: fresh repo / existing repo bootstrap の最小検証観点を定義する。
+- [x] R6: distribution collateral refresh として README / QUICKSTART / CHEATSHEET / slides を Codex App 前提へ更新する。
+  - 日本語を canonical、英語を追従版として整備する。
+  - `README.md`, `README_en.md`, `QUICKSTART.md`, `CHEATSHEET.md`, `CHEATSHEET_en.md`, `CHANGELOG.md` の役割とリンクを確認する。
+  - 既存リンクを維持するため `QUICKSTART_en.md` は必須追加候補として扱う。
+  - `CONTRIBUTING.md`, `SECURITY.md` は R6 の最小ゴール外として defer。必要なら配布仕上げ gate で薄い版を別タスク化する。
+  - `docs/slides/*.html` は Codex App 前提の visual onboarding として再設計し、画像付きの説明を積極的に使う。
+  - 画像は template / starter kit の価値が直感的に伝わることを優先し、quick-load、worktree、review / ship、fresh repo bootstrap の流れを見せる。
 
 ## Wave 3: Legacy cleanup
 
