@@ -132,7 +132,9 @@ Wave 2C の item-by-item classification は、`docs/migration/claude-legacy-inve
 
 Codex parity がレビューされ、移設対象と非推奨対象が明確になったあとで、Claude-only material を archive または削除する。
 
-この wave では quickstart、cheatsheet、migration notes も Codex 前提へ更新する。
+README、quickstart、cheatsheet、slides の文面と導線は Wave 2E R6 で Codex App 前提へ更新した。
+この wave では R6 後に残った Claude 前提の表現や migration notes の不整合だけを修正する。
+README / HTML slides の画像・visual onboarding は R6 完了範囲に含めず、配布仕上げ gate の未完了タスクとして扱う。
 
 ## TDD Strategy
 

@@ -205,7 +205,7 @@ template / starter kit として配布する場合、README や slides は単な
 
 - 日本語を canonical、英語を追従版として整備する。
 - Codex App 前提の使い方を明示し、Claude Code 前提の古い表現は残す場合も legacy として分離する。
-- README と HTML slides では、画像付きの説明を積極的に使う。
+- README と HTML slides では、画像付きの説明を積極的に使う。ただし R6 では文面と導線の更新を完了範囲とし、画像投入は配布仕上げ gate の未完了タスクとして扱う。
 - 画像は装飾ではなく、template / starter kit の価値、quick-load、worktree、review / ship、
   fresh repo bootstrap の流れを短時間で理解させるために使う。
 - slides は「読ませる文書」ではなく「見て把握できる visual onboarding」として再設計する。
