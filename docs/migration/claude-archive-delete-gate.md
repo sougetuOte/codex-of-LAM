@@ -18,6 +18,30 @@ No file movement or deletion is approved by this document alone.
 - `docs/migration/claude-legacy-inventory.md` classifies `.claude/` families by `codex_adopted`, `codex_reexpress`, `decide_later`, and `archive_runtime_specific`.
 - Wave 3 non-destructive cleanup confirmed no mojibake hits in the checked docs and no remaining quickstart / cheatsheet rewrite need.
 
+## Cross-check findings before deletion
+
+Date: 2026-05-09
+
+Deleting `.claude/` is not ready yet.
+
+Blockers:
+
+- `pyproject.toml` still writes JUnit XML to `.claude/test-results.xml`.
+  - Before deletion, move this to `.codex/test-results.xml` or another Codex-native ignored path.
+- `tests/test_pre_compact.py` imports `.claude/hooks/pre-compact.py` directly.
+  - Before deletion, either remove this obsolete Claude hook test or archive it with the hook material.
+- `tests/test_lam_stop_hook.py` imports `.claude/hooks/lam-stop-hook.py` directly.
+  - Before deletion, either remove this obsolete Claude hook test or archive it with the hook material.
+- top-level distribution docs still mention `.claude/` as a present directory.
+  - If `.claude/` is deleted, update `README*`, `QUICKSTART*`, `CHEATSHEET*`, `CONTRIBUTING.md`, and `SECURITY.md` from "present legacy material" to "removed legacy material; see migration notes".
+- `.gitignore` still contains `.claude/` runtime-state ignores.
+  - If `.claude/` is deleted, remove obsolete `.claude/*` ignore entries or mark them historical only if intentionally kept.
+
+Non-blocking historical references:
+
+- Older specs, designs, audit reports, and migration docs can continue to mention `.claude/` as historical source material.
+- These should not be mass-edited unless they are user-facing distribution docs or active runtime configuration.
+
 ## Keep As Legacy Reference
 
 Keep these unless a later gate proves they are fully superseded:
@@ -72,7 +96,12 @@ Before any file movement or deletion:
 
 ## Recommendation
 
-Do not delete `.claude/` in the current wave.
+Do not delete `.claude/` until the blockers above are fixed and verified.
 
-The safer next action is to keep `.claude/` as tracked legacy reference and only archive
-runtime-specific subtrees after a separate approval gate.
+The safer next action is a pre-delete cleanup commit:
+
+1. Move pytest output from `.claude/test-results.xml` to `.codex/test-results.xml`.
+2. Remove or archive Claude hook tests that import `.claude/hooks/*`.
+3. Update top-level distribution docs so they no longer promise a present `.claude/` directory.
+4. Clean obsolete `.claude/*` runtime ignores.
+5. Run `git diff --check` and focused tests.
