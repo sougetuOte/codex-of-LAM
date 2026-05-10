@@ -1,6 +1,6 @@
-**BUILDING**
+**PLANNING**
 
-Current focus: Codex LAM replacement.
+Current focus: WORKBOARD initial pilot specification.
 
-Phase rule: implement approved Wave 2 tasks with focused TDD where practical.
-Return to PLANNING if requirements, ADR, design, or tasks need material changes.
+Phase rule: define and review the WORKBOARD pilot spec/tasks before implementation.
+Return to BUILDING after the pilot scope, task slices, and verification plan are approved.
