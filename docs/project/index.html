@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WORKBOARD Dashboard</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; color: #1f2937; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0 24px; }
+    th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; }
+    .top-band { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
+    .metric, .lane { border: 1px solid #cbd5e1; padding: 10px; }
+    .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .card { border: 1px solid #cbd5e1; padding: 8px; margin: 8px 0; }
+    .muted { color: #64748b; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+<!-- Generated from WORKBOARD.md by tools/workboard.py. Do not edit by hand. -->
+  <header>
+    <h1>WORKBOARD Dashboard</h1>
+    <p class="muted">Source: WORKBOARD.md</p>
+  </header>
+  <section>
+    <h2>Top Band</h2>
+    <div class="top-band">
+      <div class="metric">
+        <strong>Active card</strong>
+        <div>WB-002</div>
+      </div>
+      <div class="metric">
+        <strong>Blocked</strong>
+        <div>none</div>
+      </div>
+      <div class="metric">
+        <strong>Gate</strong>
+        <div>building</div>
+      </div>
+      <div class="metric">
+        <strong>Verification summary</strong>
+        <div>R1/R2 full review fixes passed; generated HTML/SVG produced.</div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Workstream Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Workstream</th>
+          <th>Focus</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Workboard</td>
+          <td>Template and validator pilot</td>
+          <td>Active</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h2>Card Board</h2>
+    <div class="board">
+      <section class="lane">
+        <h3>Active</h3>
+        <article class="card" id="WB-002">
+          <strong>WB-002: Render WORKBOARD views</strong>
+          <div>Gate: building</div>
+          <div>Workstream: Workboard</div>
+          <div>Next: Review R2 green result before R3</div>
+        </article>
+      </section>
+      <section class="lane">
+        <h3>Blocked</h3>
+        <p class="muted">No cards</p>
+      </section>
+      <section class="lane">
+        <h3>Todo</h3>
+        <article class="card" id="WB-003">
+          <strong>WB-003: Sync workflow contract</strong>
+          <div>Gate: building</div>
+          <div>Workstream: Workboard</div>
+          <div>Next: none</div>
+        </article>
+      </section>
+      <section class="lane">
+        <h3>Done</h3>
+        <article class="card" id="WB-001">
+          <strong>WB-001: Implement WORKBOARD R1</strong>
+          <div>Gate: building</div>
+          <div>Workstream: Workboard</div>
+          <div>Next: none</div>
+        </article>
+      </section>
+      <section class="lane">
+        <h3>Released</h3>
+        <p class="muted">No cards</p>
+      </section>
+    </div>
+  </section>
+  <section>
+    <h2>Card Details</h2>
+    <ul>
+      <li><a href="#WB-001">WB-001: Implement WORKBOARD R1</a></li>
+      <li><a href="#WB-002">WB-002: Render WORKBOARD views</a></li>
+      <li><a href="#WB-003">WB-003: Sync workflow contract</a></li>
+    </ul>
+  </section>
+</body>
+</html>

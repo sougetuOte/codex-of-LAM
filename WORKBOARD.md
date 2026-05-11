@@ -2,10 +2,10 @@
 
 ## Dashboard
 
-- Active card: WB-001
+- Active card: WB-002
 - Blocked: none
 - Gate: building
-- Verification summary: R1 focused and `tests/` regression passed; root collection is blocked by known `pytesttmp-wave2a` ACL residue.
+- Verification summary: R1/R2 full review fixes passed; generated HTML/SVG produced.
 
 ## Workstreams
 
@@ -27,8 +27,8 @@
 
 | ID | Title | Status | Gate | Workstream | Next action | Depends on | Evidence | Verification | Blocker |
 |----|-------|--------|------|------------|-------------|------------|----------|--------------|---------|
-| WB-001 | Implement WORKBOARD R1 | Active | building | Workboard | Review R1 green result before R2 | | tools/workboard.py, tests/test_workboard_cli.py, WORKBOARD.md, docs/tasks/workboard-initial-pilot-tasks.md | `tests/test_workboard_cli.py`: 4 passed; `tests/`: 41 passed; `validate`: 0 errors / 0 warnings | |
-| WB-002 | Render WORKBOARD views | Todo | building | Workboard | | WB-001 | docs/design/workboard-initial-pilot-design.md | Not run: R2 deferred | |
+| WB-001 | Implement WORKBOARD R1 | Done | building | Workboard | | | tools/workboard.py, tests/test_workboard_cli.py, WORKBOARD.md, docs/tasks/workboard-initial-pilot-tasks.md | `tests/test_workboard_cli.py`: 4 passed; `tests/`: 41 passed; `validate`: 0 errors / 0 warnings | |
+| WB-002 | Render WORKBOARD views | Active | building | Workboard | Review R2 green result before R3 | WB-001 | tools/workboard.py, tests/test_workboard_cli.py, docs/project/index.html, docs/project/graph.svg | `tests/test_workboard_cli.py`: 11 passed; `tests/`: 48 passed; `render`: generated HTML/SVG | |
 | WB-003 | Sync workflow contract | Todo | building | Workboard | | WB-001, WB-002 | docs/tasks/workboard-initial-pilot-tasks.md | Not run: R3 deferred | |
 
 ## Card Details
@@ -40,7 +40,7 @@
 - Definition of Done: duplicate card IDs are errors, required field gaps are warnings, and the initial board validates without errors.
 - Verification: `tests/test_workboard_cli.py`: 4 passed; `tests/`: 41 passed; `python tools/workboard.py validate`: 0 errors / 0 warnings.
 - Evidence: `tools/workboard.py`, `tests/test_workboard_cli.py`, `WORKBOARD.md`, `docs/tasks/workboard-initial-pilot-tasks.md`
-- Next action: review R1 result and decide whether to start R2.
+- Next action: none.
 - Blockers: none
 
 ### WB-002: Render WORKBOARD views
@@ -48,10 +48,10 @@
 - Goal: generate local HTML and SVG review surfaces from the Markdown SSOT.
 - Context: R2 starts only after R1 is green and reviewed.
 - Definition of Done: generated outputs include source path and generated markers.
-- Verification: not run; R2 deferred.
-- Evidence: `docs/design/workboard-initial-pilot-design.md`
-- Next action: wait for R1 review.
-- Blockers: R1 must be green first.
+- Verification: `tests/test_workboard_cli.py`: 11 passed; `tests/`: 48 passed; `python tools/workboard.py render`: generated HTML/SVG.
+- Evidence: `tools/workboard.py`, `tests/test_workboard_cli.py`, `docs/project/index.html`, `docs/project/graph.svg`
+- Next action: review R2 result and decide whether to start R3.
+- Blockers: none
 
 ### WB-003: Sync workflow contract
 

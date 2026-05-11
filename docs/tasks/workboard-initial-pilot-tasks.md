@@ -55,14 +55,17 @@ Acceptance:
 
 Goal: generated dashboard と dependency overview を local review できる形で出す。
 
-- [ ] Red: HTML generated marker test を追加する
-- [ ] Red: SVG generated marker test を追加する
-- [ ] Red: deterministic output test を追加する
-- [ ] Green: `tools/workboard.py render` を追加する
-- [ ] Green: `docs/project/index.html` を生成する
-- [ ] Green: `docs/project/graph.svg` を生成する
-- [ ] Refactor: output order を deterministic にする
-- [ ] Verification: focused pytest と `python tools/workboard.py render`
+- [x] Red: HTML generated marker test を追加する
+- [x] Red: SVG generated marker test を追加する
+- [x] Red: deterministic output test を追加する
+- [x] Green: `tools/workboard.py render` を追加する
+- [x] Green: `docs/project/index.html` を生成する
+- [x] Green: `docs/project/graph.svg` を生成する
+- [x] Refactor: output order を deterministic にする
+- [x] Verification: focused pytest と `python tools/workboard.py render`
+
+2026-05-11: R2 focused render tests と実生成は green。generated files は今回の R2 diff として review / commit 対象にできる。
+2026-05-11: R1/R2 接合レビューで、render 前 validation error gate、Cards table 欠落 error、dashboard active-card 不一致 warning を追加した。
 
 Acceptance:
 
