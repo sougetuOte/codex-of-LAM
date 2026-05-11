@@ -2,10 +2,10 @@
 
 ## Dashboard
 
-- Active card: WB-002
+- Active card: WB-003
 - Blocked: none
 - Gate: building
-- Verification summary: R1/R2 full review fixes passed; generated HTML/SVG produced.
+- Verification summary: R1/R2 shipped; R3 workflow sync is next.
 
 ## Workstreams
 
@@ -28,8 +28,8 @@
 | ID | Title | Status | Gate | Workstream | Next action | Depends on | Evidence | Verification | Blocker |
 |----|-------|--------|------|------------|-------------|------------|----------|--------------|---------|
 | WB-001 | Implement WORKBOARD R1 | Done | building | Workboard | | | tools/workboard.py, tests/test_workboard_cli.py, WORKBOARD.md, docs/tasks/workboard-initial-pilot-tasks.md | `tests/test_workboard_cli.py`: 4 passed; `tests/`: 41 passed; `validate`: 0 errors / 0 warnings | |
-| WB-002 | Render WORKBOARD views | Active | building | Workboard | Review R2 green result before R3 | WB-001 | tools/workboard.py, tests/test_workboard_cli.py, docs/project/index.html, docs/project/graph.svg | `tests/test_workboard_cli.py`: 11 passed; `tests/`: 48 passed; `render`: generated HTML/SVG | |
-| WB-003 | Sync workflow contract | Todo | building | Workboard | | WB-001, WB-002 | docs/tasks/workboard-initial-pilot-tasks.md | Not run: R3 deferred | |
+| WB-002 | Render WORKBOARD views | Done | building | Workboard | | WB-001 | tools/workboard.py, tests/test_workboard_cli.py, docs/project/index.html, docs/project/graph.svg | `tests/test_workboard_cli.py`: 11 passed; `tests/`: 48 passed; `render`: generated HTML/SVG | |
+| WB-003 | Sync workflow contract | Active | building | Workboard | Sync quick-load / quick-save / gate workflow contract | WB-001, WB-002 | docs/tasks/workboard-initial-pilot-tasks.md | Not run: R3 next | |
 
 ## Card Details
 
@@ -50,18 +50,18 @@
 - Definition of Done: generated outputs include source path and generated markers.
 - Verification: `tests/test_workboard_cli.py`: 11 passed; `tests/`: 48 passed; `python tools/workboard.py render`: generated HTML/SVG.
 - Evidence: `tools/workboard.py`, `tests/test_workboard_cli.py`, `docs/project/index.html`, `docs/project/graph.svg`
-- Next action: review R2 result and decide whether to start R3.
+- Next action: none.
 - Blockers: none
 
 ### WB-003: Sync workflow contract
 
 - Goal: connect WORKBOARD validation and dashboard reading to quick-load, quick-save, gate, and release workflows.
-- Context: R3 starts only after the template, validator, and render surface are stable enough to document.
+- Context: R3 starts after the template, validator, render surface, and R1/R2 review fixes are shipped.
 - Definition of Done: workflow docs and skills either reflect the contract or record why they do not.
 - Verification: not run; R3 deferred.
 - Evidence: `docs/tasks/workboard-initial-pilot-tasks.md`
-- Next action: wait for R1 and R2 review.
-- Blockers: R1 and R2 must be green first.
+- Next action: sync quick-load / quick-save / gate workflow contract.
+- Blockers: none
 
 ## Dependency Map
 
