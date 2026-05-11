@@ -33,14 +33,16 @@ Date: 2026-05-10
 
 Goal: `WORKBOARD.md` の初期 template と `validate` の最小 warning set を TDD で作る。
 
-- [ ] Red: sample board parse の focused test を追加する
-- [ ] Red: duplicate card ID の focused test を追加する
-- [ ] Red: Active / Blocked / Done card の必須 field 不足 warning test を追加する
-- [ ] Green: root `WORKBOARD.md` initial template を追加する
-- [ ] Green: `tools/workboard.py validate` を追加する
-- [ ] Green: table row と detail heading の basic consistency を確認する
-- [ ] Refactor: parser 対象を `## Cards` と `## Card Details` に限定する
-- [ ] Verification: focused pytest を実行する
+- [x] Red: sample board parse の focused test を追加する
+- [x] Red: duplicate card ID の focused test を追加する
+- [x] Red: Active / Blocked / Done card の必須 field 不足 warning test を追加する
+- [x] Green: root `WORKBOARD.md` initial template を追加する
+- [x] Green: `tools/workboard.py validate` を追加する
+- [x] Green: table row と detail heading の basic consistency を確認する
+- [x] Refactor: parser 対象を `## Cards` と `## Card Details` に限定する
+- [x] Verification: focused pytest を実行する
+
+2026-05-11: R1 focused test / implementation / validation は green。R2 render へ進む前に R1 review を行う。
 
 Acceptance:
 
