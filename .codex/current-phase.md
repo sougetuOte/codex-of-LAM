@@ -1,7 +1,7 @@
-**BUILDING**
+**AUDITING**
 
-Current focus: WORKBOARD R1-R4 docs impact triage complete; auditing gate decision next.
+Current focus: WORKBOARD initial pilot audit complete; closure decision next.
 
-Phase rule: do not move to AUDITING until the user approves the auditing gate.
-R1 template / validator, R2 render, R3 workflow sync, and WB-004 public docs impact triage are green.
+Phase rule: do not close the pilot or start a release boundary until the user approves the audit result and residual risk.
+WB-006 audit is green: no blocking findings, validate/render passed, focused and broader tests passed, and gitleaks found no leaks.
 Do not start out-of-scope commands such as `next` or `context CARD-ID`.

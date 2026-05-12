@@ -123,6 +123,25 @@ Classification:
 
 2026-05-12: WB-004 は green。`python tools/workboard.py validate` は 0 errors / 0 warnings、`python tools/workboard.py render` は PASS、focused pytest は sandbox ACL 失敗後に権限外で再実行して 12 passed。次は user approval を得て AUDITING に進むか、追加 BUILDING card を切るか判断する。
 
+## AUDITING: Workboard initial pilot audit
+
+Goal: WORKBOARD initial pilot の R1-R4 成果物を監査し、Green State か残リスク付き継続かを判断できる状態にする。
+
+- [x] user approval を得て AUDITING gate に進む
+- [x] changed files を確認する
+- [x] spec / ADR / design / tasks / implementation / generated artifacts の整合性を確認する
+- [x] `python tools/workboard.py validate` を実行する
+- [x] `python tools/workboard.py render` を実行し、generated artifact diff を確認する
+- [x] focused tests と必要な broader tests を実行する
+- [x] findings、残リスク、次の gate 判断を記録する
+
+Findings:
+
+- Blocking findings: なし。
+- Verification: `python tools/workboard.py validate` は 0 errors / 0 warnings。`python tools/workboard.py render` は PASS。focused pytest は 12 passed。broader `tests/` は 49 passed。`gitleaks detect --no-git --source . --redact --verbose` は no leaks found。
+- Residual risk: `gitleaks` は local `.pytest_cache` を permission denied で skip した。Git 管理対象ではなく、今回の WORKBOARD pilot 成果物起因の blocker ではない。
+- Next gate: pilot closure または release 境界へ進むには、audit result と residual risk への user approval が必要。
+
 ## Out of Scope
 
 - `tools/workboard.py next`

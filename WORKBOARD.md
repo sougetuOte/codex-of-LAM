@@ -2,10 +2,10 @@
 
 ## Dashboard
 
-- Active card: WB-005
+- Active card: WB-007
 - Blocked: なし
-- Gate: building
-- Verification summary: R1-R3 は shipped。WB-004 で public docs impact を分類済み。次は AUDITING へ進むか gate 判断。
+- Gate: auditing
+- Verification summary: WB-006 audit green。blocking findings なし。次は pilot closure / release boundary 判断。
 
 ## Workstreams
 
@@ -20,8 +20,8 @@
 | requirements | 承認済み | docs/specs/workboard-initial-pilot.md |
 | design | 承認済み | docs/design/workboard-initial-pilot-design.md |
 | tasks | 承認済み | docs/tasks/workboard-initial-pilot-tasks.md |
-| building | 実行中 | docs/tasks/workboard-initial-pilot-tasks.md |
-| auditing | 未着手 | docs/tasks/workboard-initial-pilot-tasks.md |
+| building | 完了 | docs/tasks/workboard-initial-pilot-tasks.md |
+| auditing | 実行中 | docs/tasks/workboard-initial-pilot-tasks.md |
 
 ## Cards
 
@@ -31,7 +31,9 @@
 | WB-002 | WORKBOARD view を render する | Done | building | Workboard | | WB-001 | tools/workboard.py, tests/test_workboard_cli.py, docs/project/index.html, docs/project/graph.svg | `tests/test_workboard_cli.py`: 11 passed; `tests/`: 48 passed; `render`: HTML/SVG generated | |
 | WB-003 | workflow contract を同期する | Done | building | Workboard | | WB-001, WB-002 | docs/tasks/workboard-initial-pilot-tasks.md, .agents/skills/quick-load/SKILL.md, .agents/skills/quick-save/SKILL.md, .codex/workflows/quick-load.md, .codex/workflows/quick-save.md, docs/internal/08_QUICK_LOAD_SAVE.md, .codex/workflows/auditing.md, docs/internal/04_RELEASE_OPS.md, tools/workboard.py, tests/test_workboard_cli.py, docs/project/index.html, docs/project/graph.svg | `tests/test_workboard_cli.py`: 12 passed; `tests/`: 49 passed; `validate`: 0 errors / 0 warnings; `render`: HTML/SVG regenerated; `git diff --check`: PASS; commit `6b780f1` pushed | |
 | WB-004 | public docs impact を triage する | Done | building | Workboard | | WB-003 | SESSION_STATE.md, README.md, README_en.md, QUICKSTART.md, QUICKSTART_en.md, CHEATSHEET.md, CHEATSHEET_en.md, CHANGELOG.md, docs/slides/index.html, docs/slides/index-en.html, docs/tasks/workboard-initial-pilot-tasks.md | 5.3 / 5.4 read-only triage complete; public front-door update deferred; CHANGELOG updated; `validate`: 0 errors / 0 warnings; focused pytest: 12 passed | |
-| WB-005 | auditing gate を判断する | Active | building | Workboard | WB-004 結果をもとに AUDITING へ進むか user approval を得る | WB-004 | WORKBOARD.md, docs/tasks/workboard-initial-pilot-tasks.md, CHANGELOG.md | Not run: pending user gate decision | |
+| WB-005 | auditing gate を判断する | Done | building | Workboard | | WB-004 | WORKBOARD.md, docs/tasks/workboard-initial-pilot-tasks.md, CHANGELOG.md | User approved AUDITING gate on 2026-05-12 | |
+| WB-006 | WORKBOARD initial pilot を監査する | Done | auditing | Workboard | | WB-005 | WORKBOARD.md, tools/workboard.py, tests/test_workboard_cli.py, docs/tasks/workboard-initial-pilot-tasks.md, docs/project/index.html, docs/project/graph.svg, CHANGELOG.md | No blocking findings; `validate`: 0 errors / 0 warnings; `render`: PASS; focused pytest: 12 passed; tests: 49 passed; gitleaks: no leaks found | |
+| WB-007 | pilot closure を判断する | Active | auditing | Workboard | WB-006 の findings / residual risk を確認し、pilot closure または release 境界へ進むか user approval を得る | WB-006 | WORKBOARD.md, docs/tasks/workboard-initial-pilot-tasks.md, .codex/current-phase.md | Not run: pending user gate decision | |
 
 ## Card Details
 
@@ -80,9 +82,29 @@
 - Goal: WORKBOARD initial pilot を AUDITING へ進めるか、残りの BUILDING 修正を切るか判断する。
 - Context: WB-004 では public first path への WORKBOARD 露出を避け、`CHANGELOG.md` と project-state artifacts だけを更新する判断になった。
 - Definition of Done: user approval を得て、AUDITING に進む場合は `.codex/current-phase.md` と `WORKBOARD.md` を auditing 開始状態へ更新する。進まない場合は残りの BUILDING card を切る。
-- Verification: 未実行。user gate decision 待ち。
+- Verification: 2026-05-12 に user approval を受け、AUDITING へ進む判断を確定した。
 - Evidence: `WORKBOARD.md`, `docs/tasks/workboard-initial-pilot-tasks.md`, `CHANGELOG.md`
-- Next action: WB-004 の結果を確認し、AUDITING へ進むか user approval を得る。
+- Next action: なし。WB-006 で監査を開始する。
+- Blockers: なし
+
+### WB-006: WORKBOARD initial pilot を監査する
+
+- Goal: WORKBOARD initial pilot の R1-R4 成果物を監査し、Green State か残リスク付き継続かを判断できる状態にする。
+- Context: R1/R2 で validator/render、R3 で workflow contract、WB-004 で public docs impact triage が完了した。
+- Definition of Done: changed files、spec/ADR/design/tasks/code consistency、generated artifacts、verification evidence を確認し、findings と残リスクを記録する。
+- Verification: changed files、spec / ADR / design / tasks / implementation / generated artifacts の整合性を確認。blocking findings なし。`python tools/workboard.py validate`: 0 errors / 0 warnings。`python tools/workboard.py render`: PASS。`python -m pytest tests/test_workboard_cli.py -q -p no:cacheprovider --basetemp ...`: 12 passed。`python -m pytest tests -q -p no:cacheprovider --basetemp ...`: 49 passed。`gitleaks detect --no-git --source . --redact --verbose`: no leaks found（local `.pytest_cache` は permission denied で skip）。
+- Evidence: `WORKBOARD.md`, `tools/workboard.py`, `tests/test_workboard_cli.py`, `docs/tasks/workboard-initial-pilot-tasks.md`, `docs/project/index.html`, `docs/project/graph.svg`, `CHANGELOG.md`
+- Next action: なし。WB-007 で pilot closure または release 境界へ進むか判断する。
+- Blockers: なし
+
+### WB-007: pilot closure を判断する
+
+- Goal: WORKBOARD initial pilot の監査結果を確認し、pilot closure または release 境界へ進むか判断する。
+- Context: WB-006 audit は blocking findings なし。残リスクは local `.pytest_cache` が gitleaks scan で permission denied skip された環境ノイズのみ。
+- Definition of Done: user approval を得て、pilot を完了扱いにするか、release / follow-up card を切る。
+- Verification: 未実行。user gate decision 待ち。
+- Evidence: `WORKBOARD.md`, `docs/tasks/workboard-initial-pilot-tasks.md`, `.codex/current-phase.md`
+- Next action: WB-006 の findings / residual risk を確認し、pilot closure または release 境界へ進むか user approval を得る。
 - Blockers: なし
 
 ## Dependency Map
@@ -92,3 +114,5 @@
 - WB-003 -> WB-001, WB-002
 - WB-004 -> WB-003
 - WB-005 -> WB-004
+- WB-006 -> WB-005
+- WB-007 -> WB-006

@@ -27,7 +27,7 @@
     <div class="top-band">
       <div class="metric">
         <strong>Active card</strong>
-        <div>WB-005</div>
+        <div>WB-007</div>
       </div>
       <div class="metric">
         <strong>Blocked</strong>
@@ -35,11 +35,11 @@
       </div>
       <div class="metric">
         <strong>Gate</strong>
-        <div>building</div>
+        <div>auditing</div>
       </div>
       <div class="metric">
         <strong>Verification summary</strong>
-        <div>R1-R3 は shipped。WB-004 で public docs impact を分類済み。次は AUDITING へ進むか gate 判断。</div>
+        <div>WB-006 audit green。blocking findings なし。次は pilot closure / release boundary 判断。</div>
       </div>
     </div>
   </section>
@@ -67,11 +67,11 @@
     <div class="board">
       <section class="lane">
         <h3>Active</h3>
-        <article class="card" id="WB-005">
-          <strong>WB-005: auditing gate を判断する</strong>
-          <div>Gate: building</div>
+        <article class="card" id="WB-007">
+          <strong>WB-007: pilot closure を判断する</strong>
+          <div>Gate: auditing</div>
           <div>Workstream: Workboard</div>
-          <div>Next: WB-004 結果をもとに AUDITING へ進むか user approval を得る</div>
+          <div>Next: WB-006 の findings / residual risk を確認し、pilot closure または release 境界へ進むか user approval を得る</div>
         </article>
       </section>
       <section class="lane">
@@ -108,6 +108,18 @@
           <div>Workstream: Workboard</div>
           <div>Next: none</div>
         </article>
+        <article class="card" id="WB-005">
+          <strong>WB-005: auditing gate を判断する</strong>
+          <div>Gate: building</div>
+          <div>Workstream: Workboard</div>
+          <div>Next: none</div>
+        </article>
+        <article class="card" id="WB-006">
+          <strong>WB-006: WORKBOARD initial pilot を監査する</strong>
+          <div>Gate: auditing</div>
+          <div>Workstream: Workboard</div>
+          <div>Next: none</div>
+        </article>
       </section>
       <section class="lane">
         <h3>Released</h3>
@@ -123,6 +135,8 @@
       <li><a href="#WB-003">WB-003: workflow contract を同期する</a></li>
       <li><a href="#WB-004">WB-004: public docs impact を triage する</a></li>
       <li><a href="#WB-005">WB-005: auditing gate を判断する</a></li>
+      <li><a href="#WB-006">WB-006: WORKBOARD initial pilot を監査する</a></li>
+      <li><a href="#WB-007">WB-007: pilot closure を判断する</a></li>
     </ul>
   </section>
 </body>

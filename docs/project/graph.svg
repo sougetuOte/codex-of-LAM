@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644">
   <!-- Generated from WORKBOARD.md by tools/workboard.py. Do not edit by hand. -->
   <!-- WB-002 -> WB-001 -->
   <!-- WB-003 -> WB-001 -->
   <!-- WB-003 -> WB-002 -->
   <!-- WB-004 -> WB-003 -->
   <!-- WB-005 -> WB-004 -->
+  <!-- WB-006 -> WB-005 -->
+  <!-- WB-007 -> WB-006 -->
   <style>
     text { font-family: system-ui, sans-serif; fill: #1f2937; }
     .muted { fill: #64748b; font-size: 13px; }
@@ -33,12 +35,20 @@
   <rect class="node done" x="80" y="316" width="270" height="48" rx="6" />
   <text x="94" y="337" font-size="14" font-weight="700">WB-004: public docs impact を triage する</text>
   <text x="94" y="355" class="muted">Done / Workboard</text>
-  <rect class="node active" x="80" y="388" width="270" height="48" rx="6" />
+  <rect class="node done" x="80" y="388" width="270" height="48" rx="6" />
   <text x="94" y="409" font-size="14" font-weight="700">WB-005: auditing gate を判断する</text>
-  <text x="94" y="427" class="muted">Active / Workboard</text>
+  <text x="94" y="427" class="muted">Done / Workboard</text>
+  <rect class="node done" x="80" y="460" width="270" height="48" rx="6" />
+  <text x="94" y="481" font-size="14" font-weight="700">WB-006: WORKBOARD initial pilot を監査する</text>
+  <text x="94" y="499" class="muted">Done / Workboard</text>
+  <rect class="node active" x="80" y="532" width="270" height="48" rx="6" />
+  <text x="94" y="553" font-size="14" font-weight="700">WB-007: pilot closure を判断する</text>
+  <text x="94" y="571" class="muted">Active / Workboard</text>
   <line class="edge" x1="80" y1="196" x2="350" y2="124" />
   <line class="edge" x1="80" y1="268" x2="350" y2="124" />
   <line class="edge" x1="80" y1="268" x2="350" y2="196" />
   <line class="edge" x1="80" y1="340" x2="350" y2="268" />
   <line class="edge" x1="80" y1="412" x2="350" y2="340" />
+  <line class="edge" x1="80" y1="484" x2="350" y2="412" />
+  <line class="edge" x1="80" y1="556" x2="350" y2="484" />
 </svg>
