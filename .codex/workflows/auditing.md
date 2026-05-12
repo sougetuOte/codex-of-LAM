@@ -10,8 +10,11 @@ between implementation waves.
 1. Review the changed files first.
 2. Check requirement, ADR, design, task, and code consistency.
 3. Run focused tests, then broader tests when shared behavior changed.
-4. Report findings by severity with file and line references.
-5. Apply only low-risk fixes unless the user approves larger corrections.
+4. If `WORKBOARD.md` exists and the review is a gate or release readiness check,
+   run `python tools/workboard.py validate` and `python tools/workboard.py render`,
+   then inspect the generated artifact diff as a review surface.
+5. Report findings by severity with file and line references.
+6. Apply only low-risk fixes unless the user approves larger corrections.
 
 ## Codex App Optional Path
 

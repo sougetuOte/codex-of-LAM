@@ -17,6 +17,8 @@ Save a Codex LAM project handoff with the smallest useful update.
 - Update `SESSION_STATE.md` in place; do not rewrite it wholesale unless the existing shape is broken.
 - Keep only resume-critical state in `SESSION_STATE.md`.
 - Move long notes, rationale, or daily history to `docs/daily/` and leave a short pointer.
+- If `WORKBOARD.md` changed, run or intentionally skip `python tools/workboard.py validate` with the reason visible.
+- Do not make `python tools/workboard.py render` part of ordinary quick-save unless this is a gate, release, or explicit review handoff.
 - On Windows, use `pwsh -NoProfile`; read Japanese Markdown with UTF-8.
 
 ## Minimum Confirmation
@@ -34,6 +36,17 @@ Get-Content -Encoding UTF8 -LiteralPath SESSION_STATE.md
 ```
 
 If `SESSION_STATE.md` does not exist, create a short one only when the user wants a handoff in this repository.
+
+## WORKBOARD Handoff Rule
+
+`WORKBOARD.md` is the project-state board. `SESSION_STATE.md` should point to the
+active card and next starting file, not duplicate card details.
+
+When `WORKBOARD.md` changed:
+
+1. Prefer `python tools/workboard.py validate`.
+2. Run `python tools/workboard.py render` only for gate, release, or explicit review handoff.
+3. Record skipped validation or render only when the next session needs to know why.
 
 ## Update Targets
 

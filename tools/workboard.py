@@ -189,7 +189,7 @@ def render_workboard_text(text: str, source_path: Path | str = "WORKBOARD.md") -
         raise WorkboardRenderError(result)
     board = parse_workboard(text)
     source = _display_path(source_path)
-    return _render_html(board, source), _render_svg(board, source)
+    return _render_html(board, source, lang=_document_language(text)), _render_svg(board, source)
 
 
 def render_workboard_files(
@@ -415,11 +415,17 @@ def _is_external_reference(value: str) -> bool:
     return value.startswith(("http://", "https://"))
 
 
-def _render_html(board: Workboard, source: str) -> str:
+def _document_language(text: str) -> str:
+    if re.search(r"[\u3040-\u30ff\u3400-\u9fff]", text):
+        return "ja"
+    return "en"
+
+
+def _render_html(board: Workboard, source: str, lang: str) -> str:
     return "\n".join(
         [
             "<!doctype html>",
-            "<html lang=\"en\">",
+            f"<html lang=\"{lang}\">",
             "<head>",
             "  <meta charset=\"utf-8\">",
             "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",

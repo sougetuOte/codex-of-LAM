@@ -79,13 +79,23 @@ Acceptance:
 
 Goal: quick-load / quick-save / gate 前の運用に WORKBOARD pilot を接続する。
 
-- [ ] `.agents/skills/quick-load/SKILL.md` に `WORKBOARD.md` dashboard 読みを反映する。反映しない場合は、非反映理由と代替の authoritative doc を記録する
-- [ ] `.agents/skills/quick-save/SKILL.md` に `validate` 判断を反映する。反映しない場合は、非反映理由と代替の authoritative doc を記録する
-- [ ] `docs/internal/08_QUICK_LOAD_SAVE.md` に workflow contract を反映する。反映しない場合は、非反映理由と代替の authoritative doc を記録する
-- [ ] `SESSION_STATE.md` には詳細を重複させない方針を確認する
-- [ ] gate 前 checklist と release 前 checklist の文言を同期する
-- [ ] `git diff --check`
-- [ ] docs-only なら pytest 省略理由を記録する
+- [x] `.agents/skills/quick-load/SKILL.md` に `WORKBOARD.md` dashboard 読みを反映する。反映しない場合は、非反映理由と代替の authoritative doc を記録する
+- [x] `.agents/skills/quick-save/SKILL.md` に `validate` 判断を反映する。反映しない場合は、非反映理由と代替の authoritative doc を記録する
+- [x] `docs/internal/08_QUICK_LOAD_SAVE.md` に workflow contract を反映する。反映しない場合は、非反映理由と代替の authoritative doc を記録する
+- [x] `SESSION_STATE.md` には詳細を重複させない方針を確認する
+- [x] gate 前 checklist と release 前 checklist の文言を同期する
+- [x] `git diff --check`
+- [x] docs-only なら pytest 省略理由を記録する
+
+2026-05-12: R3 workflow sync を `.agents/skills/quick-load/SKILL.md`,
+`.agents/skills/quick-save/SKILL.md`, `.codex/workflows/quick-load.md`,
+`.codex/workflows/quick-save.md`, `docs/internal/08_QUICK_LOAD_SAVE.md` に反映した。
+`SESSION_STATE.md` には WORKBOARD 詳細を重複させず、active card と次の開始点だけを
+残す方針を維持する。
+
+2026-05-12: R1-R3 通しレビューで、generated HTML が日本語本文でも `lang="en"` のまま
+になる軽微なアクセシビリティ不整合を修正した。renderer code を変更したため focused
+pytest と full tests を実行し、`validate` / `render` / `git diff --check` も通した。
 
 Acceptance:
 

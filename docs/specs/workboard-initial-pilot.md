@@ -133,6 +133,7 @@ So that I can resume quickly and review project state without rereading the whol
 ### NFR-005: Language portability
 - 人間が読む本文、card title、context、evidence 説明は project primary language を使ってよい
 - 初期 pilot では parser / renderer が読む heading、field name、status value、detail label は安定した英語 token とする
+- generated HTML は board 本文の主要言語を反映した `lang` attribute を持つ
 - localized parser labels や多言語切替 UI は初期 pilot の非スコープとする
 
 ## 4. データモデル

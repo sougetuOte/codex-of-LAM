@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
       </div>
       <div class="metric">
         <strong>Blocked</strong>
-        <div>none</div>
+        <div>なし</div>
       </div>
       <div class="metric">
         <strong>Gate</strong>
@@ -39,7 +39,7 @@
       </div>
       <div class="metric">
         <strong>Verification summary</strong>
-        <div>R1/R2 shipped; R3 workflow sync is next.</div>
+        <div>R1-R3 通しレビューは green。HTML lang fix も反映済み、ship 待ち。</div>
       </div>
     </div>
   </section>
@@ -56,7 +56,7 @@
       <tbody>
         <tr>
           <td>Workboard</td>
-          <td>Template and validator pilot</td>
+          <td>template / validator / render と運用接続の pilot</td>
           <td>Active</td>
         </tr>
       </tbody>
@@ -68,10 +68,10 @@
       <section class="lane">
         <h3>Active</h3>
         <article class="card" id="WB-003">
-          <strong>WB-003: Sync workflow contract</strong>
+          <strong>WB-003: workflow contract を同期する</strong>
           <div>Gate: building</div>
           <div>Workstream: Workboard</div>
-          <div>Next: Sync quick-load / quick-save / gate workflow contract</div>
+          <div>Next: R1-R3 review diff を ship する</div>
         </article>
       </section>
       <section class="lane">
@@ -85,13 +85,13 @@
       <section class="lane">
         <h3>Done</h3>
         <article class="card" id="WB-001">
-          <strong>WB-001: Implement WORKBOARD R1</strong>
+          <strong>WB-001: WORKBOARD R1 を実装する</strong>
           <div>Gate: building</div>
           <div>Workstream: Workboard</div>
           <div>Next: none</div>
         </article>
         <article class="card" id="WB-002">
-          <strong>WB-002: Render WORKBOARD views</strong>
+          <strong>WB-002: WORKBOARD view を render する</strong>
           <div>Gate: building</div>
           <div>Workstream: Workboard</div>
           <div>Next: none</div>
@@ -106,9 +106,9 @@
   <section>
     <h2>Card Details</h2>
     <ul>
-      <li><a href="#WB-001">WB-001: Implement WORKBOARD R1</a></li>
-      <li><a href="#WB-002">WB-002: Render WORKBOARD views</a></li>
-      <li><a href="#WB-003">WB-003: Sync workflow contract</a></li>
+      <li><a href="#WB-001">WB-001: WORKBOARD R1 を実装する</a></li>
+      <li><a href="#WB-002">WB-002: WORKBOARD view を render する</a></li>
+      <li><a href="#WB-003">WB-003: workflow contract を同期する</a></li>
     </ul>
   </section>
 </body>

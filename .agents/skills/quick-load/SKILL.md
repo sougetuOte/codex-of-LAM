@@ -16,6 +16,7 @@ Resume a Codex LAM project with the smallest useful context.
 - Treat quick-load as resume, not project rediscovery.
 - Start with the minimum confirmation bundle.
 - Read more files only when the next action is blocked.
+- Do not render `WORKBOARD.md` during quick-load.
 - On Windows, use `pwsh -NoProfile` for the first shell checks.
 
 ## Minimum Confirmation
@@ -35,6 +36,18 @@ Run or read only these first:
 
 If `SESSION_STATE.md` does not exist, report that this is a new session and stop.
 
+## WORKBOARD Dashboard Check
+
+If the minimum confirmation shows this repo is currently working from
+`WORKBOARD.md`, read only the `## Dashboard` block and, if needed, the active
+card row from `## Cards`.
+
+Do not run `python tools/workboard.py render` during quick-load. Rendering
+belongs to gate, release, or explicit review workflows.
+
+Keep `SESSION_STATE.md` as a short resume memo. Do not copy WORKBOARD card
+details into it.
+
 ## Deepen Only If Needed
 
 Read additional context only when one of these is true:
@@ -42,6 +55,7 @@ Read additional context only when one of these is true:
 - `次にやること` cannot be executed from the summary alone.
 - `git status` shows dirty changes that need interpretation.
 - `.codex/current-phase.md` and `SESSION_STATE.md` disagree.
+- The `WORKBOARD.md` dashboard and `SESSION_STATE.md` disagree.
 - The user asked for review, implementation, or deeper analysis.
 
 When deepening, expand in this order:

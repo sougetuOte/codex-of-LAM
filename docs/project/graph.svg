@@ -20,13 +20,13 @@
   <text x="32" y="36" font-size="24" font-weight="700">Dependency Overview</text>
   <text x="32" y="62" class="muted">Source: WORKBOARD.md</text>
   <rect class="node done" x="80" y="100" width="270" height="48" rx="6" />
-  <text x="94" y="121" font-size="14" font-weight="700">WB-001: Implement WORKBOARD R1</text>
+  <text x="94" y="121" font-size="14" font-weight="700">WB-001: WORKBOARD R1 を実装する</text>
   <text x="94" y="139" class="muted">Done / Workboard</text>
   <rect class="node done" x="80" y="172" width="270" height="48" rx="6" />
-  <text x="94" y="193" font-size="14" font-weight="700">WB-002: Render WORKBOARD views</text>
+  <text x="94" y="193" font-size="14" font-weight="700">WB-002: WORKBOARD view を render する</text>
   <text x="94" y="211" class="muted">Done / Workboard</text>
   <rect class="node active" x="80" y="244" width="270" height="48" rx="6" />
-  <text x="94" y="265" font-size="14" font-weight="700">WB-003: Sync workflow contract</text>
+  <text x="94" y="265" font-size="14" font-weight="700">WB-003: workflow contract を同期する</text>
   <text x="94" y="283" class="muted">Active / Workboard</text>
   <line class="edge" x1="80" y1="196" x2="350" y2="124" />
   <line class="edge" x1="80" y1="268" x2="350" y2="124" />

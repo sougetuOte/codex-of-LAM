@@ -141,6 +141,7 @@ localized aliases や多言語 UI は後続 wave 候補とし、初期 pilot で
 
 HTML は static single file とする。
 外部 CDN や Node build を要求しない。
+`lang` attribute は board 本文に日本語文字が含まれる場合 `ja`、それ以外は `en` とする。
 
 Generated marker の例:
 

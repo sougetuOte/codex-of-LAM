@@ -196,6 +196,19 @@ def test_render_html_contains_marker_source_and_dashboard_sections() -> None:
     assert "Workstream Matrix" in html
     assert "Card Board" in html
     assert 'href="#WB-001"' in html
+    assert '<html lang="en">' in html
+
+
+def test_render_html_uses_japanese_lang_when_board_contains_japanese() -> None:
+    workboard = load_workboard_module()
+    text = sample_board(
+        "| WB-001 | 日本語のカード | Active | building | Workboard | 確認する | | docs/tasks/workboard-initial-pilot-tasks.md | 未実行 | |",
+        detail("WB-001", "日本語のカード"),
+    )
+
+    html, _svg = workboard.render_workboard_text(text, source_path=Path("WORKBOARD.md"))
+
+    assert '<html lang="ja">' in html
 
 
 def test_render_svg_contains_marker_source_and_dependency_overview() -> None:

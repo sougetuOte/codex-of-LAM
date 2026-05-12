@@ -11,6 +11,7 @@
 - [ ] **No Critical Bugs**: 優先度 High 以上の既知のバグが存在しない。
 - [ ] **Quality Gate Passed**: プロジェクトが定めるリリース品質基準を満たしている（例: 監査 Green、パフォーマンス基準、セキュリティスキャン等。基準はプロジェクトごとに定義）。
 - [ ] **Documentation Updated**: 変更内容が `CHANGELOG.md` およびユーザーマニュアルに反映されている。
+- [ ] **WORKBOARD Updated**: `WORKBOARD.md` を使う project では `validate` / `render` が通り、generated artifacts の diff に古い state や不要ファイル混入がない。
 - [ ] **Retrospective Done**: 変更内容と検証結果の振り返りが実施済みである。
 
 ## 2. Release Flow (リリースフロー)

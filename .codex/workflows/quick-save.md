@@ -11,6 +11,9 @@ five minutes without broad re-discovery.
 - Update only the sections that changed.
 - Keep `SESSION_STATE.md` short and move long background to other artifacts when
   needed.
+- If `WORKBOARD.md` changed, prefer `python tools/workboard.py validate`.
+- Keep `python tools/workboard.py render` for gate, release, or explicit review
+  handoffs rather than ordinary quick-save.
 - Use `pwsh -NoProfile` for the first shell checks on Windows.
 
 ## Minimum Confirmation
@@ -37,6 +40,18 @@ Add or refresh these only when they help the next resume.
 
 If a long explanation is needed, move it to `docs/daily/` or another artifact
 and leave only a short pointer in `SESSION_STATE.md`.
+
+## WORKBOARD Handoff
+
+`SESSION_STATE.md` should point to the active WORKBOARD card and next starting
+file. Do not paste card details into the handoff.
+
+When `WORKBOARD.md` changed:
+
+1. Run `python tools/workboard.py validate`, or record why validation was skipped.
+2. Render only for gate, release, or explicit review handoff.
+3. If generated files changed, leave the next session enough context to inspect
+   the diff without re-reading the full board.
 
 ## Do Not Pull In By Default
 

@@ -9,6 +9,7 @@ Resume work from `SESSION_STATE.md` with the smallest possible context cost.
 - Treat quick-load as resume, not re-reading the whole project.
 - Start with minimum confirmation only.
 - Read more files only when the next action is blocked by missing detail.
+- Do not render `WORKBOARD.md` during quick-load.
 - Use `pwsh -NoProfile` for the first shell checks on Windows.
 
 ## Minimum Confirmation
@@ -27,6 +28,14 @@ Resume work from `SESSION_STATE.md` with the smallest possible context cost.
 If `SESSION_STATE.md` does not exist, report that the session will start as a new
 session and stop there.
 
+## WORKBOARD Dashboard Check
+
+If the minimum confirmation points to `WORKBOARD.md`, read only the top
+`## Dashboard` block and, if needed, the active card row from `## Cards`.
+
+Do not run `python tools/workboard.py render` in quick-load. Rendering belongs to
+gate, release, or explicit review workflows.
+
 ## Deepen Only If Needed
 
 Read more only when one of these is true.
@@ -34,6 +43,7 @@ Read more only when one of these is true.
 - `次にやること` cannot be executed from the summary alone.
 - `git status` shows dirty changes that need interpretation.
 - `.codex/current-phase.md` and `SESSION_STATE.md` disagree.
+- The `WORKBOARD.md` dashboard and `SESSION_STATE.md` disagree.
 - The user asked for review, implementation, or deeper analysis.
 
 ## Expansion Order
