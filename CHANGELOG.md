@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-No unreleased changes.
+### Added
+
+- **Workboard**: `WORKBOARD.md` を repo-native project-state board として追加し、`tools/workboard.py validate` と `render`、および `docs/project/` の generated local review view を追加。
+
+### Changed
+
+- **Workflow**: quick-load / quick-save / gate / release contract を WORKBOARD pilot に接続し、quick-load では render せず、gate / release 境界で validate / render と generated artifact diff を確認する方針へ同期。
+- **Docs**: public docs impact triage を実施し、WORKBOARD は fresh template user の front door ではなく、maintainer / project-state surface として扱う判断を記録。
 
 ```
 ============================================================

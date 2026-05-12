@@ -104,6 +104,25 @@ Acceptance:
 - release 前は generated artifacts diff を確認する契約が見える
 - `SESSION_STATE.md` と `WORKBOARD.md` の責務が分離されている
 
+## WB-004: Public docs impact triage
+
+Goal: WORKBOARD / quick-load / quick-save / gate / release contract 更新が public template 利用者向け文書へ与える影響を分類する。
+
+- [x] 5.3 read-only inventory で README / QUICKSTART / CHEATSHEET / CHANGELOG / slides / docs/project を横断検索する
+- [x] 5.4 fresh-template-user review で public first path への影響を確認する
+- [x] `README*`, `QUICKSTART*`, `CHEATSHEET*`, `docs/slides/index*.html` は、quick-load / quick-save / gate / release の既存説明で足りるため本文更新を見送る
+- [x] `WORKBOARD.md` と `docs/project/*` は fresh template user の front door に出さず、maintainer / project-state surface として扱う
+- [x] `CHANGELOG.md` の `Unreleased` を、v1.0.0 後の WORKBOARD pilot 実態に合わせて更新する
+
+Classification:
+
+- 今すぐ更新する: `CHANGELOG.md`, `WORKBOARD.md`, `docs/tasks/workboard-initial-pilot-tasks.md`
+- リンクや一文だけ足す: なし。WORKBOARD を reusable public feature として出す場合は、将来 `CHEATSHEET*` または architecture slide に限定して追加する
+- 後続 task に回す: `story-daily*` の Codex-native refresh、WORKBOARD を公開 feature にするかどうかの別 design review
+- 古くなっているので別 review 対象にする: `CHANGELOG.md` の pre-Codex / Claude-era historical noise は別 audit 対象。今回は現行 `Unreleased` だけを修正する
+
+2026-05-12: WB-004 は green。`python tools/workboard.py validate` は 0 errors / 0 warnings、`python tools/workboard.py render` は PASS、focused pytest は sandbox ACL 失敗後に権限外で再実行して 12 passed。次は user approval を得て AUDITING に進むか、追加 BUILDING card を切るか判断する。
+
 ## Out of Scope
 
 - `tools/workboard.py next`
