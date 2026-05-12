@@ -1,8 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="356" viewBox="0 0 900 356">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="428" viewBox="0 0 900 428">
   <!-- Generated from WORKBOARD.md by tools/workboard.py. Do not edit by hand. -->
   <!-- WB-002 -> WB-001 -->
   <!-- WB-003 -> WB-001 -->
   <!-- WB-003 -> WB-002 -->
+  <!-- WB-004 -> WB-003 -->
   <style>
     text { font-family: system-ui, sans-serif; fill: #1f2937; }
     .muted { fill: #64748b; font-size: 13px; }
@@ -25,10 +26,14 @@
   <rect class="node done" x="80" y="172" width="270" height="48" rx="6" />
   <text x="94" y="193" font-size="14" font-weight="700">WB-002: WORKBOARD view を render する</text>
   <text x="94" y="211" class="muted">Done / Workboard</text>
-  <rect class="node active" x="80" y="244" width="270" height="48" rx="6" />
+  <rect class="node done" x="80" y="244" width="270" height="48" rx="6" />
   <text x="94" y="265" font-size="14" font-weight="700">WB-003: workflow contract を同期する</text>
-  <text x="94" y="283" class="muted">Active / Workboard</text>
+  <text x="94" y="283" class="muted">Done / Workboard</text>
+  <rect class="node active" x="80" y="316" width="270" height="48" rx="6" />
+  <text x="94" y="337" font-size="14" font-weight="700">WB-004: public docs impact を triage する</text>
+  <text x="94" y="355" class="muted">Active / Workboard</text>
   <line class="edge" x1="80" y1="196" x2="350" y2="124" />
   <line class="edge" x1="80" y1="268" x2="350" y2="124" />
   <line class="edge" x1="80" y1="268" x2="350" y2="196" />
+  <line class="edge" x1="80" y1="340" x2="350" y2="268" />
 </svg>
