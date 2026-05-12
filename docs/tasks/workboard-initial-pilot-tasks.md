@@ -140,7 +140,40 @@ Findings:
 - Blocking findings: なし。
 - Verification: `python tools/workboard.py validate` は 0 errors / 0 warnings。`python tools/workboard.py render` は PASS。focused pytest は 12 passed。broader `tests/` は 49 passed。`gitleaks detect --no-git --source . --redact --verbose` は no leaks found。
 - Residual risk: `gitleaks` は local `.pytest_cache` を permission denied で skip した。Git 管理対象ではなく、今回の WORKBOARD pilot 成果物起因の blocker ではない。
-- Next gate: pilot closure または release 境界へ進むには、audit result と residual risk への user approval が必要。
+- Next gate: 2026-05-12 に audit result と residual risk への user approval を受け、pilot closure と release boundary prep へ進む判断を確定した。
+
+## Pilot Closure
+
+2026-05-12: WORKBOARD initial pilot を closure 承認済みとする。R1 template / validator、R2 render、R3 workflow sync、WB-004 public docs impact triage、WB-006 audit はすべて green。以後は release boundary prep に進む。
+
+Release boundary prep では、`docs/internal/04_RELEASE_OPS.md` の deployment criteria に沿って以下を整理する:
+
+- All Tests Green
+- No Critical Bugs
+- Quality Gate Passed
+- Documentation Updated
+- WORKBOARD Updated
+- Retrospective Done
+
+実際の tag、release asset、GitHub Release は別途 explicit release approval を得てから実施する。
+
+## Release Boundary Prep
+
+2026-05-12: `docs/internal/04_RELEASE_OPS.md` と `docs/internal/10_DISTRIBUTION_MODEL.md` を基準に release boundary を整理した。
+
+Checklist:
+
+- All Tests Green: PASS。WB-006 audit で focused pytest 12 passed、broader `tests/` 49 passed。
+- No Critical Bugs: PASS。blocking findings なし。
+- Quality Gate Passed: PASS。WB-006 audit green。
+- Documentation Updated: PASS。`CHANGELOG.md`, `WORKBOARD.md`, `docs/tasks/workboard-initial-pilot-tasks.md` を更新済み。
+- WORKBOARD Updated: PASS。`python tools/workboard.py validate` と `render` を release boundary prep 中に再実行する。
+- Retrospective Done: 未実施。release 実行前に必要。
+
+Release execution approval:
+
+- 未承認。tag、ZIP asset、checksum、GitHub Release はまだ作成しない。
+- 次は retrospective を行い、version / tag / ZIP asset / checksum / GitHub Release の scope を明示して user approval を得る。
 
 ## Out of Scope
 

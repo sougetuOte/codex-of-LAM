@@ -27,7 +27,7 @@
     <div class="top-band">
       <div class="metric">
         <strong>Active card</strong>
-        <div>WB-007</div>
+        <div>WB-009</div>
       </div>
       <div class="metric">
         <strong>Blocked</strong>
@@ -39,7 +39,7 @@
       </div>
       <div class="metric">
         <strong>Verification summary</strong>
-        <div>WB-006 audit green。blocking findings なし。次は pilot closure / release boundary 判断。</div>
+        <div>WORKBOARD initial pilot は closure 承認済み。release boundary prep 完了。次は retrospective / release 実行承認。</div>
       </div>
     </div>
   </section>
@@ -57,6 +57,11 @@
         <tr>
           <td>Workboard</td>
           <td>template / validator / render と運用接続の pilot</td>
+          <td>Done</td>
+        </tr>
+        <tr>
+          <td>Release</td>
+          <td>WORKBOARD pilot 後の release boundary prep</td>
           <td>Active</td>
         </tr>
       </tbody>
@@ -67,11 +72,11 @@
     <div class="board">
       <section class="lane">
         <h3>Active</h3>
-        <article class="card" id="WB-007">
-          <strong>WB-007: pilot closure を判断する</strong>
+        <article class="card" id="WB-009">
+          <strong>WB-009: release readiness を承認する</strong>
           <div>Gate: auditing</div>
-          <div>Workstream: Workboard</div>
-          <div>Next: WB-006 の findings / residual risk を確認し、pilot closure または release 境界へ進むか user approval を得る</div>
+          <div>Workstream: Release</div>
+          <div>Next: retrospective を行い、version / ZIP asset / checksum / GitHub Release 実行の承認を得る</div>
         </article>
       </section>
       <section class="lane">
@@ -120,6 +125,18 @@
           <div>Workstream: Workboard</div>
           <div>Next: none</div>
         </article>
+        <article class="card" id="WB-007">
+          <strong>WB-007: pilot closure を判断する</strong>
+          <div>Gate: auditing</div>
+          <div>Workstream: Workboard</div>
+          <div>Next: none</div>
+        </article>
+        <article class="card" id="WB-008">
+          <strong>WB-008: release boundary を準備する</strong>
+          <div>Gate: auditing</div>
+          <div>Workstream: Release</div>
+          <div>Next: none</div>
+        </article>
       </section>
       <section class="lane">
         <h3>Released</h3>
@@ -137,6 +154,8 @@
       <li><a href="#WB-005">WB-005: auditing gate を判断する</a></li>
       <li><a href="#WB-006">WB-006: WORKBOARD initial pilot を監査する</a></li>
       <li><a href="#WB-007">WB-007: pilot closure を判断する</a></li>
+      <li><a href="#WB-008">WB-008: release boundary を準備する</a></li>
+      <li><a href="#WB-009">WB-009: release readiness を承認する</a></li>
     </ul>
   </section>
 </body>
